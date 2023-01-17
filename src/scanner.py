@@ -7,13 +7,20 @@ SCANNER
 import pyparsing as pp
 
 
-def parse() -> None:
-    greet = pp.Word(pp.alphas) + "," + pp.Word(pp.alphas) + "!"
-    for greeting_str in [
-        "Hello, World!",
-        "Bonjour, Monde!",
-        "Hola, Mundo!",
-        "Hallo, Welt!",
-    ]:
-        greeting = greet.parse_string(greeting_str)
-        print(greeting)
+def parse_lines(lines: list[str], verbose: bool = False) -> None:
+    for line in lines:
+        tokens: list[str] = parse_line(line, verbose)
+
+        pass
+
+
+def parse_line(line: str, verbose: bool = False) -> list[str]:
+    literal: pp.QuotedString = pp.QuotedString('"', unquote_results=False)
+
+    REgrammar = literal
+    tokens: list[str] = REgrammar.parseString(line)
+
+    if verbose:
+        print(tokens)
+
+    return tokens

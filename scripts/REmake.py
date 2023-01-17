@@ -43,11 +43,12 @@ def main() -> None:
     verbose: bool = args.verbose
 
     # FOR DEBUGGING
-    source = "test/examples/section2_1a.re"
+    source = "test/examples/section2_1.re"
+    verbose = True
 
     # PARSE SOURCE FILE & GENERATE REGEX
     lines: list[str] = read_source_file(source)
-    parse()
+    parse_lines(lines, verbose)
 
     pass
 
