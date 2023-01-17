@@ -8,9 +8,7 @@ import os
 
 
 def read_source_file(rel_path) -> list[str]:
-    """
-    Read a source file into a list of strings.
-    """
+    """Read a source file into a list of strings."""
 
     abs_path: str = FileSpec(rel_path).abs_path
 
@@ -30,6 +28,8 @@ def read_source_file(rel_path) -> list[str]:
 
 
 class FileSpec:
+    """Parse a file path into its components."""
+
     def __init__(self, path: str, name=None) -> None:
         file_name: str
         file_extension: str
