@@ -25,8 +25,14 @@ class TestParser:
             result: str = filter_comments(teststring)
             assert result == expected[i]
 
-    def test_literal_spec(self) -> None:
-        Grammar: Any = literal_spec()
+        source: str = "test/examples/comments.re"
+        lines: list[str] = read_source_file(source)
+        results: pp.ParseResults = parse_lines(lines)
+
+        assert list(results) == ['"foobar"']
+
+    def test_literal_tok(self) -> None:
+        Grammar: Any = literal_tok()
 
         input: str = '"foobar"'
         results: pp.ParseResults = Grammar.parseString(input)
@@ -36,18 +42,32 @@ class TestParser:
         results: pp.ParseResults = Grammar.parseString(input)
         assert list(results) == ["'foobar'"]
 
-    def test_parse_line(self) -> None:
-        source: str = "test/examples/section2_1a.re"
+    def test_reserved_words(self) -> None:
+        Grammar: Any = reserved_words()
+
+        source: str = "test/examples/reserved_words.re"
         lines: list[str] = read_source_file(source)
-        results: pp.ParseResults = parse_lines(lines)
 
-        assert list(results) == ['"foobar"']
+        tokens: list[str] = list()
+        for line in lines:
+            filtered: str = filter_comments(line)
+            if filtered == "" or filtered == "\n":
+                continue
+            results: pp.ParseResults = Grammar.parseString(filtered)
+            tokens.extend(list(results))
 
-        source: str = "test/examples/section2_1.re"
-        lines: list[str] = read_source_file(source)
-        results: pp.ParseResults = parse_lines(lines)
+        # results: pp.ParseResults = parse_lines(lines)
 
-        assert list(results) == ['"foobar"', '"bas"']
+        expected: list[str] = [
+            "start_of_line",
+            "word_boundary",
+            "digit",
+            "whitespace",
+            "any_char",
+            "not",
+            "end_of_line",
+        ]
+        assert tokens == expected
 
 
 ### END ###

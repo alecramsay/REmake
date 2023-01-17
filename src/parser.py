@@ -42,7 +42,7 @@ def parse_line(line: str, Grammar, verbose: bool = False) -> pp.ParseResults:
 def define_grammar() -> Any:
     """Define the grammar for transparently specifying regular expressions."""
 
-    literal: pp.QuotedString = literal_spec()
+    literal: pp.QuotedString = literal_tok()
 
     # TODO - Flesh out the grammar
 
@@ -52,7 +52,7 @@ def define_grammar() -> Any:
     return Grammar
 
 
-### HELPERS ###
+### COMMENTS ###
 
 
 def filter_comments(line: str) -> str:
@@ -67,12 +67,74 @@ def filter_comments(line: str) -> str:
     return filtered.transform_string(line)
 
 
-def literal_spec() -> pp.QuotedString:
+### LITERALS ###
+
+
+def literal_tok() -> pp.QuotedString:
     """A literal string, either single or double quoted."""
 
     return pp.QuotedString('"', unquote_results=False) | pp.QuotedString(
         "'", unquote_results=False
     )
+
+
+### RESERVED WORDS ###
+
+
+def reserved_words() -> pp.Literal:
+    """Reserved words (for testing)."""
+
+    return (
+        start_of_line_tok()
+        | end_of_line_tok()
+        | word_boundary_tok()
+        | digit_tok()
+        | whitespace_tok()
+        | any_char_tok()
+        | not_tok()
+    )
+
+
+def start_of_line_tok() -> pp.Literal:
+    """The start of a line."""
+
+    return pp.Literal("start_of_line")
+
+
+def end_of_line_tok() -> pp.Literal:
+    """The end of a line."""
+
+    return pp.Literal("end_of_line")
+
+
+def word_boundary_tok() -> pp.Literal:
+    """A word boundary."""
+
+    return pp.Literal("word_boundary")
+
+
+def digit_tok() -> pp.Literal:
+    """A digit."""
+
+    return pp.Literal("digit")
+
+
+def whitespace_tok() -> pp.Literal:
+    """Whitespace."""
+
+    return pp.Literal("whitespace")
+
+
+def any_char_tok() -> pp.Literal:
+    """Any character."""
+
+    return pp.Literal("any_char")
+
+
+def not_tok() -> pp.Literal:
+    """Negation."""
+
+    return pp.Literal("not")
 
 
 ### END ###

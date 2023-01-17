@@ -1,0 +1,7 @@
+start_of_line
+word_boundary
+digit
+whitespace
+any_char
+not
+end_of_line
