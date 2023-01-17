@@ -8,7 +8,9 @@ import pyparsing as pp
 from typing import Any
 
 
-def parse_lines(lines: list[str], verbose: bool = False) -> None:
+def parse_lines(lines: list[str], verbose: bool = False) -> list:
+    """Tokenize multiple lines of source code."""
+
     Grammar: Any = define_grammar()
 
     tokens: list = list()
@@ -23,13 +25,12 @@ def parse_lines(lines: list[str], verbose: bool = False) -> None:
 
 
 def parse_line(line: str, Grammar, verbose: bool = False) -> list[str]:
+    """Tokenize a line of source code, ignoring Python-style # comments."""
 
-    # Filter out Python-style comments
     filtered: str = filter_comments(line)
     if filtered == "" or filtered == "\n":
         return []
 
-    # Tokenize the rest of the line, if any
     tokens: list[str] = Grammar.parseString(filtered)
 
     if verbose:
@@ -39,6 +40,9 @@ def parse_line(line: str, Grammar, verbose: bool = False) -> list[str]:
 
 
 def define_grammar() -> Any:
+    """Define the grammar for transparently specifying regular expressions."""
+
+    # TODO - More ...
     literal: pp.QuotedString = pp.QuotedString('"', unquote_results=False)
 
     Grammar = literal
