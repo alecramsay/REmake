@@ -6,10 +6,8 @@ READ/WRITE ROUTINES
 
 import os
 
-# import readline
 
-
-def read_source(rel_path) -> list[str]:
+def read_source_file(rel_path) -> list[str]:
     """
     Read a source file into a list of strings.
     """
@@ -20,8 +18,10 @@ def read_source(rel_path) -> list[str]:
         with open(abs_path, "r") as f:
             lines: list = list()
             line: str = f.readline()
+            while line:
+                lines.append(line)
 
-            lines.append(line)
+                line = f.readline()
 
         return lines
 
