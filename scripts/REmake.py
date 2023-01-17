@@ -45,8 +45,9 @@ def main() -> None:
     # FOR DEBUGGING
     source = "test/examples/section2_1a.re"
 
-    # READ SOURCE FILE
+    # PARSE SOURCE FILE & GENERATE REGEX
     lines: list[str] = read_source_file(source)
+    parse()
 
     pass
 
