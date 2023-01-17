@@ -27,7 +27,7 @@ def parse_lines(lines: list[str], verbose: bool = False) -> list:
 def parse_line(line: str, Grammar, verbose: bool = False) -> pp.ParseResults:
     """Tokenize a line of source code, ignoring Python-style # comments."""
 
-    filtered: str = filter_comments(line)
+    filtered: str = remove_comments(line)
     if filtered == "" or filtered == "\n":
         return []
 
@@ -55,7 +55,7 @@ def define_grammar() -> Any:
 ### COMMENTS ###
 
 
-def filter_comments(line: str) -> str:
+def remove_comments(line: str) -> str:
     """Filter Python-style comments from a line of text."""
 
     filtered: pp.ParserElement = pp.Regex(r"#.*")

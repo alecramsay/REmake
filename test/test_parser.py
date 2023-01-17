@@ -7,7 +7,7 @@ from src import *
 
 
 class TestParser:
-    def test_filter_comments(self) -> None:
+    def test_remove_comments(self) -> None:
         teststrings: list[str] = [
             "# this is comment",
             'Option "sadsadlsad#this is not a comment"',
@@ -22,7 +22,7 @@ class TestParser:
         ]
 
         for i, teststring in enumerate(teststrings):
-            result: str = filter_comments(teststring)
+            result: str = remove_comments(teststring)
             assert result == expected[i]
 
         source: str = "test/examples/comments.re"
@@ -42,6 +42,12 @@ class TestParser:
         results: pp.ParseResults = Grammar.parseString(input)
         assert list(results) == ["'foobar'"]
 
+        source: str = "test/examples/literals.re"
+        lines: list[str] = read_source_file(source)
+        results: pp.ParseResults = parse_lines(lines)
+
+        assert list(results) == ['"foobar"', '"bas"']
+
     def test_reserved_words(self) -> None:
         Grammar: Any = reserved_words()
 
@@ -50,7 +56,7 @@ class TestParser:
 
         tokens: list[str] = list()
         for line in lines:
-            filtered: str = filter_comments(line)
+            filtered: str = remove_comments(line)
             if filtered == "" or filtered == "\n":
                 continue
             results: pp.ParseResults = Grammar.parseString(filtered)
