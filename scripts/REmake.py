@@ -48,7 +48,7 @@ def main() -> None:
 
     # PARSE SOURCE FILE & GENERATE REGEX
     lines: list[str] = read_source_file(source)
-    parse_lines(lines, verbose)
+    tokens: list = parse_lines(lines, verbose)
 
     pass
 

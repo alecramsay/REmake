@@ -11,17 +11,25 @@ from typing import Any
 def parse_lines(lines: list[str], verbose: bool = False) -> None:
     Grammar: Any = define_grammar()
 
-    for line in lines:
-        tokens: list[str] = parse_line(line, Grammar, verbose)
+    tokens: list = list()
 
-        pass
+    for line in lines:
+        new_tokens: list = parse_line(line, Grammar, verbose)
+
+        if new_tokens:
+            tokens.extend(new_tokens)
+
+    return tokens
 
 
 def parse_line(line: str, Grammar, verbose: bool = False) -> list[str]:
+
+    # Filter out Python-style comments
     filtered: str = filter_comments(line)
     if filtered == "" or filtered == "\n":
         return []
 
+    # Tokenize the rest of the line, if any
     tokens: list[str] = Grammar.parseString(filtered)
 
     if verbose:
@@ -51,4 +59,4 @@ def filter_comments(line: str) -> str:
     return filtered.transform_string(line)
 
 
-# TODO - Use pp.ParseFile
+### END ###
