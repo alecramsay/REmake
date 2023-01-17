@@ -1,4 +1,4 @@
 # REmake/__init__.py
 
-from .scanner import *
+from .parser import *
 from .readwrite import *

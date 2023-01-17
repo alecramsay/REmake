@@ -13,42 +13,46 @@ def parse_lines(lines: list[str], verbose: bool = False) -> list:
 
     Grammar: Any = define_grammar()
 
-    tokens: list = list()
+    results: list = list()
 
     for line in lines:
-        new_tokens: list = parse_line(line, Grammar, verbose)
+        new_results = parse_line(line, Grammar, verbose)
 
-        if new_tokens:
-            tokens.extend(new_tokens)
+        if new_results:
+            results.extend(new_results)
 
-    return tokens
+    return results
 
 
-def parse_line(line: str, Grammar, verbose: bool = False) -> list[str]:
+def parse_line(line: str, Grammar, verbose: bool = False) -> pp.ParseResults:
     """Tokenize a line of source code, ignoring Python-style # comments."""
 
     filtered: str = filter_comments(line)
     if filtered == "" or filtered == "\n":
         return []
 
-    tokens: list[str] = Grammar.parseString(filtered)
+    results: pp.ParseResults = Grammar.parseString(filtered)
 
     if verbose:
-        print(tokens)
+        print(results)
 
-    return tokens
+    return results
 
 
 def define_grammar() -> Any:
     """Define the grammar for transparently specifying regular expressions."""
 
-    # TODO - More ...
-    literal: pp.QuotedString = pp.QuotedString('"', unquote_results=False)
+    literal: pp.QuotedString = literal_spec()
+
+    # TODO - Flesh out the grammar
 
     Grammar = literal
     Grammar.ignore(pp.pythonStyleComment)
 
     return Grammar
+
+
+### HELPERS ###
 
 
 def filter_comments(line: str) -> str:
@@ -61,6 +65,14 @@ def filter_comments(line: str) -> str:
     filtered = filtered.ignore(qs)
 
     return filtered.transform_string(line)
+
+
+def literal_spec() -> pp.QuotedString:
+    """A literal string, either single or double quoted."""
+
+    return pp.QuotedString('"', unquote_results=False) | pp.QuotedString(
+        "'", unquote_results=False
+    )
 
 
 ### END ###
