@@ -43,7 +43,7 @@ def main() -> None:
     verbose: bool = args.verbose
 
     # FOR DEBUGGING
-    source = "test/examples/section2_1.re"
+    source = "test/examples/section2_1a.re"
     verbose = True
 
     # PARSE SOURCE FILE & GENERATE REGEX
