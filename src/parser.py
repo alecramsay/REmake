@@ -30,6 +30,11 @@ literal_def: pp.QuotedString = pp.QuotedString(
 ) | pp.QuotedString("'", unquote_results=False)
 
 
+### NAMES ###
+
+name: pp.Word = pp.Word(pp.alphas, pp.alphanums + "_")
+
+
 ### RESERVED WORDS ###
 
 
