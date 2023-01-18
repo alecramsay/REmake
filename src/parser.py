@@ -42,14 +42,12 @@ def parse_line(line: str, Grammar, verbose: bool = False) -> pp.ParseResults:
 def define_grammar() -> Any:
     """Define the grammar for transparently specifying regular expressions."""
 
-    literal: pp.QuotedString = literal_def()
-
     # TODO - Flesh out the grammar
 
-    Grammar = literal
-    Grammar.ignore(pp.pythonStyleComment)
+    expr = pattern_def()
+    expr.ignore(pp.pythonStyleComment)
 
-    return Grammar
+    return expr
 
 
 ### COMMENTS ###
@@ -69,72 +67,41 @@ def remove_comments(line: str) -> str:
 
 ### LITERALS ###
 
-
-def literal_def() -> pp.QuotedString:
-    """A literal string, either single or double quoted."""
-
-    return pp.QuotedString('"', unquote_results=False) | pp.QuotedString(
-        "'", unquote_results=False
-    )
+literal_def: pp.QuotedString = pp.QuotedString(
+    '"', unquote_results=False
+) | pp.QuotedString("'", unquote_results=False)
 
 
 ### RESERVED WORDS ###
 
 
-def reserved_words() -> pp.Literal:
-    """Reserved words (for testing)."""
+start_of_line_def: pp.Literal = pp.Literal("start_of_line")
 
-    return (
-        start_of_line_def()
-        | end_of_line_def()
-        | word_boundary_def()
-        | digit_def()
-        | whitespace_def()
-        | any_char_def()
-        | not_def()
-    )
+end_of_line_def: pp.Literal = pp.Literal("end_of_line")
 
+word_boundary_def: pp.Literal = pp.Literal("word_boundary")
 
-def start_of_line_def() -> pp.Literal:
-    """The start of a line."""
+digit_def: pp.Literal = pp.Literal("digit")
 
-    return pp.Literal("start_of_line")
+whitespace_def: pp.Literal = pp.Literal("whitespace")
 
+any_char_def: pp.Literal = pp.Literal("any_char")
 
-def end_of_line_def() -> pp.Literal:
-    """The end of a line."""
+not_def: pp.Literal = pp.Literal("not")
 
-    return pp.Literal("end_of_line")
+pattern_def: pp.Literal = (
+    literal_def | word_boundary_def | digit_def | whitespace_def | any_char_def
+)
 
 
-def word_boundary_def() -> pp.Literal:
-    """A word boundary."""
-
-    return pp.Literal("word_boundary")
-
-
-def digit_def() -> pp.Literal:
-    """A digit."""
-
-    return pp.Literal("digit")
-
-
-def whitespace_def() -> pp.Literal:
-    """Whitespace."""
-
-    return pp.Literal("whitespace")
-
-
-def any_char_def() -> pp.Literal:
-    """Any character."""
-
-    return pp.Literal("any_char")
-
-
-def not_def() -> pp.Literal:
-    """Negation."""
-
-    return pp.Literal("not")
-
+reserved_words: pp.Literal = (
+    start_of_line_def
+    | end_of_line_def
+    | word_boundary_def
+    | digit_def
+    | whitespace_def
+    | any_char_def
+    | not_def
+)
 
 ### END ###

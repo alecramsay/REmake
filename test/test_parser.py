@@ -32,7 +32,7 @@ class TestParser:
         assert list(results) == ['"foobar"']
 
     def test_literal_def(self) -> None:
-        Grammar: Any = literal_def()
+        Grammar: Any = literal_def
 
         input: str = '"foobar"'
         results: pp.ParseResults = Grammar.parseString(input)
@@ -49,7 +49,7 @@ class TestParser:
         assert list(results) == ['"foobar"', '"bas"']
 
     def test_reserved_words(self) -> None:
-        Grammar: Any = reserved_words()
+        Grammar: Any = reserved_words
 
         source: str = "test/examples/reserved_words.re"
         lines: list[str] = read_source_file(source)
