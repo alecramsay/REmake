@@ -33,25 +33,25 @@ literal_def: pp.QuotedString = pp.QuotedString(
 ### RESERVED WORDS ###
 
 
-start_of_line_def: pp.Literal = pp.Literal("start_of_line")
+start_of_line_def: pp.Keyword = pp.Keyword("start_of_line")
 
-end_of_line_def: pp.Literal = pp.Literal("end_of_line")
+end_of_line_def: pp.Keyword = pp.Keyword("end_of_line")
 
-word_boundary_def: pp.Literal = pp.Literal("word_boundary")
+word_boundary_def: pp.Keyword = pp.Keyword("word_boundary")
 
-digit_def: pp.Literal = pp.Literal("digit")
+digit_def: pp.Keyword = pp.Keyword("digit")
 
-whitespace_def: pp.Literal = pp.Literal("whitespace")
+whitespace_def: pp.Keyword = pp.Keyword("whitespace")
 
-any_char_def: pp.Literal = pp.Literal("any_char")
+any_char_def: pp.Keyword = pp.Keyword("any_char")
 
-not_def: pp.Literal = pp.Literal("not")
+not_def: pp.Keyword = pp.Keyword("not")
 
-pattern_def: pp.Literal = (
+pattern_def: pp.ParserElement = (
     literal_def | word_boundary_def | digit_def | whitespace_def | any_char_def
 )
 
-reserved_words: pp.Literal = (
+reserved_words: pp.ParserElement = (
     start_of_line_def
     | end_of_line_def
     | word_boundary_def
@@ -61,7 +61,7 @@ reserved_words: pp.Literal = (
     | not_def
 )
 
-remake_spec = (
+remake_spec: pp.ParserElement = (
     pp.Opt(start_of_line_def) + pp.OneOrMore(pattern_def) + pp.Opt(end_of_line_def)
 )
 
