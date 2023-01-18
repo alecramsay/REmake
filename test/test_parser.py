@@ -31,8 +31,8 @@ class TestParser:
 
         assert list(results) == ['"foobar"']
 
-    def test_literal_tok(self) -> None:
-        Grammar: Any = literal_tok()
+    def test_literal_def(self) -> None:
+        Grammar: Any = literal_def()
 
         input: str = '"foobar"'
         results: pp.ParseResults = Grammar.parseString(input)

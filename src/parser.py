@@ -42,7 +42,7 @@ def parse_line(line: str, Grammar, verbose: bool = False) -> pp.ParseResults:
 def define_grammar() -> Any:
     """Define the grammar for transparently specifying regular expressions."""
 
-    literal: pp.QuotedString = literal_tok()
+    literal: pp.QuotedString = literal_def()
 
     # TODO - Flesh out the grammar
 
@@ -70,7 +70,7 @@ def remove_comments(line: str) -> str:
 ### LITERALS ###
 
 
-def literal_tok() -> pp.QuotedString:
+def literal_def() -> pp.QuotedString:
     """A literal string, either single or double quoted."""
 
     return pp.QuotedString('"', unquote_results=False) | pp.QuotedString(
@@ -85,53 +85,53 @@ def reserved_words() -> pp.Literal:
     """Reserved words (for testing)."""
 
     return (
-        start_of_line_tok()
-        | end_of_line_tok()
-        | word_boundary_tok()
-        | digit_tok()
-        | whitespace_tok()
-        | any_char_tok()
-        | not_tok()
+        start_of_line_def()
+        | end_of_line_def()
+        | word_boundary_def()
+        | digit_def()
+        | whitespace_def()
+        | any_char_def()
+        | not_def()
     )
 
 
-def start_of_line_tok() -> pp.Literal:
+def start_of_line_def() -> pp.Literal:
     """The start of a line."""
 
     return pp.Literal("start_of_line")
 
 
-def end_of_line_tok() -> pp.Literal:
+def end_of_line_def() -> pp.Literal:
     """The end of a line."""
 
     return pp.Literal("end_of_line")
 
 
-def word_boundary_tok() -> pp.Literal:
+def word_boundary_def() -> pp.Literal:
     """A word boundary."""
 
     return pp.Literal("word_boundary")
 
 
-def digit_tok() -> pp.Literal:
+def digit_def() -> pp.Literal:
     """A digit."""
 
     return pp.Literal("digit")
 
 
-def whitespace_tok() -> pp.Literal:
+def whitespace_def() -> pp.Literal:
     """Whitespace."""
 
     return pp.Literal("whitespace")
 
 
-def any_char_tok() -> pp.Literal:
+def any_char_def() -> pp.Literal:
     """Any character."""
 
     return pp.Literal("any_char")
 
 
-def not_tok() -> pp.Literal:
+def not_def() -> pp.Literal:
     """Negation."""
 
     return pp.Literal("not")
