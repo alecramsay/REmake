@@ -62,8 +62,6 @@ class TestParser:
             results: pp.ParseResults = Grammar.parseString(filtered)
             tokens.extend(list(results))
 
-        # results: pp.ParseResults = parse_lines(lines)
-
         expected: list[str] = [
             "start_of_line",
             "word_boundary",

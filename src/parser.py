@@ -8,48 +8,6 @@ import pyparsing as pp
 from typing import Any
 
 
-def parse_lines(lines: list[str], verbose: bool = False) -> list:
-    """Tokenize multiple lines of source code."""
-
-    Grammar: Any = define_grammar()
-
-    results: list = list()
-
-    for line in lines:
-        new_results = parse_line(line, Grammar, verbose)
-
-        if new_results:
-            results.extend(new_results)
-
-    return results
-
-
-def parse_line(line: str, Grammar, verbose: bool = False) -> pp.ParseResults:
-    """Tokenize a line of source code, ignoring Python-style # comments."""
-
-    filtered: str = remove_comments(line)
-    if filtered == "" or filtered == "\n":
-        return []
-
-    results: pp.ParseResults = Grammar.parseString(filtered)
-
-    if verbose:
-        print(results)
-
-    return results
-
-
-def define_grammar() -> Any:
-    """Define the grammar for transparently specifying regular expressions."""
-
-    # TODO - Flesh out the grammar
-
-    expr = pattern_def()
-    expr.ignore(pp.pythonStyleComment)
-
-    return expr
-
-
 ### COMMENTS ###
 
 
@@ -93,7 +51,6 @@ pattern_def: pp.Literal = (
     literal_def | word_boundary_def | digit_def | whitespace_def | any_char_def
 )
 
-
 reserved_words: pp.Literal = (
     start_of_line_def
     | end_of_line_def
@@ -103,5 +60,41 @@ reserved_words: pp.Literal = (
     | any_char_def
     | not_def
 )
+
+
+remake_spec: pp.ParserElement = pattern_def()
+
+
+### PARSING ###
+
+
+def parse_lines(lines: list[str], verbose: bool = False) -> list:
+    """Tokenize multiple lines of source code."""
+
+    results: list = list()
+
+    for line in lines:
+        new_results: pp.ParseResults = parse_line(line, verbose)
+
+        if new_results:
+            results.extend(new_results)
+
+    return results
+
+
+def parse_line(line: str, verbose: bool = False) -> pp.ParseResults:
+    """Tokenize a line of source code, ignoring Python-style # comments."""
+
+    filtered: str = remove_comments(line)
+    if filtered == "" or filtered == "\n":
+        return []
+
+    results: pp.ParseResults = remake_spec.parseString(filtered)
+
+    if verbose:
+        print(results)
+
+    return results
+
 
 ### END ###
