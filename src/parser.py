@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-SCANNER
+PARSER
 """
 
 import pyparsing as pp
@@ -73,7 +73,7 @@ remake_spec: pp.ParserElement = (
 ### PARSING ###
 
 
-def parse_lines(lines: list[str], verbose: bool = False) -> list:
+def parse_lines(lines: list[str], verbose: bool = False) -> pp.ParseResults:
     """Parse multiple lines of source code."""
 
     # Remove Python-style comments
