@@ -70,6 +70,17 @@ remake_spec: pp.ParserElement = (
     pp.Opt(start_of_line_def) + pp.OneOrMore(pattern_def) + pp.Opt(end_of_line_def)
 )
 
+
+### QUANTIFIER ###
+
+quantifier_def: pp.ParserElement = (
+    pp.Literal("*")
+    + pp.Opt(pp.Word(pp.nums))
+    + pp.Literal("..")
+    + pp.Opt(pp.Word(pp.nums))
+)
+
+
 ### PARSING ###
 
 

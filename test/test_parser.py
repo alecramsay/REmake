@@ -95,5 +95,12 @@ class TestParser:
 
         assert list(results) == ['"foo"', "end_of_line"]
 
+    def test_quantifiers(self) -> None:
+        Grammar: Any = quantifier_def
+
+        input: str = "* 1..3"
+        results: pp.ParseResults = Grammar.parseString(input)
+        assert list(results) == ["*", "1", "..", "3"]
+
 
 ### END ###
