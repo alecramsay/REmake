@@ -73,5 +73,12 @@ class TestParser:
         ]
         assert tokens == expected
 
+    def test_line_anchors(self) -> None:
+        source: str = "test/examples/line_anchors.re"
+        lines: list[str] = read_source_file(source)
+        results: pp.ParseResults = parse_lines(lines)
+
+        assert list(results) == ["start_of_line", '"foo"', "end_of_line"]
+
 
 ### END ###

@@ -61,35 +61,26 @@ reserved_words: pp.Literal = (
     | not_def
 )
 
-
-remake_spec: pp.ParserElement = pattern_def()
-
+remake_spec = (
+    pp.Opt(start_of_line_def) + pp.OneOrMore(pattern_def) + pp.Opt(end_of_line_def)
+)
 
 ### PARSING ###
 
 
 def parse_lines(lines: list[str], verbose: bool = False) -> list:
-    """Tokenize multiple lines of source code."""
+    """Parse multiple lines of source code."""
 
-    results: list = list()
-
+    # Remove Python-style comments
+    filtered: list[str] = list()
     for line in lines:
-        new_results: pp.ParseResults = parse_line(line, verbose)
+        no_comments: str = remove_comments(line)
+        filtered.append(no_comments)
 
-        if new_results:
-            results.extend(new_results)
+    # Reconstitute the source code as a string
+    source: str = "".join(filtered)
 
-    return results
-
-
-def parse_line(line: str, verbose: bool = False) -> pp.ParseResults:
-    """Tokenize a line of source code, ignoring Python-style # comments."""
-
-    filtered: str = remove_comments(line)
-    if filtered == "" or filtered == "\n":
-        return []
-
-    results: pp.ParseResults = remake_spec.parseString(filtered)
+    results: pp.ParseResults = remake_spec.parseString(source)
 
     if verbose:
         print(results)
