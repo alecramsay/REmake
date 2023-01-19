@@ -100,15 +100,19 @@ class TestParser:
 
         input: str = "* 10"
         results: pp.ParseResults = Grammar.parseString(input)
-        assert list(results) == ["*", "10"]
+        assert list(results) == ["10"]
 
-        input: str = "* 0.."
+        input: str = "* 0, ..."
         results: pp.ParseResults = Grammar.parseString(input)
-        assert list(results) == ["*", "0", ".."]
+        assert list(results) == ["0", "..."]
 
-        input: str = "* 1..3"
+        input: str = "* ..., 3"
         results: pp.ParseResults = Grammar.parseString(input)
-        assert list(results) == ["*", "1", "..", "3"]
+        assert list(results) == ["...", "3"]
+
+        input: str = "* 1,3"
+        results: pp.ParseResults = Grammar.parseString(input)
+        assert list(results) == ["1", "3"]
 
 
 ### END ###

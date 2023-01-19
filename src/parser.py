@@ -79,11 +79,12 @@ remake_spec: pp.ParserElement = (
 
 ### QUANTIFIERS ###
 
-times: pp.Literal = pp.Literal("*")
-ellipsis: pp.Literal = pp.Literal("..")
-quantifier_def: pp.ParserElement = times + (
-    pp.Word(pp.nums)("mincount") + ellipsis + pp.Word(pp.nums)("maxcount")
-    | pp.Word(pp.nums)("mincount") + ellipsis
+# times: pp.Literal = pp.Literal("*")
+ellipsis: pp.Literal = pp.Literal("...")
+quantifier_def: pp.ParserElement = pp.Suppress("*") + (
+    pp.Word(pp.nums)("mincount") + pp.Suppress(",") + pp.Word(pp.nums)("maxcount")
+    | pp.Word(pp.nums)("mincount") + pp.Suppress(",") + ellipsis
+    | ellipsis + pp.Suppress(",") + pp.Word(pp.nums)("maxcount")
     | pp.Word(pp.nums)("count")
 )
 
