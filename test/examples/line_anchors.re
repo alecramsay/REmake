@@ -1,3 +1,3 @@
-start_of_line
+LineStart
 "foo"
-end_of_line
+LineEnd

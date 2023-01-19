@@ -38,9 +38,9 @@ name: pp.Word = pp.Word(pp.alphas, pp.alphanums + "_")
 ### RESERVED WORDS ###
 
 
-start_of_line_def: pp.Keyword = pp.Keyword("start_of_line")
+start_of_line_def: pp.Keyword = pp.Keyword("LineStart")
 
-end_of_line_def: pp.Keyword = pp.Keyword("end_of_line")
+end_of_line_def: pp.Keyword = pp.Keyword("LineEnd")
 
 word_boundary_def: pp.Keyword = pp.Keyword("word_boundary")
 
@@ -56,7 +56,7 @@ pattern_def: pp.ParserElement = (
     literal_def | word_boundary_def | digit_def | whitespace_def | any_char_def
 )
 
-reserved_words: pp.ParserElement = (
+keywords: pp.ParserElement = (
     start_of_line_def
     | end_of_line_def
     | word_boundary_def

@@ -48,10 +48,10 @@ class TestParser:
 
         assert list(results) == ['"foobar"', '"bas"']
 
-    def test_reserved_words(self) -> None:
-        Grammar: Any = reserved_words
+    def test_keywords(self) -> None:
+        Grammar: Any = keywords
 
-        source: str = "test/examples/reserved_words.re"
+        source: str = "test/examples/keywords.re"
         lines: list[str] = read_source_file(source)
 
         tokens: list[str] = list()
@@ -63,13 +63,13 @@ class TestParser:
             tokens.extend(list(results))
 
         expected: list[str] = [
-            "start_of_line",
+            "LineStart",
             "word_boundary",
             "digit",
             "whitespace",
             "any_char",
             "not",
-            "end_of_line",
+            "LineEnd",
         ]
         assert tokens == expected
 
@@ -79,21 +79,21 @@ class TestParser:
         lines: list[str] = read_source_file(source)
         results: pp.ParseResults = parse_lines(lines)
 
-        assert list(results) == ["start_of_line", '"foo"', "end_of_line"]
+        assert list(results) == ["LineStart", '"foo"', "LineEnd"]
 
         # Only start of line anchor
         source: str = "test/examples/line_anchors2.re"
         lines: list[str] = read_source_file(source)
         results: pp.ParseResults = parse_lines(lines)
 
-        assert list(results) == ["start_of_line", '"foo"']
+        assert list(results) == ["LineStart", '"foo"']
 
         # Only end of line anchor
         source: str = "test/examples/line_anchors3.re"
         lines: list[str] = read_source_file(source)
         results: pp.ParseResults = parse_lines(lines)
 
-        assert list(results) == ['"foo"', "end_of_line"]
+        assert list(results) == ['"foo"', "LineEnd"]
 
     def test_quantifiers(self) -> None:
         Grammar: Any = quantifier_def

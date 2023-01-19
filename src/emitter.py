@@ -2,6 +2,8 @@
 
 """
 EMITTER
+
+TODO - DELETE this
 """
 
 import pyparsing as pp
@@ -26,10 +28,10 @@ def emit(results: pp.ParseResults) -> tuple[str, str]:
         translation: str
         comment: str = (result.replace("_", " ")).capitalize()
 
-        if result == "start_of_line":
+        if result == "LineStart":
             translation = "^"
 
-        elif result == "end_of_line":
+        elif result == "LineEnd":
             translation = "$"
 
         elif result == "word_boundary":

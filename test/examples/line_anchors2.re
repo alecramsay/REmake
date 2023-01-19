@@ -1,2 +1,2 @@
-start_of_line
+LineStart
 "foo"
