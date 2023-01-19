@@ -7,6 +7,9 @@ PARSER
 import pyparsing as pp
 from typing import Any
 
+from .settings import *
+from .utils import *
+
 
 ### COMMENTS ###
 
@@ -92,8 +95,11 @@ quantifier_def: pp.ParserElement = pp.Suppress("*") + (
 ### PARSING ###
 
 
-def parse_lines(lines: list[str], verbose: bool = False) -> pp.ParseResults:
+def parse_lines(lines: list[str], mode: Emit, verbose: bool = False) -> pp.ParseResults:
     """Parse multiple lines of source code."""
+
+    global EMIT_MODE
+    EMIT_MODE = mode
 
     # Remove Python-style comments
     filtered: list[str] = list()

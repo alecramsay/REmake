@@ -46,9 +46,11 @@ def main() -> None:
     source = "test/examples/line_anchors.re"
     verbose = True
 
+    print(f"Mode: {EMIT_MODE}")
+
     # PARSE SOURCE FILE & GENERATE REGEX
     lines: list[str] = read_source_file(source)
-    results: pp.ParseResults = parse_lines(lines, verbose)
+    results: pp.ParseResults = parse_lines(lines, Emit.REGEX, verbose)
 
     # TODO
     # single_line: str
