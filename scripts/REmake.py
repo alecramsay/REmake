@@ -46,24 +46,22 @@ def main() -> None:
     source = "test/examples/line_anchors.re"
     verbose = True
 
-    print(f"Mode: {EMIT_MODE}")
-
     # PARSE SOURCE FILE & GENERATE REGEX
     lines: list[str] = read_source_file(source)
-    results: pp.ParseResults = parse_lines(lines, Emit.REGEX, verbose)
 
-    # TODO
-    # single_line: str
-    # free_spaced: str
-    # single_line, free_spaced = emit(results)
+    results: pp.ParseResults = parse_lines(lines, Emit.REGEX)
+    single_line: str = "".join(list(results))
 
-    # print()
-    # print(f"Single-line regex:")
-    # print(f"{single_line}")
-    # print()
-    # print(f"Free-spaced regex:")
-    # print(f"{free_spaced}")
-    # print()
+    results: pp.ParseResults = parse_lines(lines, Emit.FREE_SPACED_REGEX)
+    free_spaced: str = "".join(list(results))
+
+    print()
+    print(f"Single-line regex:")
+    print(f"{single_line}")
+    print()
+    print(f"Free-spaced regex:")
+    print(f"{free_spaced}")
+    print()
 
     pass
 

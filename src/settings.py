@@ -12,4 +12,6 @@ Emit: Any = Enum("Emit", ["TOKENS", "REGEX", "FREE_SPACED_REGEX"])
 
 EMIT_MODE: Emit = Emit.TOKENS
 
+COMMENT_TAB: int = 20
+
 ### END ###
