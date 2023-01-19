@@ -1,7 +1,7 @@
 LineStart
-word_boundary
-digit
-whitespace
-any_char
-not
+WordBoundary
+Digit
+Whitespace
+AnyCharacter
+Not
 LineEnd

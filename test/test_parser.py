@@ -64,11 +64,11 @@ class TestParser:
 
         expected: list[str] = [
             "LineStart",
-            "word_boundary",
-            "digit",
-            "whitespace",
-            "any_char",
-            "not",
+            "WordBoundary",
+            "Digit",
+            "Whitespace",
+            "AnyCharacter",
+            "Not",
             "LineEnd",
         ]
         assert tokens == expected

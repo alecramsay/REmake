@@ -35,22 +35,26 @@ literal_def: pp.QuotedString = pp.QuotedString(
 name: pp.Word = pp.Word(pp.alphas, pp.alphanums + "_")
 
 
-### RESERVED WORDS ###
+### KEYWORDS ###
 
 
 start_of_line_def: pp.Keyword = pp.Keyword("LineStart")
 
 end_of_line_def: pp.Keyword = pp.Keyword("LineEnd")
 
-word_boundary_def: pp.Keyword = pp.Keyword("word_boundary")
+start_of_string_def: pp.Keyword = pp.Keyword("StringStart")
 
-digit_def: pp.Keyword = pp.Keyword("digit")
+end_of_string_def: pp.Keyword = pp.Keyword("StringEnd")
 
-whitespace_def: pp.Keyword = pp.Keyword("whitespace")
+word_boundary_def: pp.Keyword = pp.Keyword("WordBoundary")
 
-any_char_def: pp.Keyword = pp.Keyword("any_char")
+digit_def: pp.Keyword = pp.Keyword("Digit")
 
-not_def: pp.Keyword = pp.Keyword("not")
+whitespace_def: pp.Keyword = pp.Keyword("Whitespace")
+
+any_char_def: pp.Keyword = pp.Keyword("AnyCharacter")
+
+not_def: pp.Keyword = pp.Keyword("Not")
 
 pattern_def: pp.ParserElement = (
     literal_def | word_boundary_def | digit_def | whitespace_def | any_char_def
@@ -59,6 +63,8 @@ pattern_def: pp.ParserElement = (
 keywords: pp.ParserElement = (
     start_of_line_def
     | end_of_line_def
+    | start_of_string_def
+    | end_of_string_def
     | word_boundary_def
     | digit_def
     | whitespace_def
