@@ -239,29 +239,43 @@ def quantifier_act(toks: pp.ParseResults) -> str:
     comment: str
 
     if "count" in toks:
-        translation = f"{{{toks.count}}}"
-        comment = f"Exactly {translation} times"
+        if int(toks.count) >= 1:
+            translation = f"{{{toks.count}}}"
+            comment = f"Exactly {translation} times"
+        else:
+            raise ValueError("Invalid quantifier: repetitions must be positive")
 
     elif "mincount" in toks and "maxcount" in toks:
-        translation = f"{{{toks.mincount},{toks.maxcount}}}"
-        comment = f"Between {toks.mincount} and {toks.maxcount} times"
+        if int(toks.mincount) == 0 and int(toks.maxcount) == 1:
+            translation = "?"
+            comment = "Zero or one times"
+        elif int(toks.mincount) < int(toks.maxcount):
+            translation = f"{{{toks.mincount},{toks.maxcount}}}"
+            comment = f"Between {toks.mincount} and {toks.maxcount} times"
+        else:
+            raise ValueError(
+                "Invalid quantifier: min repetitions must be less than max repetitions"
+            )
 
     elif "mincount" in toks:
         if int(toks.mincount) == 0:
             translation = "*"
             comment = "Zero or more times"
-
         elif int(toks.mincount) == 1:
             translation = "+"
             comment = "One or more times"
-
-        else:
+        elif int(toks.mincount) > 1:
             translation = f"{{{toks.mincount},}}"
             comment = f"At least {toks.mincount} times"
+        else:
+            raise ValueError("Invalid quantifier: repetitions must be positive")
 
     elif "maxcount" in toks:
-        translation = f"{{,{toks.maxcount}}}"
-        comment = f"At most {toks.maxcount} times"
+        if int(toks.maxcount) >= 1:
+            translation = f"{{,{toks.maxcount}}}"
+            comment = f"At most {toks.maxcount} times"
+        else:
+            raise ValueError("Invalid quantifier: repetitions must be positive")
 
     if EMIT_MODE == Mode.REGEX:
         return translation
