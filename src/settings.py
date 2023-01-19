@@ -8,9 +8,11 @@ from enum import Enum
 from typing import Any
 
 
-Emit: Any = Enum("Emit", ["TOKENS", "REGEX", "FREE_SPACED_REGEX"])
+Mode: Any = Enum("Mode", ["TOKENS", "REGEX", "FREE_SPACED_REGEX"])
+EMIT_MODE: Mode = Mode.TOKENS
 
-EMIT_MODE: Emit = Emit.TOKENS
+Flavor: Any = Enum("Flavor", ["PYTHON"])
+EMIT_FLAVOR: Flavor = Flavor.PYTHON
 
 COMMENT_TAB: int = 20
 

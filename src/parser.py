@@ -36,14 +36,15 @@ literal_def: pp.QuotedString = pp.QuotedString(
 @literal_def.set_parse_action
 def literal_act(toks: pp.ParseResults) -> str:
     global EMIT_MODE
+    global EMIT_FLAVOR
 
     translation: str = toks[0][1:-1]
 
-    if EMIT_MODE == Emit.TOKENS:
+    if EMIT_MODE == Mode.TOKENS:
         return toks[0]
-    elif EMIT_MODE == Emit.REGEX:
+    elif EMIT_MODE == Mode.REGEX:
         return translation
-    elif EMIT_MODE == Emit.FREE_SPACED_REGEX:
+    elif EMIT_MODE == Mode.FREE_SPACED_REGEX:
         return free_space(translation, "Specific character(s)")
 
     raise ValueError("Invalid emit mode")
@@ -64,14 +65,15 @@ start_of_line_def: pp.Keyword = pp.Keyword("LineStart")
 @start_of_line_def.set_parse_action
 def start_of_line_act(toks: pp.ParseResults) -> str:
     global EMIT_MODE
+    global EMIT_FLAVOR
 
     translation: str = "^"
 
-    if EMIT_MODE == Emit.TOKENS:
+    if EMIT_MODE == Mode.TOKENS:
         return toks[0]
-    elif EMIT_MODE == Emit.REGEX:
+    elif EMIT_MODE == Mode.REGEX:
         return translation
-    elif EMIT_MODE == Emit.FREE_SPACED_REGEX:
+    elif EMIT_MODE == Mode.FREE_SPACED_REGEX:
         return free_space(translation, "Start of line")
 
     raise ValueError("Invalid emit mode")
@@ -83,14 +85,15 @@ end_of_line_def: pp.Keyword = pp.Keyword("LineEnd")
 @end_of_line_def.set_parse_action
 def end_of_line_act(toks: pp.ParseResults) -> str:
     global EMIT_MODE
+    global EMIT_FLAVOR
 
     translation: str = "$"
 
-    if EMIT_MODE == Emit.TOKENS:
+    if EMIT_MODE == Mode.TOKENS:
         return toks[0]
-    elif EMIT_MODE == Emit.REGEX:
+    elif EMIT_MODE == Mode.REGEX:
         return translation
-    elif EMIT_MODE == Emit.FREE_SPACED_REGEX:
+    elif EMIT_MODE == Mode.FREE_SPACED_REGEX:
         return free_space(translation, "End of line")
 
     raise ValueError("Invalid emit mode")
@@ -108,14 +111,15 @@ word_boundary_def: pp.Keyword = pp.Keyword("WordBoundary")
 @word_boundary_def.set_parse_action
 def word_boundary_act(toks: pp.ParseResults) -> str:
     global EMIT_MODE
+    global EMIT_FLAVOR
 
     translation: str = "\b"
 
-    if EMIT_MODE == Emit.TOKENS:
+    if EMIT_MODE == Mode.TOKENS:
         return toks[0]
-    elif EMIT_MODE == Emit.REGEX:
+    elif EMIT_MODE == Mode.REGEX:
         return translation
-    elif EMIT_MODE == Emit.FREE_SPACED_REGEX:
+    elif EMIT_MODE == Mode.FREE_SPACED_REGEX:
         return free_space(translation, "Word boundary")
 
     raise ValueError("Invalid emit mode")
@@ -127,14 +131,15 @@ digit_def: pp.Keyword = pp.Keyword("Digit")
 @digit_def.set_parse_action
 def digit_act(toks: pp.ParseResults) -> str:
     global EMIT_MODE
+    global EMIT_FLAVOR
 
     translation: str = "\d"
 
-    if EMIT_MODE == Emit.TOKENS:
+    if EMIT_MODE == Mode.TOKENS:
         return toks[0]
-    elif EMIT_MODE == Emit.REGEX:
+    elif EMIT_MODE == Mode.REGEX:
         return translation
-    elif EMIT_MODE == Emit.FREE_SPACED_REGEX:
+    elif EMIT_MODE == Mode.FREE_SPACED_REGEX:
         return free_space(translation, "A digit")
 
     raise ValueError("Invalid emit mode")
@@ -146,14 +151,15 @@ whitespace_def: pp.Keyword = pp.Keyword("Whitespace")
 @whitespace_def.set_parse_action
 def whitespace_act(toks: pp.ParseResults) -> str:
     global EMIT_MODE
+    global EMIT_FLAVOR
 
     translation: str = "\s"
 
-    if EMIT_MODE == Emit.TOKENS:
+    if EMIT_MODE == Mode.TOKENS:
         return toks[0]
-    elif EMIT_MODE == Emit.REGEX:
+    elif EMIT_MODE == Mode.REGEX:
         return translation
-    elif EMIT_MODE == Emit.FREE_SPACED_REGEX:
+    elif EMIT_MODE == Mode.FREE_SPACED_REGEX:
         return free_space(translation, "A whitespace character")
 
     raise ValueError("Invalid emit mode")
@@ -165,14 +171,15 @@ any_char_def: pp.Keyword = pp.Keyword("AnyCharacter")
 @any_char_def.set_parse_action
 def any_char_act(toks: pp.ParseResults) -> str:
     global EMIT_MODE
+    global EMIT_FLAVOR
 
     translation: str = "."
 
-    if EMIT_MODE == Emit.TOKENS:
+    if EMIT_MODE == Mode.TOKENS:
         return toks[0]
-    elif EMIT_MODE == Emit.REGEX:
+    elif EMIT_MODE == Mode.REGEX:
         return translation
-    elif EMIT_MODE == Emit.FREE_SPACED_REGEX:
+    elif EMIT_MODE == Mode.FREE_SPACED_REGEX:
         return free_space(translation, "Any character")
 
     raise ValueError("Invalid emit mode")
@@ -217,11 +224,19 @@ quantifier_def: pp.ParserElement = pp.Suppress("*") + (
 ### PARSING ###
 
 
-def parse_lines(lines: list[str], mode: Emit, verbose: bool = False) -> pp.ParseResults:
+def parse_lines(
+    lines: list[str],
+    *,
+    mode: Mode = Mode.TOKENS,
+    flavor: Flavor = Flavor.PYTHON,
+    verbose: bool = False
+) -> pp.ParseResults:
     """Parse multiple lines of source code."""
 
     global EMIT_MODE
+    global EMIT_FLAVOR
     EMIT_MODE = mode
+    EMIT_FLAVOR = flavor
 
     # Remove Python-style comments
     filtered: list[str] = list()
@@ -237,7 +252,9 @@ def parse_lines(lines: list[str], mode: Emit, verbose: bool = False) -> pp.Parse
     if verbose:
         print(results)
 
-    EMIT_MODE = Emit.TOKENS  # Restore the default mode
+    # Restore the default modes
+    EMIT_MODE = Mode.TOKENS
+    EMIT_FLAVOR = Flavor.PYTHON
 
     return results
 
