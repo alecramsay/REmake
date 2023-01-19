@@ -231,7 +231,7 @@ def parse_lines(
     flavor: Flavor = Flavor.PYTHON,
     verbose: bool = False
 ) -> pp.ParseResults:
-    """Parse multiple lines of source code."""
+    """Parse multiple lines of source code & emit mode+flavor output."""
 
     global EMIT_MODE
     global EMIT_FLAVOR

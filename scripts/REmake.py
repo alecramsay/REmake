@@ -42,17 +42,15 @@ def main() -> None:
     source: str = args.file
     verbose: bool = args.verbose
 
-    # FOR DEBUGGING
-    source = "test/examples/line_anchors.re"
-    verbose = True
-
     # PARSE SOURCE FILE & GENERATE REGEX
     lines: list[str] = read_source_file(source)
 
     results: pp.ParseResults = parse_lines(lines, mode=Mode.REGEX)
     single_line: str = "".join(list(results))
 
-    results: pp.ParseResults = parse_lines(lines, mode=Mode.FREE_SPACED_REGEX)
+    results: pp.ParseResults = parse_lines(
+        lines, mode=Mode.FREE_SPACED_REGEX, verbose=verbose
+    )
     free_spaced: str = "".join(list(results))
 
     print()
