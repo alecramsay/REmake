@@ -38,13 +38,15 @@ def literal_act(toks: pp.ParseResults) -> str:
     global EMIT_MODE
     global EMIT_FLAVOR
 
-    translation: str = toks[0][1:-1]
-
     if EMIT_MODE == Mode.TOKENS:
         return toks[0]
-    elif EMIT_MODE == Mode.REGEX:
+
+    translation: str = toks[0][1:-1]
+
+    if EMIT_MODE == Mode.REGEX:
         return translation
-    elif EMIT_MODE == Mode.FREE_SPACED_REGEX:
+
+    if EMIT_MODE == Mode.FREE_SPACED_REGEX:
         return free_space(translation, "Specific character(s)")
 
     raise ValueError("Invalid emit mode")
@@ -67,13 +69,15 @@ def start_of_line_act(toks: pp.ParseResults) -> str:
     global EMIT_MODE
     global EMIT_FLAVOR
 
-    translation: str = "^"
-
     if EMIT_MODE == Mode.TOKENS:
         return toks[0]
-    elif EMIT_MODE == Mode.REGEX:
+
+    translation: str = "^"
+
+    if EMIT_MODE == Mode.REGEX:
         return translation
-    elif EMIT_MODE == Mode.FREE_SPACED_REGEX:
+
+    if EMIT_MODE == Mode.FREE_SPACED_REGEX:
         return free_space(translation, "Start of line")
 
     raise ValueError("Invalid emit mode")
@@ -87,13 +91,15 @@ def end_of_line_act(toks: pp.ParseResults) -> str:
     global EMIT_MODE
     global EMIT_FLAVOR
 
-    translation: str = "$"
-
     if EMIT_MODE == Mode.TOKENS:
         return toks[0]
-    elif EMIT_MODE == Mode.REGEX:
+
+    translation: str = "$"
+
+    if EMIT_MODE == Mode.REGEX:
         return translation
-    elif EMIT_MODE == Mode.FREE_SPACED_REGEX:
+
+    if EMIT_MODE == Mode.FREE_SPACED_REGEX:
         return free_space(translation, "End of line")
 
     raise ValueError("Invalid emit mode")
@@ -113,13 +119,15 @@ def word_boundary_act(toks: pp.ParseResults) -> str:
     global EMIT_MODE
     global EMIT_FLAVOR
 
-    translation: str = "\b"
-
     if EMIT_MODE == Mode.TOKENS:
         return toks[0]
-    elif EMIT_MODE == Mode.REGEX:
+
+    translation: str = "\b"
+
+    if EMIT_MODE == Mode.REGEX:
         return translation
-    elif EMIT_MODE == Mode.FREE_SPACED_REGEX:
+
+    if EMIT_MODE == Mode.FREE_SPACED_REGEX:
         return free_space(translation, "Word boundary")
 
     raise ValueError("Invalid emit mode")
@@ -133,13 +141,15 @@ def digit_act(toks: pp.ParseResults) -> str:
     global EMIT_MODE
     global EMIT_FLAVOR
 
-    translation: str = "\d"
-
     if EMIT_MODE == Mode.TOKENS:
         return toks[0]
-    elif EMIT_MODE == Mode.REGEX:
+
+    translation: str = "\d"
+
+    if EMIT_MODE == Mode.REGEX:
         return translation
-    elif EMIT_MODE == Mode.FREE_SPACED_REGEX:
+
+    if EMIT_MODE == Mode.FREE_SPACED_REGEX:
         return free_space(translation, "A digit")
 
     raise ValueError("Invalid emit mode")
@@ -153,13 +163,15 @@ def whitespace_act(toks: pp.ParseResults) -> str:
     global EMIT_MODE
     global EMIT_FLAVOR
 
-    translation: str = "\s"
-
     if EMIT_MODE == Mode.TOKENS:
         return toks[0]
-    elif EMIT_MODE == Mode.REGEX:
+
+    translation: str = "\s"
+
+    if EMIT_MODE == Mode.REGEX:
         return translation
-    elif EMIT_MODE == Mode.FREE_SPACED_REGEX:
+
+    if EMIT_MODE == Mode.FREE_SPACED_REGEX:
         return free_space(translation, "A whitespace character")
 
     raise ValueError("Invalid emit mode")
@@ -173,13 +185,15 @@ def any_char_act(toks: pp.ParseResults) -> str:
     global EMIT_MODE
     global EMIT_FLAVOR
 
-    translation: str = "."
-
     if EMIT_MODE == Mode.TOKENS:
         return toks[0]
-    elif EMIT_MODE == Mode.REGEX:
+
+    translation: str = "."
+
+    if EMIT_MODE == Mode.REGEX:
         return translation
-    elif EMIT_MODE == Mode.FREE_SPACED_REGEX:
+
+    if EMIT_MODE == Mode.FREE_SPACED_REGEX:
         return free_space(translation, "Any character")
 
     raise ValueError("Invalid emit mode")
@@ -188,10 +202,7 @@ def any_char_act(toks: pp.ParseResults) -> str:
 # TODO
 not_def: pp.Keyword = pp.Keyword("Not")
 
-pattern_def: pp.ParserElement = (
-    literal_def | word_boundary_def | digit_def | whitespace_def | any_char_def
-)
-
+# For testing
 keywords: pp.ParserElement = (
     start_of_line_def
     | end_of_line_def
@@ -204,14 +215,9 @@ keywords: pp.ParserElement = (
     | not_def
 )
 
-remake_spec: pp.ParserElement = (
-    pp.Opt(start_of_line_def) + pp.OneOrMore(pattern_def) + pp.Opt(end_of_line_def)
-)
-
 
 ### QUANTIFIERS ###
 
-# times: pp.Literal = pp.Literal("*")
 ellipsis: pp.Literal = pp.Literal("...")
 quantifier_def: pp.ParserElement = pp.Suppress("*") + (
     pp.Word(pp.nums)("mincount") + pp.Suppress(",") + pp.Word(pp.nums)("maxcount")
@@ -221,6 +227,66 @@ quantifier_def: pp.ParserElement = pp.Suppress("*") + (
 )
 
 
+@quantifier_def.set_parse_action
+def quantifier_act(toks: pp.ParseResults) -> str:
+    global EMIT_MODE
+    global EMIT_FLAVOR
+
+    if EMIT_MODE == Mode.TOKENS:
+        return toks
+
+    translation: str
+    comment: str
+
+    if "count" in toks:
+        translation = f"{{{toks.count}}}"
+        comment = f"Exactly {translation} times"
+
+    elif "mincount" in toks and "maxcount" in toks:
+        translation = f"{{{toks.mincount},{toks.maxcount}}}"
+        comment = f"Between {toks.mincount} and {toks.maxcount} times"
+
+    elif "mincount" in toks:
+        if int(toks.mincount) == 0:
+            translation = "*"
+            comment = "Zero or more times"
+
+        elif int(toks.mincount) == 1:
+            translation = "+"
+            comment = "One or more times"
+
+        else:
+            translation = f"{{{toks.mincount},}}"
+            comment = f"At least {toks.mincount} times"
+
+    elif "maxcount" in toks:
+        translation = f"{{,{toks.maxcount}}}"
+        comment = f"At most {toks.maxcount} times"
+
+    if EMIT_MODE == Mode.REGEX:
+        return translation
+
+    if EMIT_MODE == Mode.FREE_SPACED_REGEX:
+        return free_space(translation, comment)
+
+    raise ValueError("Invalid emit mode")
+
+
+### GRAMMAR ###
+
+# Simple flat list for now
+pattern_def: pp.ParserElement = (
+    literal_def
+    | word_boundary_def
+    | digit_def
+    | whitespace_def
+    | any_char_def
+    | quantifier_def
+)
+remake_spec: pp.ParserElement = (
+    pp.Opt(start_of_line_def) + pp.OneOrMore(pattern_def) + pp.Opt(end_of_line_def)
+)
+
 ### PARSING ###
 
 
@@ -229,7 +295,7 @@ def parse_lines(
     *,
     mode: Mode = Mode.TOKENS,
     flavor: Flavor = Flavor.PYTHON,
-    verbose: bool = False
+    verbose: bool = False,
 ) -> pp.ParseResults:
     """Parse multiple lines of source code & emit mode+flavor output."""
 

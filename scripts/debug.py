@@ -13,7 +13,7 @@ from src import *
 
 ### ARGUMENTS ###
 
-source: str = "test/examples/line_anchors.re"
+source: str = "test/examples/sample.re"
 verbose: bool = True
 
 

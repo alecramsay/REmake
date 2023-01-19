@@ -1,0 +1,3 @@
+LineStart
+"foo" * 0, ...
+LineEnd
