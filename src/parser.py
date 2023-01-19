@@ -248,7 +248,7 @@ def quantifier_act(toks: pp.ParseResults) -> str:
     elif "mincount" in toks and "maxcount" in toks:
         if int(toks.mincount) == 0 and int(toks.maxcount) == 1:
             translation = "?"
-            comment = "Zero or one times"
+            comment = "Optionally"
         elif int(toks.mincount) < int(toks.maxcount):
             translation = f"{{{toks.mincount},{toks.maxcount}}}"
             comment = f"Between {toks.mincount} and {toks.maxcount} times"
@@ -271,11 +271,17 @@ def quantifier_act(toks: pp.ParseResults) -> str:
             raise ValueError("Invalid quantifier: repetitions must be positive")
 
     elif "maxcount" in toks:
-        if int(toks.maxcount) >= 1:
+        if int(toks.maxcount) == 1:
+            translation = "?"
+            comment = "Optionally"
+        elif int(toks.maxcount) > 1:
             translation = f"{{,{toks.maxcount}}}"
             comment = f"At most {toks.maxcount} times"
         else:
             raise ValueError("Invalid quantifier: repetitions must be positive")
+
+    else:
+        raise ValueError("Invalid quantifier")
 
     if EMIT_MODE == Mode.REGEX:
         return translation
