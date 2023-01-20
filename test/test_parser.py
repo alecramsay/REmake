@@ -110,5 +110,9 @@ class TestParser:
         results: pp.ParseResults = Grammar.parseString(input)
         assert list(results) == ["1", "3"]
 
+        input: str = "* 1,3 least"
+        results: pp.ParseResults = Grammar.parseString(input)
+        assert list(results) == ["1", "3", "Least"]
+
 
 ### END ###

@@ -61,7 +61,7 @@ name: pp.Word = pp.Word(pp.alphas, pp.alphanums + "_")
 ### KEYWORDS ###
 
 
-start_of_line_def: pp.Keyword = pp.Keyword("LineStart")
+start_of_line_def: pp.CaselessKeyword = pp.CaselessKeyword("LineStart")
 
 
 @start_of_line_def.set_parse_action
@@ -83,7 +83,7 @@ def start_of_line_act(toks: pp.ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-end_of_line_def: pp.Keyword = pp.Keyword("LineEnd")
+end_of_line_def: pp.CaselessKeyword = pp.CaselessKeyword("LineEnd")
 
 
 @end_of_line_def.set_parse_action
@@ -106,12 +106,12 @@ def end_of_line_act(toks: pp.ParseResults) -> str:
 
 
 # TODO
-start_of_string_def: pp.Keyword = pp.Keyword("StringStart")
+start_of_string_def: pp.CaselessKeyword = pp.CaselessKeyword("StringStart")
 
 # TODO
-end_of_string_def: pp.Keyword = pp.Keyword("StringEnd")
+end_of_string_def: pp.CaselessKeyword = pp.CaselessKeyword("StringEnd")
 
-word_boundary_def: pp.Keyword = pp.Keyword("WordBoundary")
+word_boundary_def: pp.CaselessKeyword = pp.CaselessKeyword("WordBoundary")
 
 
 @word_boundary_def.set_parse_action
@@ -133,7 +133,7 @@ def word_boundary_act(toks: pp.ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-digit_def: pp.Keyword = pp.Keyword("Digit")
+digit_def: pp.CaselessKeyword = pp.CaselessKeyword("Digit")
 
 
 @digit_def.set_parse_action
@@ -155,7 +155,7 @@ def digit_act(toks: pp.ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-whitespace_def: pp.Keyword = pp.Keyword("Whitespace")
+whitespace_def: pp.CaselessKeyword = pp.CaselessKeyword("Whitespace")
 
 
 @whitespace_def.set_parse_action
@@ -177,7 +177,7 @@ def whitespace_act(toks: pp.ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-any_char_def: pp.Keyword = pp.Keyword("AnyCharacter")
+any_char_def: pp.CaselessKeyword = pp.CaselessKeyword("AnyCharacter")
 
 
 @any_char_def.set_parse_action
@@ -200,7 +200,7 @@ def any_char_act(toks: pp.ParseResults) -> str:
 
 
 # TODO
-not_def: pp.Keyword = pp.Keyword("Not")
+not_def: pp.CaselessKeyword = pp.CaselessKeyword("Not")
 
 # For testing
 keywords: pp.ParserElement = (
@@ -219,11 +219,15 @@ keywords: pp.ParserElement = (
 ### QUANTIFIERS ###
 
 ellipsis: pp.Literal = pp.Literal("...")
-quantifier_def: pp.ParserElement = pp.Suppress("*") + (
-    pp.Word(pp.nums)("mincount") + pp.Suppress(",") + pp.Word(pp.nums)("maxcount")
-    | pp.Word(pp.nums)("mincount") + pp.Suppress(",") + ellipsis
-    | ellipsis + pp.Suppress(",") + pp.Word(pp.nums)("maxcount")
-    | pp.Word(pp.nums)("count")
+quantifier_def: pp.ParserElement = (
+    pp.Suppress("*")
+    + (
+        pp.Word(pp.nums)("mincount") + pp.Suppress(",") + pp.Word(pp.nums)("maxcount")
+        | pp.Word(pp.nums)("mincount") + pp.Suppress(",") + ellipsis
+        | ellipsis + pp.Suppress(",") + pp.Word(pp.nums)("maxcount")
+        | pp.Word(pp.nums)("count")
+    )
+    + pp.Opt(pp.CaselessKeyword("Least"))("lazy")
 )
 
 
@@ -238,20 +242,23 @@ def quantifier_act(toks: pp.ParseResults) -> str:
     translation: str
     comment: str
 
+    lazy: str = "?" if "lazy" in toks else ""
+    style: str = "lazy" if "lazy" in toks else "greedy"
+
     if "count" in toks:
         if int(toks.count) >= 1:
-            translation = f"{{{toks.count}}}"
-            comment = f"Exactly {translation} times"
+            translation = f"{{{toks.count}}}{lazy}"
+            comment = f"Exactly {translation} times ({style})"
         else:
             raise ValueError("Invalid quantifier: repetitions must be positive")
 
     elif "mincount" in toks and "maxcount" in toks:
         if int(toks.mincount) == 0 and int(toks.maxcount) == 1:
-            translation = "?"
-            comment = "Optionally"
+            translation = f"?{lazy}"
+            comment = f"Optionally ({style})"
         elif int(toks.mincount) < int(toks.maxcount):
-            translation = f"{{{toks.mincount},{toks.maxcount}}}"
-            comment = f"Between {toks.mincount} and {toks.maxcount} times"
+            translation = f"{{{toks.mincount},{toks.maxcount}}}{lazy}"
+            comment = f"Between {toks.mincount} and {toks.maxcount} times ({style})"
         else:
             raise ValueError(
                 "Invalid quantifier: min repetitions must be less than max repetitions"
@@ -259,14 +266,14 @@ def quantifier_act(toks: pp.ParseResults) -> str:
 
     elif "mincount" in toks:
         if int(toks.mincount) == 0:
-            translation = "*"
-            comment = "Zero or more times"
+            translation = f"*{lazy}"
+            comment = f"Zero or more times ({style})"
         elif int(toks.mincount) == 1:
-            translation = "+"
-            comment = "One or more times"
+            translation = f"+{lazy}"
+            comment = f"One or more times ({style})"
         elif int(toks.mincount) > 1:
-            translation = f"{{{toks.mincount},}}"
-            comment = f"At least {toks.mincount} times"
+            translation = f"{{{toks.mincount},}}{lazy}"
+            comment = f"At least {toks.mincount} times ({style})"
         else:
             raise ValueError("Invalid quantifier: repetitions must be positive")
 
