@@ -106,10 +106,6 @@ class TestParser:
         results: pp.ParseResults = Grammar.parseString(input)
         assert list(results) == ["0", "..."]
 
-        input: str = "* ..., 3"
-        results: pp.ParseResults = Grammar.parseString(input)
-        assert list(results) == ["...", "3"]
-
         input: str = "* 1,3"
         results: pp.ParseResults = Grammar.parseString(input)
         assert list(results) == ["1", "3"]

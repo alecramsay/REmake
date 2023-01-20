@@ -270,16 +270,6 @@ def quantifier_act(toks: pp.ParseResults) -> str:
         else:
             raise ValueError("Invalid quantifier: repetitions must be positive")
 
-    elif "maxcount" in toks:
-        if int(toks.maxcount) == 1:
-            translation = "?"
-            comment = "Optionally"
-        elif int(toks.maxcount) > 1:
-            translation = f"{{,{toks.maxcount}}}"
-            comment = f"At most {toks.maxcount} times"
-        else:
-            raise ValueError("Invalid quantifier: repetitions must be positive")
-
     else:
         raise ValueError("Invalid quantifier")
 
