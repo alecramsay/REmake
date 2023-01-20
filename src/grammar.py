@@ -15,17 +15,7 @@ from .utils import *
 
 
 # A simple flat list for now
-pattern_def: pp.ParserElement = (
-    word_boundary_def
-    | digit_def
-    | word_char_def
-    | whitespace_def
-    | any_char_def
-    | quantifier_def
-    | char_def
-    | string_def
-    | meta_char_def
-)
+pattern_def: pp.ParserElement = non_consuming_char | consuming_chars
 
 remake_spec: pp.ParserElement = (
     pp.Opt(start_anchor) + pp.OneOrMore(pattern_def) + pp.Opt(end_anchor)
@@ -42,16 +32,7 @@ not_def: pp.CaselessKeyword = pp.CaselessKeyword("Not")
 ### FOR TESTING ###
 
 keywords: pp.ParserElement = (
-    start_of_line_def
-    | end_of_line_def
-    | start_of_string_def
-    | end_of_string_def
-    | word_boundary_def
-    | digit_def
-    | word_char_def
-    | whitespace_def
-    | any_char_def
-    | not_def
+    start_anchor | end_anchor | non_consuming_char | consuming_chars | not_def
 )
 
 ### END ###

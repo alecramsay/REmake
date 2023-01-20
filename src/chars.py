@@ -140,7 +140,7 @@ def string_act(toks: pp.ParseResults) -> str:
         return translation
 
     if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        return free_space(translation, "The character string '{translation}'")
+        return free_space(translation, f"The character string '{translation}'")
 
     raise ValueError("Invalid emit mode")
 
@@ -247,6 +247,18 @@ def any_char_act(toks: pp.ParseResults) -> str:
 
 
 ### COLLECTED ###
+
+consuming_chars: pp.ParserElement = (
+    char_def
+    | digit_def
+    | word_char_def
+    | whitespace_def
+    | any_char_def
+    | meta_char_def
+    | string_def
+)
+
+non_consuming_char: pp.ParserElement = word_boundary_def
 
 
 ### END ###
