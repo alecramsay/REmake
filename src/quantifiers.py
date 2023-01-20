@@ -7,7 +7,7 @@ QUANTIFIERS
 import pyparsing as pp
 from typing import Any
 
-import src.globals
+import src.globals as G
 from .constants import *
 from .utils import *
 
@@ -27,7 +27,7 @@ quantifier_def: pp.ParserElement = (
 
 @quantifier_def.set_parse_action
 def quantifier_act(toks: pp.ParseResults) -> str:
-    if src.globals.EMIT_MODE == src.globals.Mode.TOKENS:
+    if G.EMIT_MODE == G.Mode.TOKENS:
         return toks
 
     translation: str
@@ -71,10 +71,10 @@ def quantifier_act(toks: pp.ParseResults) -> str:
     else:
         raise ValueError("Invalid quantifier")
 
-    if src.globals.EMIT_MODE == src.globals.Mode.REGEX:
+    if G.EMIT_MODE == G.Mode.REGEX:
         return translation
 
-    if src.globals.EMIT_MODE == src.globals.Mode.FREE_SPACED_REGEX:
+    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
         return free_space(translation, comment)
 
     raise ValueError("Invalid emit mode")
