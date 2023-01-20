@@ -11,7 +11,7 @@ from .settings import *
 from .utils import *
 
 
-### LITERALS ###
+### LITERAL STRINGS ###
 
 literal_def: pp.QuotedString = pp.QuotedString(
     '"', unquote_results=False
@@ -37,29 +37,7 @@ def literal_act(toks: pp.ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-### SPECIAL CHARACTERS ###
-
-word_boundary_def: pp.CaselessKeyword = pp.CaselessKeyword("WordBoundary")
-
-
-@word_boundary_def.set_parse_action
-def word_boundary_act(toks: pp.ParseResults) -> str:
-    global EMIT_MODE
-    global EMIT_FLAVOR
-
-    if EMIT_MODE == Mode.TOKENS:
-        return toks[0]
-
-    translation: str = "\b"
-
-    if EMIT_MODE == Mode.REGEX:
-        return translation
-
-    if EMIT_MODE == Mode.FREE_SPACED_REGEX:
-        return free_space(translation, "Word boundary")
-
-    raise ValueError("Invalid emit mode")
-
+### CHARACTER SHORTHANDS ###
 
 digit_def: pp.CaselessKeyword = pp.CaselessKeyword("Digit")
 
@@ -79,6 +57,28 @@ def digit_act(toks: pp.ParseResults) -> str:
 
     if EMIT_MODE == Mode.FREE_SPACED_REGEX:
         return free_space(translation, "A digit")
+
+    raise ValueError("Invalid emit mode")
+
+
+word_char_def: pp.CaselessKeyword = pp.CaselessKeyword("WordCharacter")
+
+
+@word_char_def.set_parse_action
+def word_char_act(toks: pp.ParseResults) -> str:
+    global EMIT_MODE
+    global EMIT_FLAVOR
+
+    if EMIT_MODE == Mode.TOKENS:
+        return toks[0]
+
+    translation: str = "\w"
+
+    if EMIT_MODE == Mode.REGEX:
+        return translation
+
+    if EMIT_MODE == Mode.FREE_SPACED_REGEX:
+        return free_space(translation, "A word character")
 
     raise ValueError("Invalid emit mode")
 
@@ -104,6 +104,32 @@ def whitespace_act(toks: pp.ParseResults) -> str:
 
     raise ValueError("Invalid emit mode")
 
+
+### BOUDNARIES ###
+
+word_boundary_def: pp.CaselessKeyword = pp.CaselessKeyword("WordBoundary")
+
+
+@word_boundary_def.set_parse_action
+def word_boundary_act(toks: pp.ParseResults) -> str:
+    global EMIT_MODE
+    global EMIT_FLAVOR
+
+    if EMIT_MODE == Mode.TOKENS:
+        return toks[0]
+
+    translation: str = "\b"
+
+    if EMIT_MODE == Mode.REGEX:
+        return translation
+
+    if EMIT_MODE == Mode.FREE_SPACED_REGEX:
+        return free_space(translation, "Word boundary")
+
+    raise ValueError("Invalid emit mode")
+
+
+### MISC ###
 
 any_char_def: pp.CaselessKeyword = pp.CaselessKeyword("AnyCharacter")
 

@@ -19,6 +19,7 @@ pattern_def: pp.ParserElement = (
     literal_def
     | word_boundary_def
     | digit_def
+    | word_char_def
     | whitespace_def
     | any_char_def
     | quantifier_def
@@ -45,6 +46,7 @@ keywords: pp.ParserElement = (
     | end_of_string_def
     | word_boundary_def
     | digit_def
+    | word_char_def
     | whitespace_def
     | any_char_def
     | not_def
