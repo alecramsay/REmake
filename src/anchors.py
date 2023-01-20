@@ -88,7 +88,7 @@ def end_of_string_act(toks: pp.ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-### COLLECTED ###
+### FOR EXPORT ###
 
 start_anchor: pp.ParserElement = start_of_line_def | start_of_string_def
 end_anchor: pp.ParserElement = end_of_line_def | end_of_string_def

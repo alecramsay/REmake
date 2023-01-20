@@ -3,7 +3,7 @@
 # TEST QUANTIFIERS
 #
 
-from src import *
+from src.quantifiers import *
 
 
 class TestQuantifiers:

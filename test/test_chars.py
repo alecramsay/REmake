@@ -3,7 +3,9 @@
 # TEST CHARACTERS
 #
 
-from src import *
+from src.chars import *
+from src.readwrite import *
+from src.parser import *
 
 
 class TestCharacters:

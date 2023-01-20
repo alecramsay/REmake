@@ -7,15 +7,15 @@ GRAMMAR
 import pyparsing as pp
 from typing import Any
 
-from .chars import *
-from .anchors import *
-from .quantifiers import *
+from .chars import non_consuming_char, consuming_chars
+from .anchors import start_anchor, end_anchor
+from .quantifiers import quantifier
 from .constants import *
 from .utils import *
 
 
 # A simple flat list for now
-pattern_def: pp.ParserElement = non_consuming_char | consuming_chars | quantifier_def
+pattern_def: pp.ParserElement = non_consuming_char | consuming_chars | quantifier
 
 remake_spec: pp.ParserElement = (
     pp.Opt(start_anchor) + pp.OneOrMore(pattern_def) + pp.Opt(end_anchor)

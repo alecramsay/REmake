@@ -246,7 +246,7 @@ def any_char_act(toks: pp.ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-### COLLECTED ###
+### FOR EXPORT ###
 
 consuming_chars: pp.ParserElement = (
     char_def

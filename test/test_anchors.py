@@ -3,7 +3,9 @@
 # TEST ANCHORS
 #
 
-from src import *
+# from src.anchors import *
+from src.readwrite import *
+from src.parser import *
 
 
 class TestAnchors:

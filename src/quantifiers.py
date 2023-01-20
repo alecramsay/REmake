@@ -80,4 +80,8 @@ def quantifier_act(toks: pp.ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
+### FOR EXPORT ###
+
+quantifier: pp.ParserElement = quantifier_def
+
 ### END ###
