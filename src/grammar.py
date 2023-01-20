@@ -24,6 +24,7 @@ pattern_def: pp.ParserElement = (
     | quantifier_def
     | char_def
     | string_def
+    | meta_char_def
 )
 
 remake_spec: pp.ParserElement = (

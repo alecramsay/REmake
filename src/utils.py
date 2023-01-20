@@ -14,4 +14,18 @@ def free_space(translation: str, comment: str) -> str:
     return translation + spaces + "# " + comment + "\n"
 
 
+def keyword_to_words(name: str) -> str:
+    """Convert CamelCase to words."""
+    result: str = name[0].lower()
+
+    for char in name[1:]:
+        if char.isupper():
+            result += " "
+            result += char.lower()
+        else:
+            result += char
+
+    return result
+
+
 ### END ###

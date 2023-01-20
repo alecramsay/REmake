@@ -29,11 +29,11 @@ class TestCharacters:
         results: pp.ParseResults = Grammar.parseString(input)
         assert list(results) == ["'foobar'"]
 
-        # source: str = "test/examples/literals.re"
-        # lines: list[str] = read_source_file(source)
-        # results: pp.ParseResults = parse_lines(lines)
+        source: str = "test/examples/literals.re"
+        lines: list[str] = read_source_file(source)
+        results: pp.ParseResults = parse_lines(lines)
 
-        # assert list(results) == ['"foobar"', '"bas"']
+        assert list(results) == ['"foobar"', '"bas"']
 
 
 ### END ###
