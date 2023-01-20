@@ -16,13 +16,14 @@ from .utils import *
 
 # A simple flat list for now
 pattern_def: pp.ParserElement = (
-    literal_def
-    | word_boundary_def
+    word_boundary_def
     | digit_def
     | word_char_def
     | whitespace_def
     | any_char_def
     | quantifier_def
+    | char_def
+    | string_def
 )
 
 remake_spec: pp.ParserElement = (

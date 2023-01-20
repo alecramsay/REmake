@@ -16,12 +16,14 @@ from .utils import *
 
 meta_chars: str = "$()*+.?[]^}{|"
 meta_char_def: pp.Char = pp.Char(meta_chars)
+# TODO - HERE
 
 ### INDIVIDUAL CHARACTERS ###
 
 char: pp.Char = pp.Char(pp.printables, exclude_chars=meta_chars)
 double_quote: pp.Literal = pp.Literal('"')
 single_quote: pp.Literal = pp.Literal("'")
+
 char_def: pp.Char = pp.Combine(double_quote + char + double_quote) | pp.Combine(
     single_quote + char + single_quote
 )
@@ -43,15 +45,28 @@ def char_act(toks: pp.ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-### LITERAL STRINGS - a convenience for matching strings of characters ###
+### MULTI-CHARACTER STRINGS ###
 
-literal_def: pp.QuotedString = pp.QuotedString(
+# TODO - Build this on top of char
+# string: pp.Word = pp.Word(
+#     pp.printables, exclude_chars=meta_chars, min=2, as_keyword=True
+# )
+# double_quoted_string: pp.ParserElement = pp.Combine(
+#     double_quote + string + double_quote
+# )
+# single_quoted_string: pp.ParserElement = pp.Combine(
+#     single_quote + string + single_quote
+# )
+# string_def: pp.ParserElement = (
+#     double_quoted_string | single_quoted_string
+# )  # This doesn't work!
+string_def: pp.QuotedString = pp.QuotedString(
     '"', unquote_results=False
 ) | pp.QuotedString("'", unquote_results=False)
 
 
-@literal_def.set_parse_action
-def literal_act(toks: pp.ParseResults) -> str:
+@string_def.set_parse_action
+def string_act(toks: pp.ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
