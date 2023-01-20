@@ -15,7 +15,7 @@ def free_space(translation: str, comment: str) -> str:
 
 
 def keyword_to_words(name: str) -> str:
-    """Convert CamelCase to words."""
+    """Convert keyword format to spaced, lowercase words."""
     result: str = name[0].lower()
 
     for char in name[1:]:

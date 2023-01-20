@@ -225,7 +225,7 @@ def word_boundary_act(toks: pp.ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-### MISC ###
+### ANY CHARACTER ###
 
 any_char_def: pp.CaselessKeyword = pp.CaselessKeyword("AnyCharacter")
 
