@@ -26,7 +26,7 @@ pattern_def: pp.ParserElement = (
 )
 
 remake_spec: pp.ParserElement = (
-    pp.Opt(start_of_line_def) + pp.OneOrMore(pattern_def) + pp.Opt(end_of_line_def)
+    pp.Opt(start_anchor) + pp.OneOrMore(pattern_def) + pp.Opt(end_anchor)
 )
 
 

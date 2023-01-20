@@ -29,5 +29,12 @@ class TestAnchors:
 
         assert list(results) == ['"foo"', "LineEnd"]
 
+        # Both start and end of string anchors
+        source: str = "test/examples/line_anchors4.re"
+        lines: list[str] = read_source_file(source)
+        results: pp.ParseResults = parse_lines(lines)
+
+        assert list(results) == ["StringStart", '"foo"', "StringEnd"]
+
 
 ### END ###

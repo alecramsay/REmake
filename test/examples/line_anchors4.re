@@ -1,0 +1,3 @@
+StringStart
+"foo"
+StringEnd
