@@ -7,6 +7,17 @@ from src import *
 
 
 class TestCharacters:
+    def test_char_def(self) -> None:
+        Grammar: Any = char_def
+
+        input: str = '"a"'
+        results: pp.ParseResults = Grammar.parseString(input)
+        assert list(results) == ['"a"']
+
+        input: str = "'a'"
+        results: pp.ParseResults = Grammar.parseString(input)
+        assert list(results) == ["'a'"]
+
     def test_literal_def(self) -> None:
         Grammar: Any = literal_def
 

@@ -11,7 +11,41 @@ from .settings import *
 from .utils import *
 
 
-### LITERAL STRINGS ###
+### META CHARACTERS ###
+
+meta_chars: str = "$()*+.?[]^}{|"
+meta_char_def: pp.Char = pp.Char(meta_chars)
+
+### INDIVIDUAL CHARACTERS ###
+
+char: pp.Char = pp.Char(pp.printables, exclude_chars=meta_chars)
+double_quote: pp.Literal = pp.Literal('"')
+single_quote: pp.Literal = pp.Literal("'")
+char_def: pp.Char = pp.Combine(double_quote + char + double_quote) | pp.Combine(
+    single_quote + char + single_quote
+)
+
+
+@char_def.set_parse_action
+def char_act(toks: pp.ParseResults) -> str:
+    global EMIT_MODE
+    global EMIT_FLAVOR
+
+    if EMIT_MODE == Mode.TOKENS:
+        return toks[0]
+
+    translation: str = toks[0][1:-1]
+
+    if EMIT_MODE == Mode.REGEX:
+        return translation
+
+    if EMIT_MODE == Mode.FREE_SPACED_REGEX:
+        return free_space(translation, "One '{translation}' character}")
+
+    raise ValueError("Invalid emit mode")
+
+
+### LITERAL STRINGS - a convenience for matching strings of characters ###
 
 literal_def: pp.QuotedString = pp.QuotedString(
     '"', unquote_results=False
