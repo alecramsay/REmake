@@ -15,7 +15,7 @@ from .utils import *
 
 
 # A simple flat list for now
-pattern_def: pp.ParserElement = non_consuming_char | consuming_chars
+pattern_def: pp.ParserElement = non_consuming_char | consuming_chars | quantifier_def
 
 remake_spec: pp.ParserElement = (
     pp.Opt(start_anchor) + pp.OneOrMore(pattern_def) + pp.Opt(end_anchor)

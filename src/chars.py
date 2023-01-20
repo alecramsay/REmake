@@ -104,7 +104,7 @@ def char_act(toks: pp.ParseResults) -> str:
         return translation
 
     if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        return free_space(translation, "One '{translation}' character}")
+        return free_space(translation, f"One '{translation}' character")
 
     raise ValueError("Invalid emit mode")
 
