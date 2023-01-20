@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-GLOBAL SETTINGS
+GLOBALS
 """
 
 from enum import Enum
@@ -13,7 +13,5 @@ EMIT_MODE: Mode = Mode.TOKENS
 
 Flavor: Any = Enum("Flavor", ["PYTHON"])
 EMIT_FLAVOR: Flavor = Flavor.PYTHON
-
-COMMENT_TAB: int = 20
 
 ### END ###

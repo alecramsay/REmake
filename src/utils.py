@@ -4,7 +4,7 @@
 HELPER UTILITIES
 """
 
-from .settings import *
+from .constants import *
 
 
 def free_space(translation: str, comment: str) -> str:

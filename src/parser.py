@@ -7,26 +7,25 @@ PARSER
 import pyparsing as pp
 from typing import Any
 
+import src.globals
 from .readwrite import *
 from .comments import *
 from .grammar import *
-from .settings import *
+from .constants import *
 from .utils import *
 
 
 def parse_lines(
     lines: list[str],
     *,
-    mode: Mode = Mode.TOKENS,
-    flavor: Flavor = Flavor.PYTHON,
+    mode: src.globals.Mode = src.globals.Mode.TOKENS,
+    flavor: src.globals.Flavor = src.globals.Flavor.PYTHON,
     verbose: bool = False,
 ) -> pp.ParseResults:
     """Parse multiple lines of source code & emit mode+flavor output."""
 
-    global EMIT_MODE
-    global EMIT_FLAVOR
-    EMIT_MODE = mode
-    EMIT_FLAVOR = flavor
+    src.globals.EMIT_MODE = mode
+    src.globals.EMIT_FLAVOR = flavor
 
     # Remove Python-style comments
     filtered: list[str] = list()
@@ -43,8 +42,8 @@ def parse_lines(
         print(results)
 
     # Restore the default modes
-    EMIT_MODE = Mode.TOKENS
-    EMIT_FLAVOR = Flavor.PYTHON
+    src.globals.EMIT_MODE = src.globals.Mode.TOKENS
+    src.globals.EMIT_FLAVOR = src.globals.Flavor.PYTHON
 
     return results
 

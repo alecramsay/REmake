@@ -7,7 +7,7 @@ CHARACTERS
 import pyparsing as pp
 from typing import Any
 
-from .settings import *
+from .constants import *
 from .utils import *
 
 

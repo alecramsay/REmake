@@ -10,7 +10,7 @@ from typing import Any
 from .chars import *
 from .anchors import *
 from .quantifiers import *
-from .settings import *
+from .constants import *
 from .utils import *
 
 
