@@ -53,5 +53,19 @@ class TestCharacters:
             result: str = remove_comments(teststring)
             assert result == expected[i]
 
+    def test_char_ranges(self) -> None:
+        Grammar: Any = char_range_def | char_def
+        input: str = "'a'-'z'"
+        expected: str = ["'a'", "'z'"]
+
+        results: pp.ParseResults = Grammar.parseString(input)
+        assert list(results) == expected
+
+        input: str = "'a' - 'z'"
+        expected: str = ["'a'", "'z'"]
+
+        results: pp.ParseResults = Grammar.parseString(input)
+        assert list(results) == expected
+
 
 ### END ###

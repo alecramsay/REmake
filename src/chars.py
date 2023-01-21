@@ -71,12 +71,12 @@ def meta_char_act(toks: pp.ParseResults) -> str:
         return toks[0]
 
     translation: str = "\\" + meta_dict[toks[0]]
-    comment: str = f"A {keyword_to_words(toks[0])} (escaped)"
 
     if G.EMIT_MODE == G.Mode.REGEX:
         return translation
 
     if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
+        comment: str = f"A {keyword_to_words(toks[0])} (escaped)"
         return free_space(translation, comment)
 
     raise ValueError("Invalid emit mode")
@@ -91,6 +91,9 @@ single_quote: pp.Literal = pp.Literal("'")
 char_def: pp.Char = pp.Combine(double_quote + char + double_quote) | pp.Combine(
     single_quote + char + single_quote
 )
+
+# For ranges
+range_char: pp.Char = char_def.copy()
 
 
 @char_def.set_parse_action
@@ -158,12 +161,12 @@ def non_printable_char_act(toks: pp.ParseResults) -> str:
         return toks[0]
 
     translation: str = non_printable_dict[toks[0]]
-    comment: str = f"A {keyword_to_words(toks[0])} character"
 
     if G.EMIT_MODE == G.Mode.REGEX:
         return translation
 
     if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
+        comment: str = f"A {keyword_to_words(toks[0])} character"
         return free_space(translation, comment)
 
     raise ValueError("Invalid emit mode")
@@ -264,7 +267,7 @@ def whitespace_act(toks: pp.ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-### BOUDNARIES ###
+### BOUNDARIES ###
 
 word_boundary_def: pp.CaselessKeyword = pp.CaselessKeyword("WordBoundary")
 
@@ -306,10 +309,38 @@ def any_char_act(toks: pp.ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
+### RANGES ###
+
+char_range_def: pp.ParserElement = (
+    range_char("from_char") + pp.Suppress("-") + range_char("to_char")
+)
+
+
+@char_range_def.set_parse_action
+def char_range_act(toks: pp.ParseResults) -> str:
+    if G.EMIT_MODE == G.Mode.TOKENS:
+        return toks
+
+    translation: str = f"{toks.from_char[1:-1]}-{toks.to_char[1:-1]}"
+
+    if G.EMIT_MODE == G.Mode.REGEX:
+        if ord(toks.to_char[1:-1]) > ord(toks.from_char[1:-1]):
+            return translation
+        else:
+            raise ValueError("Invalid range: order of characters is reversed.")
+
+    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
+        comment: str = f"The character range '{translation}'"
+        return free_space(translation, comment)
+
+    raise ValueError("Invalid emit mode")
+
+
 ### IMPORT THESE ###
 
 consuming_chars: pp.ParserElement = (
-    char_def
+    char_range_def
+    | char_def
     | digit_def
     | word_char_def
     | whitespace_def

@@ -3,5 +3,6 @@ LineStart
 "a"
 DollarSign
 "c"
+"a" - "z"
 Bell
 LineEnd
