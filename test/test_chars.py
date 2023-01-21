@@ -37,5 +37,21 @@ class TestCharacters:
 
         assert list(results) == ['"foobar"', '"bas"']
 
+    def test_meta_char_def(self) -> None:
+        teststrings: list[str] = meta_names
+        expected: list[str] = meta_names
+
+        for i, teststring in enumerate(teststrings):
+            result: str = remove_comments(teststring)
+            assert result == expected[i]
+
+    def test_non_printable_char_def(self) -> None:
+        teststrings: list[str] = non_printable_names
+        expected: list[str] = non_printable_names
+
+        for i, teststring in enumerate(teststrings):
+            result: str = remove_comments(teststring)
+            assert result == expected[i]
+
 
 ### END ###

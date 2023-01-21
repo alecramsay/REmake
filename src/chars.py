@@ -82,7 +82,7 @@ def meta_char_act(toks: pp.ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-### INDIVIDUAL CHARACTERS ###
+### PRINTABLE CHARACTERS ###
 
 char: pp.Char = pp.Char(pp.printables, exclude_chars=meta_chars)
 double_quote: pp.Literal = pp.Literal('"')
@@ -105,6 +105,66 @@ def char_act(toks: pp.ParseResults) -> str:
 
     if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
         return free_space(translation, f"One '{translation}' character")
+
+    raise ValueError("Invalid emit mode")
+
+
+### NON-PRINTABLE CHARACTERS ###
+
+non_printable_chars: list[str] = [
+    "\\a",
+    "\\e",
+    "\\f",
+    "\\n",
+    "\\r",
+    "\\t",
+    "\\v",
+]
+non_printable_names: list[str] = [
+    "Bell",
+    "Escape",
+    "FormFeed",
+    "NewLine",
+    "CarriageReturn",
+    "HorizontalTab",
+    "VerticalTab",
+]
+non_printable_dict: dict[str, str] = dict(zip(non_printable_names, non_printable_chars))
+
+(
+    bell,
+    escape,
+    form_feed,
+    newline,
+    carriage_return,
+    horizontal_tab,
+    vertical_tab,
+) = map(pp.CaselessKeyword, non_printable_names)
+
+non_printable_char_def: pp.CaselessKeyword = (
+    bell
+    | escape
+    | form_feed
+    | newline
+    | carriage_return
+    | horizontal_tab
+    | vertical_tab
+)
+
+
+@non_printable_char_def.set_parse_action
+def non_printable_char_act(toks: pp.ParseResults) -> str:
+    if G.EMIT_MODE == G.Mode.TOKENS:
+        return toks[0]
+
+    translation: str = non_printable_dict[toks[0]]
+    comment: str = f"A {keyword_to_words(toks[0])} character"
+
+    if G.EMIT_MODE == G.Mode.REGEX:
+        return translation
+
+    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
+        return free_space(translation, comment)
 
     raise ValueError("Invalid emit mode")
 
@@ -246,7 +306,7 @@ def any_char_act(toks: pp.ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-### FOR EXPORT ###
+### IMPORT THESE ###
 
 consuming_chars: pp.ParserElement = (
     char_def
@@ -254,6 +314,7 @@ consuming_chars: pp.ParserElement = (
     | word_char_def
     | whitespace_def
     | any_char_def
+    | non_printable_char_def
     | meta_char_def
     | string_def
 )
