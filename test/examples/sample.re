@@ -3,6 +3,6 @@ LineStart
 "a"
 DollarSign
 "c"
-"a" - "z"
+OneOf("a" - "z")
 Bell
 LineEnd

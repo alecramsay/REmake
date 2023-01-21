@@ -336,20 +336,55 @@ def char_range_act(toks: pp.ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
+beg_char_class_def: pp.ParserElement = pp.Suppress(
+    pp.CaselessKeyword("OneOf")
+) + pp.Suppress("(")
+end_char_class_def: pp.ParserElement = pp.Suppress(")")
+
+
+@beg_char_class_def.set_parse_action
+def beg_char_class_act(toks: pp.ParseResults) -> str:
+    if G.EMIT_MODE == G.Mode.TOKENS:
+        return toks
+
+    translation: str = "["
+
+    if G.EMIT_MODE == G.Mode.REGEX:
+        return translation
+
+    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
+        comment: str = f"Begin character class"
+        return free_space(translation, comment)
+
+    raise ValueError("Invalid emit mode")
+
+
+@end_char_class_def.set_parse_action
+def end_char_class_act(toks: pp.ParseResults) -> str:
+    if G.EMIT_MODE == G.Mode.TOKENS:
+        return toks
+
+    translation: str = "]"
+
+    if G.EMIT_MODE == G.Mode.REGEX:
+        return translation
+
+    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
+        comment: str = f"End character class"
+        return free_space(translation, comment)
+
+    raise ValueError("Invalid emit mode")
+
+
 char_class_def: pp.ParserElement = (
-    pp.Suppress("OneOf")
-    + pp.Suppress("(")
-    + (char_range_def | char_def)[1, ...]
-    + pp.Suppress(")")
+    beg_char_class_def + (char_range_def | char_def)[1, ...] + end_char_class_def
 )
 
-# TODO - implement parse action
 
 ### IMPORT THESE ###
 
 consuming_chars: pp.ParserElement = (
-    char_range_def
-    | char_def
+    char_def
     | digit_def
     | word_char_def
     | whitespace_def
