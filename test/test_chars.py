@@ -67,5 +67,13 @@ class TestCharacters:
         results: pp.ParseResults = Grammar.parseString(input)
         assert list(results) == expected
 
+    def test_char_classes(self) -> None:
+        Grammar: Any = char_class_def
+        input: str = "OneOf('a' - 'z')"
+        expected: str = ["'a'", "'z'"]
+
+        results: pp.ParseResults = Grammar.parseString(input)
+        assert list(results) == expected
+
 
 ### END ###

@@ -309,7 +309,7 @@ def any_char_act(toks: pp.ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-### RANGES ###
+### CHARACTER CLASSES ###
 
 char_range_def: pp.ParserElement = (
     range_char("from_char") + pp.Suppress("-") + range_char("to_char")
@@ -336,6 +336,15 @@ def char_range_act(toks: pp.ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
+char_class_def: pp.ParserElement = (
+    pp.Suppress("OneOf")
+    + pp.Suppress("(")
+    + (char_range_def | char_def)[1, ...]
+    + pp.Suppress(")")
+)
+
+# TODO - implement parse action
+
 ### IMPORT THESE ###
 
 consuming_chars: pp.ParserElement = (
@@ -351,6 +360,8 @@ consuming_chars: pp.ParserElement = (
 )
 
 non_consuming_char: pp.ParserElement = word_boundary_def
+
+char_class: pp.ParserElement = char_class_def
 
 
 ### END ###
