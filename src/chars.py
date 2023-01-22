@@ -118,7 +118,7 @@ def char_act(toks: ParseResults) -> str:
         return translation
 
     if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        return free_space(translation, f"One '{translation}' character")
+        return free_space(translation, f"The character '{translation}'")
 
     raise ValueError("Invalid emit mode")
 
@@ -177,7 +177,7 @@ def non_printable_char_act(toks: ParseResults) -> str:
         return translation
 
     if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        comment: str = f"A {keyword_to_words(toks[0])} character"
+        comment: str = f"The {keyword_to_words(toks[0])} character"
         return free_space(translation, comment)
 
     raise ValueError("Invalid emit mode")
@@ -341,7 +341,7 @@ def char_range_act(toks: ParseResults) -> str:
             raise ValueError("Invalid range: order of characters is reversed.")
 
     if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        comment: str = f"The character range '{translation}'"
+        comment: str = f"Characters in the range '{translation}'"
         return free_space(translation, comment)
 
     raise ValueError("Invalid emit mode")
@@ -362,7 +362,7 @@ def beg_char_class_act(toks: ParseResults) -> str:
         return translation
 
     if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        comment: str = f"One character from the class (set):"
+        comment: str = f"One character from the class:"
         return free_space(translation, comment)
 
     raise ValueError("Invalid emit mode")
@@ -379,7 +379,7 @@ def end_char_class_act(toks: ParseResults) -> str:
         return translation
 
     if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        comment: str = f"End character class"
+        comment: str = f"End of class"
         return free_space(translation, comment)
 
     raise ValueError("Invalid emit mode")
@@ -390,7 +390,6 @@ char_class_def: ParserElement = (
     + delimited_list((char_range_def | char_def), delim="|")
     + end_char_class_def
 )
-# beg_char_class_def + (char_range_def | char_def)[1, ...] + end_char_class_def
 
 
 ### IMPORT THESE ###
