@@ -1,4 +1,4 @@
 # REmake/__init__.py
 
 from .parser import *
-import src.globals as G
+from .groups import pattern  # TODO: Remove this import

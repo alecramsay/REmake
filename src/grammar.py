@@ -14,7 +14,6 @@ from pyparsing import (
     ParserElement,
 )
 
-# from .chars import non_consuming_char, consuming_char, char_class
 from .chars import quantified_char, non_consuming_char
 from .anchors import start_anchor, end_anchor
 from .quantifiers import quantifier
