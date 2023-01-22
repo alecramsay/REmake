@@ -8,13 +8,15 @@ import src.globals as G
 from .constants import *
 
 
-def free_space(translation: str, comment: str) -> str:
+def free_space(translation: str, comment: str, tab_inc: int = 0) -> str:
     """Return a free-spaced regex translation with a documentation comment."""
     spaces: str = " " * (COMMENT_TAB - len(translation))
 
-    tab: str = " " * TAB_SIZE if G.INDENT_LEVEL > 0 else ""
+    indent: str = " " * (TAB_SIZE * G.INDENT_LEVEL) if G.INDENT_LEVEL > 0 else ""
+    # Apply the tab increment for the next comment(s)
+    G.INDENT_LEVEL += tab_inc
 
-    return translation + spaces + "# " + tab + comment + "\n"
+    return translation + spaces + "# " + indent + comment + "\n"
 
 
 def keyword_to_words(name: str) -> str:

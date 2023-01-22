@@ -363,7 +363,7 @@ def beg_char_class_act(toks: ParseResults) -> str:
 
     if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
         comment: str = f"Any character in the class:"
-        return free_space(translation, comment)
+        return free_space(translation, comment, tab_inc=1)
 
     raise ValueError("Invalid emit mode")
 
@@ -380,7 +380,7 @@ def end_char_class_act(toks: ParseResults) -> str:
 
     if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
         comment: str = f"End of character class"
-        return free_space(translation, comment)
+        return free_space(translation, comment, tab_inc=-1)
 
     raise ValueError("Invalid emit mode")
 
