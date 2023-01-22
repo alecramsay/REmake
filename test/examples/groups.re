@@ -1,3 +1,3 @@
-OneAlternative { "Alice" | "Bob" | "Carol" }
-AllSequentially [ "foo", "bar", "bas" ]
-AllSequentiallyAs magic[ digit, digit ]
+Any { "Alice" | "Bob" | "Carol" }
+All [ "foo", "bar", "bas" ]
+AllAs magic[ digit, digit ]

@@ -37,10 +37,10 @@ simple_pattern: ParserElement = quantified_char | non_consuming_char
 ### ALTERNATION ###
 
 """
-OneAlternative { pattern1 | pattern2 | ... | patternN }
+Any { pattern1 | pattern2 | ... | patternN }
 """
 
-beg_alt_def: ParserElement = Suppress(CaselessKeyword("OneAlternative")) + Suppress("{")
+beg_alt_def: ParserElement = Suppress(CaselessKeyword("Any")) + Suppress("{")
 end_alt_def: ParserElement = Suppress("}")
 
 
@@ -85,12 +85,10 @@ alt_pattern: ParserElement = (
 ### NON-CAPTURING GROUPS (UNNAMED SEQUENCES) ###
 
 """
-AllSequentially [ pattern1, pattern2, ... , patternN ]
+All [ pattern1, pattern2, ... , patternN ]
 """
 
-beg_noncapturing_def: ParserElement = Suppress(
-    CaselessKeyword("AllSequentially")
-) + Suppress("[")
+beg_noncapturing_def: ParserElement = Suppress(CaselessKeyword("All")) + Suppress("[")
 end_noncapturing_def: ParserElement = Suppress("]")
 
 
@@ -136,11 +134,11 @@ noncapturing_pattern: ParserElement = (
 ### CAPTURING GROUPS (NAMED SEQUENCES) ###
 
 """
-AllSequentiallyAs name[ pattern1, pattern2, ... , patternN ]
+AllAs name[ pattern1, pattern2, ... , patternN ]
 """
 
 beg_capturing_def: ParserElement = (
-    Suppress(CaselessKeyword("AllSequentiallyAs")) + Word(alphas)("id") + Suppress("[")
+    Suppress(CaselessKeyword("AllAs")) + Word(alphas)("id") + Suppress("[")
 )
 end_capturing_def: ParserElement = Suppress("]")
 

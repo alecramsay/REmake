@@ -3,6 +3,6 @@ LineStart
 "a"
 DollarSign
 "c"
-OneOf("a" - "z" | "A" | "B" | "C")
+Any {"a" - "z" | "A" | "B" | "C"}
 Bell
 LineEnd

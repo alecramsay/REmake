@@ -348,8 +348,8 @@ def char_range_act(toks: ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-beg_char_class_def: ParserElement = Suppress(CaselessKeyword("OneOf")) + Suppress("(")
-end_char_class_def: ParserElement = Suppress(")")
+beg_char_class_def: ParserElement = Suppress(CaselessKeyword("Any")) + Suppress("{")
+end_char_class_def: ParserElement = Suppress("}")
 
 
 @beg_char_class_def.set_parse_action
@@ -363,7 +363,7 @@ def beg_char_class_act(toks: ParseResults) -> str:
         return translation
 
     if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        comment: str = f"One character from the class:"
+        comment: str = f"Any character in the class:"
         return free_space(translation, comment)
 
     raise ValueError("Invalid emit mode")
@@ -380,7 +380,7 @@ def end_char_class_act(toks: ParseResults) -> str:
         return translation
 
     if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        comment: str = f"End of class"
+        comment: str = f"End of character class"
         return free_space(translation, comment)
 
     raise ValueError("Invalid emit mode")
