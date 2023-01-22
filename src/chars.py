@@ -395,6 +395,7 @@ char_class_def: ParserElement = (
 
 ### IMPORT THESE ###
 
+# TODO - Rationalize where the quantifiers are added
 quantified_char: ParserElement = (
     # A consuming character, optionally quantified
     char_def

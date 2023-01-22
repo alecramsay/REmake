@@ -6,7 +6,6 @@ GRAMMAR
 
 from pyparsing import (
     Opt,
-    OneOrMore,
     Word,
     alphas,
     alphanums,

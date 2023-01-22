@@ -11,7 +11,6 @@ from pyparsing import (
     delimited_list,
     Word,
     alphas,
-    OneOrMore,
     Opt,
     ParseResults,
     ParserElement,
@@ -32,7 +31,6 @@ pattern: Forward = Forward()
 ### NON-GROUP PATTERNS ###
 
 simple_pattern: ParserElement = quantified_char | non_consuming_char
-simple_patterns: ParserElement = OneOrMore(simple_pattern)
 
 
 ### ALTERNATION ###
@@ -104,7 +102,7 @@ def beg_noncapturing_act(toks: ParseResults) -> str:
         return translation
 
     if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        comment: str = f"All sequentially:"
+        comment: str = f"All sequentially (not captured):"
         return free_space(translation, comment)
 
     raise ValueError("Invalid emit mode")
@@ -121,7 +119,7 @@ def end_noncapturing_act(toks: ParseResults) -> str:
         return translation
 
     if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        comment: str = f"End of sequence"
+        comment: str = f"End of non-capturing group"
         return free_space(translation, comment)
 
     raise ValueError("Invalid emit mode")
@@ -159,7 +157,7 @@ def beg_capturing_act(toks: ParseResults) -> str:
         return translation
 
     if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        comment: str = f"All sequentially as '{name}':"
+        comment: str = f"All sequentially (captured in '{name}'):"
         return free_space(translation, comment)
 
     raise ValueError("Invalid emit mode")
@@ -189,10 +187,10 @@ capturing_pattern: ParserElement = (
 #
 
 atomic_pattern: ParserElement = (
-    (alt_pattern + Opt(quantifier))[...]
-    ^ (noncapturing_pattern + Opt(quantifier))[...]
-    ^ (capturing_pattern + Opt(quantifier))[...]
-    ^ simple_pattern[...]
+    (alt_pattern + Opt(quantifier))
+    ^ (noncapturing_pattern + Opt(quantifier))
+    ^ (capturing_pattern + Opt(quantifier))
+    ^ simple_pattern  # TODO - Already has Opt(quantifier)
 )
 
 pattern_list: ParserElement = pattern[...]
@@ -200,14 +198,7 @@ pattern_list: ParserElement = pattern[...]
 
 ### IMPORT THIS ###
 
-pattern <<= atomic_pattern | pattern_list
-
-# pattern <<= (
-#     alt_pattern + Opt(quantifier)
-#     | noncapturing_pattern + Opt(quantifier)
-#     | capturing_pattern + Opt(quantifier)
-#     | simple_pattern[...]
-# ) | pattern_list
+pattern <<= atomic_pattern[...] | pattern_list
 
 
 ### END ###
