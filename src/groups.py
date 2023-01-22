@@ -184,8 +184,10 @@ capturing_pattern: ParserElement = (
     beg_capturing_def + delimited_list(pattern, delim=",") + end_capturing_def
 )
 
-#
 
+### ROLL UP THE CONSTITUENT ELEMENTS ###
+
+# NOTE: This is *not* an 'atomic group'
 atomic_pattern: ParserElement = (
     (alt_pattern + Opt(quantifier))
     ^ (noncapturing_pattern + Opt(quantifier))
