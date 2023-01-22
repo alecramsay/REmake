@@ -16,9 +16,9 @@ from pyparsing import (
     ParseResults,
     ParserElement,
 )
-from typing import Any
 
 import src.globals as G
+from .quantifiers import quantifier
 from .constants import *
 from .utils import *
 
@@ -394,7 +394,7 @@ char_class_def: ParserElement = (
 
 ### IMPORT THESE ###
 
-consuming_chars: ParserElement = (
+consuming_char: ParserElement = (
     char_def
     | digit_def
     | word_char_def
@@ -405,9 +405,10 @@ consuming_chars: ParserElement = (
     | string_def
 )
 
-non_consuming_char: ParserElement = word_boundary_def
-
 char_class: ParserElement = char_class_def
 
+non_consuming_char: ParserElement = word_boundary_def
+
+quantified_char: ParserElement = (consuming_char | char_class) + quantifier
 
 ### END ###

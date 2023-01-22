@@ -13,9 +13,8 @@ from pyparsing import (
     CaselessKeyword,
     ParserElement,
 )
-from typing import Any
 
-from .chars import non_consuming_char, consuming_chars, char_class
+from .chars import non_consuming_char, consuming_char, char_class
 from .anchors import start_anchor, end_anchor
 from .quantifiers import quantifier
 from .constants import *
@@ -24,7 +23,7 @@ from .utils import *
 
 # A simple flat list for now
 pattern_def: ParserElement = (
-    non_consuming_char | consuming_chars | quantifier | char_class
+    non_consuming_char | consuming_char | quantifier | char_class
 )
 
 remake_spec: ParserElement = (
@@ -42,7 +41,7 @@ not_def: CaselessKeyword = CaselessKeyword("Not")
 ### FOR TESTING ###
 
 keywords: ParserElement = (
-    start_anchor | end_anchor | non_consuming_char | consuming_chars | not_def
+    start_anchor | end_anchor | non_consuming_char | consuming_char | not_def
 )
 
 ### END ###
