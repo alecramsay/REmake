@@ -13,7 +13,6 @@ from pyparsing import (
     QuotedString,
     Suppress,
     delimited_list,
-    Opt,
     ParseResults,
     ParserElement,
 )

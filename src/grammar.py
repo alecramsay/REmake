@@ -19,6 +19,9 @@ from .constants import *
 from .utils import *
 
 
+# NOTE - The forward declaration of 'pattern' is in groups.py,
+#   so groups can be defined in terms of patterns.
+
 pattern_list: ParserElement = pattern[...]
 
 pattern <<= atomic_pattern[...] | pattern_list

@@ -67,6 +67,7 @@ def end_alt_act(toks: ParseResults) -> str:
 
     if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
         comment: str = f"End of alternatives"
+
         return free_space(translation, comment)
 
     raise ValueError("Invalid emit mode")
@@ -98,7 +99,7 @@ def beg_noncapturing_act(toks: ParseResults) -> str:
 
     if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
         comment: str = f"All sequentially (not captured):"
-        return free_space(translation, comment)
+        return free_space(translation, comment, indent=True)
 
     raise ValueError("Invalid emit mode")
 
@@ -153,7 +154,7 @@ def beg_capturing_act(toks: ParseResults) -> str:
 
     if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
         comment: str = f"All sequentially (captured in '{name}'):"
-        return free_space(translation, comment)
+        return free_space(translation, comment, indent=True)
 
     raise ValueError("Invalid emit mode")
 

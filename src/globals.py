@@ -13,4 +13,6 @@ EMIT_MODE: Mode = Mode.TOKENS
 Flavor: Any = Enum("Flavor", ["PYTHON"])
 EMIT_FLAVOR: Flavor = Flavor.PYTHON
 
+INDENT_LEVEL: int = 0
+
 ### END ###
