@@ -27,7 +27,7 @@ class TestComments:
 
         source: str = "test/examples/comments.re"
         lines: list[str] = read_source_file(source)
-        results: pp.ParseResults = parse_lines(lines)
+        results: ParseResults = parse_lines(lines)
 
         assert list(results) == ['"foobar"']
 

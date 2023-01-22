@@ -18,7 +18,7 @@ class TestParser:
             filtered: str = remove_comments(line)
             if filtered == "" or filtered == "\n":
                 continue
-            results: pp.ParseResults = Grammar.parseString(filtered)
+            results: ParseResults = Grammar.parseString(filtered)
             tokens.extend(list(results))
 
         expected: list[str] = [

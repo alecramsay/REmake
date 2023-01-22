@@ -13,27 +13,27 @@ class TestCharacters:
         Grammar: Any = char_def
 
         input: str = '"a"'
-        results: pp.ParseResults = Grammar.parseString(input)
+        results: ParseResults = Grammar.parseString(input)
         assert list(results) == ['"a"']
 
         input: str = "'a'"
-        results: pp.ParseResults = Grammar.parseString(input)
+        results: ParseResults = Grammar.parseString(input)
         assert list(results) == ["'a'"]
 
     def test_string_def(self) -> None:
         Grammar: Any = string_def
 
         input: str = '"foobar"'
-        results: pp.ParseResults = Grammar.parseString(input)
+        results: ParseResults = Grammar.parseString(input)
         assert list(results) == ['"foobar"']
 
         input: str = "'foobar'"
-        results: pp.ParseResults = Grammar.parseString(input)
+        results: ParseResults = Grammar.parseString(input)
         assert list(results) == ["'foobar'"]
 
         source: str = "test/examples/literals.re"
         lines: list[str] = read_source_file(source)
-        results: pp.ParseResults = parse_lines(lines)
+        results: ParseResults = parse_lines(lines)
 
         assert list(results) == ['"foobar"', '"bas"']
 
@@ -58,13 +58,13 @@ class TestCharacters:
         input: str = "'a'-'z'"
         expected: str = ["'a'", "'z'"]
 
-        results: pp.ParseResults = Grammar.parseString(input)
+        results: ParseResults = Grammar.parseString(input)
         assert list(results) == expected
 
         input: str = "'a' - 'z'"
         expected: str = ["'a'", "'z'"]
 
-        results: pp.ParseResults = Grammar.parseString(input)
+        results: ParseResults = Grammar.parseString(input)
         assert list(results) == expected
 
     def test_char_classes(self) -> None:
@@ -72,7 +72,7 @@ class TestCharacters:
         input: str = "OneOf('a' - 'z')"
         expected: str = ["'a'", "'z'"]
 
-        results: pp.ParseResults = Grammar.parseString(input)
+        results: ParseResults = Grammar.parseString(input)
         assert list(results) == expected
 
 

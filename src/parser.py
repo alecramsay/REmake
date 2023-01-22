@@ -4,7 +4,7 @@
 PARSER
 """
 
-import pyparsing as pp
+from pyparsing import ParseResults
 from typing import Any
 
 import src.globals as G
@@ -21,7 +21,7 @@ def parse_lines(
     mode: G.Mode = G.Mode.TOKENS,
     flavor: G.Flavor = G.Flavor.PYTHON,
     verbose: bool = False,
-) -> pp.ParseResults:
+) -> ParseResults:
     """Parse multiple lines of source code & emit mode+flavor output."""
 
     G.EMIT_MODE = mode
@@ -36,7 +36,7 @@ def parse_lines(
     # Reconstitute the source code as a string
     source: str = "".join(filtered)
 
-    results: pp.ParseResults = remake_spec.parseString(source)
+    results: ParseResults = remake_spec.parseString(source)
 
     if verbose:
         print(results)

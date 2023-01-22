@@ -4,7 +4,15 @@
 GRAMMAR
 """
 
-import pyparsing as pp
+from pyparsing import (
+    Opt,
+    OneOrMore,
+    Word,
+    alphas,
+    alphanums,
+    CaselessKeyword,
+    ParserElement,
+)
 from typing import Any
 
 from .chars import non_consuming_char, consuming_chars, char_class
@@ -15,25 +23,25 @@ from .utils import *
 
 
 # A simple flat list for now
-pattern_def: pp.ParserElement = (
+pattern_def: ParserElement = (
     non_consuming_char | consuming_chars | quantifier | char_class
 )
 
-remake_spec: pp.ParserElement = (
-    pp.Opt(start_anchor) + pp.OneOrMore(pattern_def) + pp.Opt(end_anchor)
+remake_spec: ParserElement = (
+    Opt(start_anchor) + OneOrMore(pattern_def) + Opt(end_anchor)
 )
 
 
 ### TODO - NYI SCRAPS ###
 
-name: pp.Word = pp.Word(pp.alphas, pp.alphanums + "_")
+name: Word = Word(alphas, alphanums + "_")
 
-not_def: pp.CaselessKeyword = pp.CaselessKeyword("Not")
+not_def: CaselessKeyword = CaselessKeyword("Not")
 
 
 ### FOR TESTING ###
 
-keywords: pp.ParserElement = (
+keywords: ParserElement = (
     start_anchor | end_anchor | non_consuming_char | consuming_chars | not_def
 )
 

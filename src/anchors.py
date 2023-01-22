@@ -4,7 +4,7 @@
 ANCHORS
 """
 
-import pyparsing as pp
+from pyparsing import CaselessKeyword, ParserElement, ParseResults
 from typing import Any
 
 import src.globals as G
@@ -12,11 +12,11 @@ from .constants import *
 from .utils import *
 
 
-start_of_line_def: pp.CaselessKeyword = pp.CaselessKeyword("LineStart")
+start_of_line_def: CaselessKeyword = CaselessKeyword("LineStart")
 
 
 @start_of_line_def.set_parse_action
-def start_of_line_act(toks: pp.ParseResults) -> str:
+def start_of_line_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
@@ -31,11 +31,11 @@ def start_of_line_act(toks: pp.ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-end_of_line_def: pp.CaselessKeyword = pp.CaselessKeyword("LineEnd")
+end_of_line_def: CaselessKeyword = CaselessKeyword("LineEnd")
 
 
 @end_of_line_def.set_parse_action
-def end_of_line_act(toks: pp.ParseResults) -> str:
+def end_of_line_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
@@ -50,11 +50,11 @@ def end_of_line_act(toks: pp.ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-start_of_string_def: pp.CaselessKeyword = pp.CaselessKeyword("StringStart")
+start_of_string_def: CaselessKeyword = CaselessKeyword("StringStart")
 
 
 @start_of_string_def.set_parse_action
-def start_of_string_act(toks: pp.ParseResults) -> str:
+def start_of_string_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
@@ -69,11 +69,11 @@ def start_of_string_act(toks: pp.ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-end_of_string_def: pp.CaselessKeyword = pp.CaselessKeyword("StringEnd")
+end_of_string_def: CaselessKeyword = CaselessKeyword("StringEnd")
 
 
 @end_of_string_def.set_parse_action
-def end_of_string_act(toks: pp.ParseResults) -> str:
+def end_of_string_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
@@ -90,7 +90,7 @@ def end_of_string_act(toks: pp.ParseResults) -> str:
 
 ### IMPORT THESE ###
 
-start_anchor: pp.ParserElement = start_of_line_def | start_of_string_def
-end_anchor: pp.ParserElement = end_of_line_def | end_of_string_def
+start_anchor: ParserElement = start_of_line_def | start_of_string_def
+end_anchor: ParserElement = end_of_line_def | end_of_string_def
 
 ### END ###

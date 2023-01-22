@@ -6,7 +6,7 @@ Make a regular expression from the REmake grammar.
 
 For example:
 
-scripts/REmake.py -f foo.re
+scripts/REmake.py -f sample.re
 
 For documentation, type:
 
@@ -45,10 +45,10 @@ def main() -> None:
     # PARSE SOURCE FILE & GENERATE REGEX
     lines: list[str] = read_source_file(source)
 
-    results: pp.ParseResults = parse_lines(lines, mode=G.Mode.REGEX)
+    results: ParseResults = parse_lines(lines, mode=G.Mode.REGEX)
     single_line: str = "".join(list(results))
 
-    results: pp.ParseResults = parse_lines(
+    results: ParseResults = parse_lines(
         lines, mode=G.Mode.FREE_SPACED_REGEX, verbose=verbose
     )
     free_spaced: str = "".join(list(results))

@@ -4,7 +4,16 @@
 QUANTIFIERS
 """
 
-import pyparsing as pp
+from pyparsing import (
+    CaselessKeyword,
+    Word,
+    nums,
+    Literal,
+    Suppress,
+    Opt,
+    ParseResults,
+    ParserElement,
+)
 from typing import Any
 
 import src.globals as G
@@ -12,21 +21,21 @@ from .constants import *
 from .utils import *
 
 
-ellipsis: pp.Literal = pp.Literal("...")
-quantifier_def: pp.ParserElement = (
-    pp.Suppress("*")
+ellipsis: Literal = Literal("...")
+quantifier_def: ParserElement = (
+    Suppress("*")
     + (
-        pp.Word(pp.nums)("mincount") + pp.Suppress(",") + pp.Word(pp.nums)("maxcount")
-        | pp.Word(pp.nums)("mincount") + pp.Suppress(",") + ellipsis
-        | ellipsis + pp.Suppress(",") + pp.Word(pp.nums)("maxcount")
-        | pp.Word(pp.nums)("count")
+        Word(nums)("mincount") + Suppress(",") + Word(nums)("maxcount")
+        | Word(nums)("mincount") + Suppress(",") + ellipsis
+        | ellipsis + Suppress(",") + Word(nums)("maxcount")
+        | Word(nums)("count")
     )
-    + pp.Opt(pp.CaselessKeyword("Least"))("lazy")
+    + Opt(CaselessKeyword("Least"))("lazy")
 )
 
 
 @quantifier_def.set_parse_action
-def quantifier_act(toks: pp.ParseResults) -> str:
+def quantifier_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks
 
@@ -82,6 +91,6 @@ def quantifier_act(toks: pp.ParseResults) -> str:
 
 ### IMPORT THESE ###
 
-quantifier: pp.ParserElement = quantifier_def
+quantifier: ParserElement = quantifier_def
 
 ### END ###

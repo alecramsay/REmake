@@ -4,7 +4,17 @@
 CHARACTERS
 """
 
-import pyparsing as pp
+from pyparsing import (
+    CaselessKeyword,
+    Char,
+    printables,
+    Combine,
+    Literal,
+    QuotedString,
+    Suppress,
+    ParseResults,
+    ParserElement,
+)
 from typing import Any
 
 import src.globals as G
@@ -46,9 +56,9 @@ meta_dict: dict[str, str] = dict(zip(meta_names, meta_chars))
     left_brace,
     right_brace,
     pipe,
-) = map(pp.CaselessKeyword, meta_names)
+) = map(CaselessKeyword, meta_names)
 
-meta_char_def: pp.CaselessKeyword = (
+meta_char_def: CaselessKeyword = (
     dollar_sign
     | left_paren
     | right_paren
@@ -66,7 +76,7 @@ meta_char_def: pp.CaselessKeyword = (
 
 
 @meta_char_def.set_parse_action
-def meta_char_act(toks: pp.ParseResults) -> str:
+def meta_char_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
@@ -84,20 +94,20 @@ def meta_char_act(toks: pp.ParseResults) -> str:
 
 ### PRINTABLE CHARACTERS ###
 
-char: pp.Char = pp.Char(pp.printables, exclude_chars=meta_chars)
-double_quote: pp.Literal = pp.Literal('"')
-single_quote: pp.Literal = pp.Literal("'")
+char: Char = Char(printables, exclude_chars=meta_chars)
+double_quote: Literal = Literal('"')
+single_quote: Literal = Literal("'")
 
-char_def: pp.Char = pp.Combine(double_quote + char + double_quote) | pp.Combine(
+char_def: Char = Combine(double_quote + char + double_quote) | Combine(
     single_quote + char + single_quote
 )
 
 # For ranges
-range_char: pp.Char = char_def.copy()
+range_char: Char = char_def.copy()
 
 
 @char_def.set_parse_action
-def char_act(toks: pp.ParseResults) -> str:
+def char_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
@@ -142,9 +152,9 @@ non_printable_dict: dict[str, str] = dict(zip(non_printable_names, non_printable
     carriage_return,
     horizontal_tab,
     vertical_tab,
-) = map(pp.CaselessKeyword, non_printable_names)
+) = map(CaselessKeyword, non_printable_names)
 
-non_printable_char_def: pp.CaselessKeyword = (
+non_printable_char_def: CaselessKeyword = (
     bell
     | escape
     | form_feed
@@ -156,7 +166,7 @@ non_printable_char_def: pp.CaselessKeyword = (
 
 
 @non_printable_char_def.set_parse_action
-def non_printable_char_act(toks: pp.ParseResults) -> str:
+def non_printable_char_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
@@ -175,25 +185,25 @@ def non_printable_char_act(toks: pp.ParseResults) -> str:
 ### MULTI-CHARACTER STRINGS ###
 
 # TODO - This doesn't work, for some reason.
-# string: pp.Word = pp.Word(
-#     pp.printables, exclude_chars=meta_chars, min=2, as_keyword=True
+# string: Word = Word(
+#     printables, exclude_chars=meta_chars, min=2, as_keyword=True
 # )
-# double_quoted_string: pp.ParserElement = pp.Combine(
+# double_quoted_string: ParserElement = Combine(
 #     double_quote + string + double_quote
 # )
-# single_quoted_string: pp.ParserElement = pp.Combine(
+# single_quoted_string: ParserElement = Combine(
 #     single_quote + string + single_quote
 # )
-# string_def: pp.ParserElement = (
+# string_def: ParserElement = (
 #     double_quoted_string | single_quoted_string
 # )
-string_def: pp.QuotedString = pp.QuotedString(
-    '"', unquote_results=False
-) | pp.QuotedString("'", unquote_results=False)
+string_def: QuotedString = QuotedString('"', unquote_results=False) | QuotedString(
+    "'", unquote_results=False
+)
 
 
 @string_def.set_parse_action
-def string_act(toks: pp.ParseResults) -> str:
+def string_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
@@ -210,11 +220,11 @@ def string_act(toks: pp.ParseResults) -> str:
 
 ### CHARACTER SHORTHANDS ###
 
-digit_def: pp.CaselessKeyword = pp.CaselessKeyword("Digit")
+digit_def: CaselessKeyword = CaselessKeyword("Digit")
 
 
 @digit_def.set_parse_action
-def digit_act(toks: pp.ParseResults) -> str:
+def digit_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
@@ -229,11 +239,11 @@ def digit_act(toks: pp.ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-word_char_def: pp.CaselessKeyword = pp.CaselessKeyword("WordCharacter")
+word_char_def: CaselessKeyword = CaselessKeyword("WordCharacter")
 
 
 @word_char_def.set_parse_action
-def word_char_act(toks: pp.ParseResults) -> str:
+def word_char_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
@@ -248,11 +258,11 @@ def word_char_act(toks: pp.ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-whitespace_def: pp.CaselessKeyword = pp.CaselessKeyword("Whitespace")
+whitespace_def: CaselessKeyword = CaselessKeyword("Whitespace")
 
 
 @whitespace_def.set_parse_action
-def whitespace_act(toks: pp.ParseResults) -> str:
+def whitespace_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
@@ -269,11 +279,11 @@ def whitespace_act(toks: pp.ParseResults) -> str:
 
 ### BOUNDARIES ###
 
-word_boundary_def: pp.CaselessKeyword = pp.CaselessKeyword("WordBoundary")
+word_boundary_def: CaselessKeyword = CaselessKeyword("WordBoundary")
 
 
 @word_boundary_def.set_parse_action
-def word_boundary_act(toks: pp.ParseResults) -> str:
+def word_boundary_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
@@ -290,11 +300,11 @@ def word_boundary_act(toks: pp.ParseResults) -> str:
 
 ### ANY CHARACTER ###
 
-any_char_def: pp.CaselessKeyword = pp.CaselessKeyword("AnyCharacter")
+any_char_def: CaselessKeyword = CaselessKeyword("AnyCharacter")
 
 
 @any_char_def.set_parse_action
-def any_char_act(toks: pp.ParseResults) -> str:
+def any_char_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
@@ -311,13 +321,13 @@ def any_char_act(toks: pp.ParseResults) -> str:
 
 ### CHARACTER CLASSES ###
 
-char_range_def: pp.ParserElement = (
-    range_char("from_char") + pp.Suppress("-") + range_char("to_char")
+char_range_def: ParserElement = (
+    range_char("from_char") + Suppress("-") + range_char("to_char")
 )
 
 
 @char_range_def.set_parse_action
-def char_range_act(toks: pp.ParseResults) -> str:
+def char_range_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks
 
@@ -336,14 +346,12 @@ def char_range_act(toks: pp.ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-beg_char_class_def: pp.ParserElement = pp.Suppress(
-    pp.CaselessKeyword("OneOf")
-) + pp.Suppress("(")
-end_char_class_def: pp.ParserElement = pp.Suppress(")")
+beg_char_class_def: ParserElement = Suppress(CaselessKeyword("OneOf")) + Suppress("(")
+end_char_class_def: ParserElement = Suppress(")")
 
 
 @beg_char_class_def.set_parse_action
-def beg_char_class_act(toks: pp.ParseResults) -> str:
+def beg_char_class_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks
 
@@ -360,7 +368,7 @@ def beg_char_class_act(toks: pp.ParseResults) -> str:
 
 
 @end_char_class_def.set_parse_action
-def end_char_class_act(toks: pp.ParseResults) -> str:
+def end_char_class_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks
 
@@ -376,14 +384,14 @@ def end_char_class_act(toks: pp.ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-char_class_def: pp.ParserElement = (
+char_class_def: ParserElement = (
     beg_char_class_def + (char_range_def | char_def)[1, ...] + end_char_class_def
 )
 
 
 ### IMPORT THESE ###
 
-consuming_chars: pp.ParserElement = (
+consuming_chars: ParserElement = (
     char_def
     | digit_def
     | word_char_def
@@ -394,9 +402,9 @@ consuming_chars: pp.ParserElement = (
     | string_def
 )
 
-non_consuming_char: pp.ParserElement = word_boundary_def
+non_consuming_char: ParserElement = word_boundary_def
 
-char_class: pp.ParserElement = char_class_def
+char_class: ParserElement = char_class_def
 
 
 ### END ###
