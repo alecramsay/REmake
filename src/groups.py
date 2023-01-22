@@ -4,8 +4,6 @@
 GROUPS
 """
 
-# TODO - Add emit actions
-
 from pyparsing import (
     Forward,
     Suppress,
@@ -13,6 +11,7 @@ from pyparsing import (
     delimited_list,
     Word,
     alphas,
+    OneOrMore,
     ParseResults,
     ParserElement,
 )
@@ -32,6 +31,7 @@ pattern: Forward = Forward()
 ### NON-GROUP PATTERNS ###
 
 simple_pattern: ParserElement = quantified_char | non_consuming_char
+seq_pattern: ParserElement = simple_pattern + OneOrMore(simple_pattern)
 
 
 ### ALTERNATION ###
@@ -134,6 +134,7 @@ noncapturing_pattern: ParserElement = (
 ### CAPTURING GROUPS (NAMED SEQUENCES) ###
 
 """
+TODO - All as name [ pattern1, pattern2, ... , patternN ]
 AllAs name[ pattern1, pattern2, ... , patternN ]
 """
 
@@ -182,7 +183,7 @@ capturing_pattern: ParserElement = (
     beg_capturing_def + delimited_list(pattern, delim=",") + end_capturing_def
 )
 
-
+# TODO - Add quantifier to pattern_list
 pattern_list: ParserElement = pattern[...]
 
 
@@ -192,6 +193,7 @@ pattern <<= (
     alt_pattern
     | noncapturing_pattern
     | capturing_pattern
+    | seq_pattern
     | simple_pattern
     | pattern_list
 )

@@ -1,3 +1,3 @@
 Any { "Alice" | "Bob" | "Carol" }
 All [ "foo", "bar", "bas" ]
-AllAs magic[ digit, digit ]
+AllAs magic [ digit, digit ]
