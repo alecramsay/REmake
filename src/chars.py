@@ -395,9 +395,7 @@ char_class_def: ParserElement = (
 
 ### IMPORT THESE ###
 
-# TODO - Rationalize where the quantifiers are added
-quantified_char: ParserElement = (
-    # A consuming character, optionally quantified
+consuming_char: ParserElement = (
     char_def
     | digit_def
     | word_char_def
@@ -407,7 +405,7 @@ quantified_char: ParserElement = (
     | meta_char_def
     | char_class_def
     | string_def
-) + Opt(quantifier)
+)
 
 non_consuming_char: ParserElement = word_boundary_def
 

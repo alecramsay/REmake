@@ -17,7 +17,7 @@ from pyparsing import (
 )
 
 import src.globals as G
-from .chars import quantified_char, non_consuming_char
+from .chars import consuming_char, non_consuming_char
 from .quantifiers import quantifier
 from .constants import *
 from .utils import *
@@ -26,11 +26,6 @@ from .utils import *
 ### PATTERN ###
 
 pattern: Forward = Forward()
-
-
-### NON-GROUP PATTERNS ###
-
-simple_pattern: ParserElement = quantified_char | non_consuming_char
 
 
 ### ALTERNATION ###
@@ -192,7 +187,8 @@ atomic_pattern: ParserElement = (
     (alt_pattern + Opt(quantifier))
     ^ (noncapturing_pattern + Opt(quantifier))
     ^ (capturing_pattern + Opt(quantifier))
-    ^ simple_pattern  # TODO - Already has Opt(quantifier)
+    ^ (consuming_char + Opt(quantifier))
+    ^ non_consuming_char
 )
 
 pattern_list: ParserElement = pattern[...]
