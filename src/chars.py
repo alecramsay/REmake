@@ -13,6 +13,7 @@ from pyparsing import (
     QuotedString,
     Suppress,
     delimited_list,
+    Opt,
     ParseResults,
     ParserElement,
 )
@@ -394,7 +395,8 @@ char_class_def: ParserElement = (
 
 ### IMPORT THESE ###
 
-consuming_char: ParserElement = (
+quantified_char: ParserElement = (
+    # A consuming character, optionally quantified
     char_def
     | digit_def
     | word_char_def
@@ -402,13 +404,10 @@ consuming_char: ParserElement = (
     | any_char_def
     | non_printable_char_def
     | meta_char_def
+    | char_class_def
     | string_def
-)
-
-char_class: ParserElement = char_class_def
+) + Opt(quantifier)
 
 non_consuming_char: ParserElement = word_boundary_def
-
-quantified_char: ParserElement = (consuming_char | char_class) + quantifier
 
 ### END ###
