@@ -19,9 +19,9 @@ class TestGroups:
         lines: list[str] = read_source_file(source)
 
         expected: list[str] = [
+            ["magic", "Digit", "Digit"],
             ['"Alice"', '"Bob"', '"Carol"'],
             ['"foo"', '"bar"', '"bas"'],
-            ["magic", "Digit", "Digit"],
         ]
 
         for i, line in enumerate(lines):

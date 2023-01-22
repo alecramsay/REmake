@@ -12,6 +12,7 @@ from pyparsing import (
     Word,
     alphas,
     OneOrMore,
+    Opt,
     ParseResults,
     ParserElement,
 )
@@ -31,7 +32,7 @@ pattern: Forward = Forward()
 ### NON-GROUP PATTERNS ###
 
 simple_pattern: ParserElement = quantified_char | non_consuming_char
-seq_pattern: ParserElement = simple_pattern + OneOrMore(simple_pattern)
+simple_patterns: ParserElement = OneOrMore(simple_pattern)
 
 
 ### ALTERNATION ###
@@ -134,12 +135,14 @@ noncapturing_pattern: ParserElement = (
 ### CAPTURING GROUPS (NAMED SEQUENCES) ###
 
 """
-TODO - All as name [ pattern1, pattern2, ... , patternN ]
-AllAs name[ pattern1, pattern2, ... , patternN ]
+All as name [ pattern1, pattern2, ... , patternN ]
 """
 
 beg_capturing_def: ParserElement = (
-    Suppress(CaselessKeyword("AllAs")) + Word(alphas)("id") + Suppress("[")
+    Suppress(CaselessKeyword("All"))
+    + Suppress(CaselessKeyword("as"))
+    + Word(alphas)("id")
+    + Suppress("[")
 )
 end_capturing_def: ParserElement = Suppress("]")
 
@@ -183,20 +186,28 @@ capturing_pattern: ParserElement = (
     beg_capturing_def + delimited_list(pattern, delim=",") + end_capturing_def
 )
 
-# TODO - Add quantifier to pattern_list
+#
+
+atomic_pattern: ParserElement = (
+    (alt_pattern + Opt(quantifier))[...]
+    ^ (noncapturing_pattern + Opt(quantifier))[...]
+    ^ (capturing_pattern + Opt(quantifier))[...]
+    ^ simple_pattern[...]
+)
+
 pattern_list: ParserElement = pattern[...]
 
 
 ### IMPORT THIS ###
 
-pattern <<= (
-    alt_pattern
-    | noncapturing_pattern
-    | capturing_pattern
-    | seq_pattern
-    | simple_pattern
-    | pattern_list
-)
+pattern <<= atomic_pattern | pattern_list
+
+# pattern <<= (
+#     alt_pattern + Opt(quantifier)
+#     | noncapturing_pattern + Opt(quantifier)
+#     | capturing_pattern + Opt(quantifier)
+#     | simple_pattern[...]
+# ) | pattern_list
 
 
 ### END ###
