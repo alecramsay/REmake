@@ -6,14 +6,12 @@
 from typing import Any
 
 from src.groups import *
-
-# from src.comments import *
 from src.readwrite import *
 
 
 class TestGroups:
     def test_groups(self) -> None:
-        Grammar: Any = pattern
+        Grammar: Any = atomic_pattern
 
         source: str = "test/examples/groups.re"
         lines: list[str] = read_source_file(source)

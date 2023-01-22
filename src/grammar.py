@@ -13,13 +13,16 @@ from pyparsing import (
     ParserElement,
 )
 
-from .groups import pattern
+from .groups import pattern, atomic_pattern
 from .anchors import start_anchor, end_anchor
 from .constants import *
 from .utils import *
 
 
-# A simple flat list for now
+pattern_list: ParserElement = pattern[...]
+
+pattern <<= atomic_pattern[...] | pattern_list
+
 remake_spec: ParserElement = Opt(start_anchor) + pattern + Opt(end_anchor)
 
 

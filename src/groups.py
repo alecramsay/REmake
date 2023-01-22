@@ -180,23 +180,14 @@ capturing_pattern: ParserElement = (
 )
 
 
-### ROLL UP THE CONSTITUENT ELEMENTS ###
+### IMPORT THIS ###
 
-# NOTE: This is *not* an 'atomic group'
 atomic_pattern: ParserElement = (
     (alt_pattern + Opt(quantifier))
     ^ (noncapturing_pattern + Opt(quantifier))
     ^ (capturing_pattern + Opt(quantifier))
     ^ (consuming_char + Opt(quantifier))
     ^ non_consuming_char
-)
-
-pattern_list: ParserElement = pattern[...]
-
-
-### IMPORT THIS ###
-
-pattern <<= atomic_pattern[...] | pattern_list
-
+)  # This is not an atomic *group*.
 
 ### END ###

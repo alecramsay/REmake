@@ -6,8 +6,8 @@
 from pyparsing import ParseResults, ParserElement
 from typing import Any
 
-from src.readwrite import read_source_file
 from src.grammar import *
+from src.readwrite import read_source_file
 from src.comments import remove_comments
 from src.anchors import start_anchor, end_anchor
 from src.chars import consuming_char, non_consuming_char
@@ -15,10 +15,10 @@ from src.chars import consuming_char, non_consuming_char
 
 class TestParser:
     def test_keywords(self) -> None:
-        keywords: ParserElement = (
+        atomic_keywords: ParserElement = (
             start_anchor | end_anchor | non_consuming_char | consuming_char | not_def
         )
-        Grammar: Any = keywords
+        Grammar: Any = atomic_keywords
 
         source: str = "test/examples/keywords.re"
         lines: list[str] = read_source_file(source)
