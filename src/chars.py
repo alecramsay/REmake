@@ -12,6 +12,7 @@ from pyparsing import (
     Literal,
     QuotedString,
     Suppress,
+    delimited_list,
     ParseResults,
     ParserElement,
 )
@@ -361,7 +362,7 @@ def beg_char_class_act(toks: ParseResults) -> str:
         return translation
 
     if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        comment: str = f"Begin character class"
+        comment: str = f"One character from the class (set):"
         return free_space(translation, comment)
 
     raise ValueError("Invalid emit mode")
@@ -385,8 +386,11 @@ def end_char_class_act(toks: ParseResults) -> str:
 
 
 char_class_def: ParserElement = (
-    beg_char_class_def + (char_range_def | char_def)[1, ...] + end_char_class_def
+    beg_char_class_def
+    + delimited_list((char_range_def | char_def), delim="|")
+    + end_char_class_def
 )
+# beg_char_class_def + (char_range_def | char_def)[1, ...] + end_char_class_def
 
 
 ### IMPORT THESE ###

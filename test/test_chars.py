@@ -75,5 +75,11 @@ class TestCharacters:
         results: ParseResults = Grammar.parseString(input)
         assert list(results) == expected
 
+        input: str = "OneOf('a' - 'z' | 'A' - 'Z')"
+        expected: str = ["'a'", "'z'", "'A'", "'Z'"]
+
+        results: ParseResults = Grammar.parseString(input)
+        assert list(results) == expected
+
 
 ### END ###
