@@ -1,3 +1,5 @@
-All as magic [ digit, digit ]
-Any { "Alice" | "Bob" | "Carol" }
-All [ "foo", "bar", "bas" ]
+line_start()
+all as magic ( digit(), digit() )
+any ( "Alice" | "Bob" | "Carol" )
+all ( "foo", "bar", "bas" )
+line_end()

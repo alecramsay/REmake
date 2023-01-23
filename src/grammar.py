@@ -9,7 +9,7 @@ from pyparsing import (
     Word,
     alphas,
     alphanums,
-    CaselessKeyword,
+    Keyword,
     ParserElement,
 )
 
@@ -33,7 +33,7 @@ remake_spec: ParserElement = Opt(start_anchor) + pattern + Opt(end_anchor)
 
 name: Word = Word(alphas, alphanums + "_")
 
-not_def: CaselessKeyword = CaselessKeyword("Not")
+not_def: Keyword = Keyword("not")
 
 
 ### END ###

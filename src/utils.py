@@ -4,6 +4,8 @@
 HELPER UTILITIES
 """
 
+from pyparsing import Keyword, Suppress, ParserElement
+
 import src.globals as G
 from .constants import *
 
@@ -24,13 +26,21 @@ def keyword_to_words(name: str) -> str:
     result: str = name[0].lower()
 
     for char in name[1:]:
-        if char.isupper():
+        if char.isupper():  # Camel casing
             result += " "
             result += char.lower()
+        elif char == "_":  # Snake casing
+            result += " "
         else:
             result += char
 
     return result
+
+
+def make_keyword_fn(name: str) -> ParserElement:
+    """Define a keyword function."""
+
+    return Keyword(name) + Suppress("()")
 
 
 ### END ###

@@ -1,9 +1,9 @@
-LineStart
-"foo" * 0, 1 Least
-All ["H", "Q"]
+line_start()
+"foo" * 0, 1 least
+all ("H", "Q")
 "a"
-DollarSign
+dollar_sign()
 "c"
-Any {"a" - "z" | "A" | "B" | "C"}
-Bell
-LineEnd
+any ("a" - "z" | "A" | "B" | "C")
+bell()
+line_end()

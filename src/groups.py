@@ -7,7 +7,7 @@ GROUPS
 from pyparsing import (
     Forward,
     Suppress,
-    CaselessKeyword,
+    Keyword,
     delimited_list,
     Word,
     alphas,
@@ -31,11 +31,11 @@ pattern: Forward = Forward()
 ### ALTERNATION ###
 
 """
-Any { pattern1 | pattern2 | ... | patternN }
+any ( pattern1 | pattern2 | ... | patternN )
 """
 
-beg_alt_def: ParserElement = Suppress(CaselessKeyword("Any")) + Suppress("{")
-end_alt_def: ParserElement = Suppress("}")
+beg_alt_def: ParserElement = Suppress(Keyword("any")) + Suppress("(")
+end_alt_def: ParserElement = Suppress(")")
 
 
 @beg_alt_def.set_parse_action
@@ -80,11 +80,11 @@ alt_pattern: ParserElement = (
 ### NON-CAPTURING GROUPS (UNNAMED SEQUENCES) ###
 
 """
-All [ pattern1, pattern2, ... , patternN ]
+all ( pattern1, pattern2, ... , patternN )
 """
 
-beg_noncapturing_def: ParserElement = Suppress(CaselessKeyword("All")) + Suppress("[")
-end_noncapturing_def: ParserElement = Suppress("]")
+beg_noncapturing_def: ParserElement = Suppress(Keyword("all")) + Suppress("(")
+end_noncapturing_def: ParserElement = Suppress(")")
 
 
 @beg_noncapturing_def.set_parse_action
@@ -129,16 +129,16 @@ noncapturing_pattern: ParserElement = (
 ### CAPTURING GROUPS (NAMED SEQUENCES) ###
 
 """
-All as name [ pattern1, pattern2, ... , patternN ]
+all as name ( pattern1, pattern2, ... , patternN )
 """
 
 beg_capturing_def: ParserElement = (
-    Suppress(CaselessKeyword("All"))
-    + Suppress(CaselessKeyword("as"))
+    Suppress(Keyword("all"))
+    + Suppress(Keyword("as"))
     + Word(alphas)("id")
-    + Suppress("[")
+    + Suppress("(")
 )
-end_capturing_def: ParserElement = Suppress("]")
+end_capturing_def: ParserElement = Suppress(")")
 
 
 @beg_capturing_def.set_parse_action

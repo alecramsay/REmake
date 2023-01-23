@@ -17,7 +17,7 @@ class TestGroups:
         lines: list[str] = read_source_file(source)
 
         expected: list[str] = [
-            ["magic", "Digit", "Digit"],
+            ["magic", "digit", "digit"],
             ['"Alice"', '"Bob"', '"Carol"'],
             ['"foo"', '"bar"', '"bas"'],
         ]

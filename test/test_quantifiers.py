@@ -24,7 +24,7 @@ class TestQuantifiers:
 
         input: str = "* 1,3 least"
         results: ParseResults = Grammar.parseString(input)
-        assert list(results) == ["1", "3", "Least"]
+        assert list(results) == ["1", "3", "least"]
 
 
 ### END ###

@@ -4,7 +4,7 @@
 ANCHORS
 """
 
-from pyparsing import CaselessKeyword, ParserElement, ParseResults
+from pyparsing import Keyword, ParserElement, ParseResults
 from typing import Any
 
 import src.globals as G
@@ -12,7 +12,7 @@ from .constants import *
 from .utils import *
 
 
-start_of_line_def: CaselessKeyword = CaselessKeyword("LineStart")
+start_of_line_def: Keyword = Keyword("line_start") + Suppress("()")
 
 
 @start_of_line_def.set_parse_action
@@ -31,7 +31,7 @@ def start_of_line_act(toks: ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-end_of_line_def: CaselessKeyword = CaselessKeyword("LineEnd")
+end_of_line_def: Keyword = Keyword("line_end") + Suppress("()")
 
 
 @end_of_line_def.set_parse_action
@@ -50,7 +50,7 @@ def end_of_line_act(toks: ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-start_of_string_def: CaselessKeyword = CaselessKeyword("StringStart")
+start_of_string_def: Keyword = Keyword("string_start") + Suppress("()")
 
 
 @start_of_string_def.set_parse_action
@@ -69,7 +69,7 @@ def start_of_string_act(toks: ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-end_of_string_def: CaselessKeyword = CaselessKeyword("StringEnd")
+end_of_string_def: Keyword = Keyword("string_end") + Suppress("()")
 
 
 @end_of_string_def.set_parse_action

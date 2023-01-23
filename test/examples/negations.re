@@ -1,3 +1,3 @@
-Not Digit
-Not WordCharacter
-Not Whitespace
+not digit()
+not word_character()
+not whitespace()
