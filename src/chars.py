@@ -221,7 +221,7 @@ def string_act(toks: ParseResults) -> str:
 
 ### CHARACTER SHORTHANDS ###
 
-digit_def: Keyword = Keyword("digit")
+digit_def: Keyword = Keyword("digit") + Suppress("()")
 
 
 @digit_def.set_parse_action

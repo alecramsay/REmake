@@ -1,6 +1,6 @@
 line_start()
 word_boundary
-digit
+digit()
 word_character
 whitespace
 any_character
