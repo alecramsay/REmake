@@ -1,8 +1,8 @@
-LineStart
+line_start
 WordBoundary
 digit
 WordCharacter
 Whitespace
 AnyCharacter
 Not
-LineEnd
+line_end

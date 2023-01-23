@@ -1,2 +1,2 @@
 "foo"
-LineEnd
+line_end

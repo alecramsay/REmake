@@ -1,3 +1,3 @@
-StringStart
+string_start
 "foo"
-StringEnd
+string_end

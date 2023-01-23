@@ -32,14 +32,14 @@ class TestParser:
             tokens.extend(list(results))
 
         expected: list[str] = [
-            "LineStart",
+            "line_start",
             "WordBoundary",
             "digit",
             "WordCharacter",
             "Whitespace",
             "AnyCharacter",
             "Not",
-            "LineEnd",
+            "line_end",
         ]
         assert tokens == expected
 

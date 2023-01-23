@@ -14,28 +14,28 @@ class TestAnchors:
         lines: list[str] = read_source_file(source)
         results: ParseResults = parse_lines(lines)
 
-        assert list(results) == ["LineStart", '"foo"', "LineEnd"]
+        assert list(results) == ["line_start", '"foo"', "line_end"]
 
         # Only start of line anchor
         source: str = "test/examples/line_anchors2.re"
         lines: list[str] = read_source_file(source)
         results: ParseResults = parse_lines(lines)
 
-        assert list(results) == ["LineStart", '"foo"']
+        assert list(results) == ["line_start", '"foo"']
 
         # Only end of line anchor
         source: str = "test/examples/line_anchors3.re"
         lines: list[str] = read_source_file(source)
         results: ParseResults = parse_lines(lines)
 
-        assert list(results) == ['"foo"', "LineEnd"]
+        assert list(results) == ['"foo"', "line_end"]
 
         # Both start and end of string anchors
         source: str = "test/examples/line_anchors4.re"
         lines: list[str] = read_source_file(source)
         results: ParseResults = parse_lines(lines)
 
-        assert list(results) == ["StringStart", '"foo"', "StringEnd"]
+        assert list(results) == ["string_start", '"foo"', "string_end"]
 
 
 ### END ###
