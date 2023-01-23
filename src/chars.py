@@ -27,19 +27,19 @@ from .utils import *
 
 meta_chars: str = "$()*+.?[]^}{|"
 meta_names: list[str] = [
-    "DollarSign",
-    "LeftParen",
-    "RightParen",
-    "Asterisk",
-    "PlusSign",
-    "Period",
-    "QuestionMark",
-    "LeftBracket",
-    "RightBracket",
-    "Caret",
-    "LeftBrace",
-    "RightBrace",
-    "Pipe",
+    "dollar_sign",
+    "left_paren",
+    "right_paren",
+    "asterisk",
+    "plus_sign",
+    "period",
+    "question_mark",
+    "left_bracket",
+    "right_bracket",
+    "caret",
+    "left_brace",
+    "right_brace",
+    "pipe",
 ]
 meta_dict: dict[str, str] = dict(zip(meta_names, meta_chars))
 
