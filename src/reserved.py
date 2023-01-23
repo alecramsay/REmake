@@ -9,10 +9,10 @@ from pyparsing import Keyword, ParserElement
 
 kw_dict: dict[str, str] = {
     # Anchors
-    "start_of_line": "^",
-    "start_of_string": "\\A",
-    "end_of_line": "$",
-    "end_of_string": "\\Z",
+    "line_start": "^",
+    "string_start": "\\A",
+    "line_end": "$",
+    "string_end": "\\Z",
     # Character shorthands
     "digit": "\\d",
     "word_char": "\\w",
@@ -54,78 +54,78 @@ kw_dict: dict[str, str] = {
 kw_names: list[str] = list(kw_dict.keys())
 
 (
-    start_of_line_def,
-    start_of_string_def,
-    end_of_line_def,
-    end_of_string_def,
-    digit_def,
-    word_char_def,
-    whitespace_def,
-    word_boundary_def,
-    any_char_def,
-    dollar_sign_def,
-    left_paren_def,
-    right_paren_def,
-    asterisk_def,
-    plus_sign_def,
-    period_def,
-    question_mark_def,
-    left_bracket_def,
-    right_bracket_def,
-    caret_def,
-    left_brace_def,
-    right_brace_def,
-    pipe_def,
-    bell_def,
-    escape_def,
-    form_feed_def,
-    newline_def,
-    carriage_return_def,
-    horizontal_tab_def,
-    vertical_tab_def,
-    least_def,
-    any_def,
-    all_def,
-    as_def,
-    not_def,
+    line_start_word,
+    string_start_word,
+    line_end_word,
+    string_end_word,
+    digit_word,
+    word_char_word,
+    whitespace_word,
+    word_boundary_word,
+    any_char_word,
+    dollar_sign_word,
+    left_paren_word,
+    right_paren_word,
+    asterisk_word,
+    plus_sign_word,
+    period_word,
+    question_mark_word,
+    left_bracket_word,
+    right_bracket_word,
+    caret_word,
+    left_brace_word,
+    right_brace_word,
+    pipe_word,
+    bell_word,
+    escape_word,
+    form_feed_word,
+    newline_word,
+    carriage_return_word,
+    horizontal_tab_word,
+    vertical_tab_word,
+    least_word,
+    any_word,
+    all_word,
+    as_word,
+    not_word,
 ) = map(Keyword, kw_names)
 
 
 reserved_words: ParserElement = (
-    start_of_line_def
-    | start_of_string_def
-    | end_of_line_def
-    | end_of_string_def
-    | digit_def
-    | word_char_def
-    | whitespace_def
-    | word_boundary_def
-    | any_char_def
-    | dollar_sign_def
-    | left_paren_def
-    | right_paren_def
-    | asterisk_def
-    | plus_sign_def
-    | period_def
-    | question_mark_def
-    | left_bracket_def
-    | right_bracket_def
-    | caret_def
-    | left_brace_def
-    | right_brace_def
-    | pipe_def
-    | bell_def
-    | escape_def
-    | form_feed_def
-    | newline_def
-    | carriage_return_def
-    | horizontal_tab_def
-    | vertical_tab_def
-    | least_def
-    | any_def
-    | all_def
-    | as_def
-    | not_def
+    line_start_word
+    | string_start_word
+    | line_end_word
+    | string_end_word
+    | digit_word
+    | word_char_word
+    | whitespace_word
+    | word_boundary_word
+    | any_char_word
+    | dollar_sign_word
+    | left_paren_word
+    | right_paren_word
+    | asterisk_word
+    | plus_sign_word
+    | period_word
+    | question_mark_word
+    | left_bracket_word
+    | right_bracket_word
+    | caret_word
+    | left_brace_word
+    | right_brace_word
+    | pipe_word
+    | bell_word
+    | escape_word
+    | form_feed_word
+    | newline_word
+    | carriage_return_word
+    | horizontal_tab_word
+    | vertical_tab_word
+    | least_word
+    | any_word
+    | all_word
+    | as_word
+    | not_word
 )
 
 

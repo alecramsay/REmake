@@ -8,11 +8,12 @@ from pyparsing import Keyword, Group, ParserElement, ParseResults
 from typing import Any
 
 import src.globals as G
+from .reserved import *
 from .constants import *
 from .utils import *
 
 
-start_of_line_def: Keyword = Keyword("line_start") + Suppress("()")
+start_of_line_def: Keyword = Group(line_start_word + Suppress("()"))
 
 
 @start_of_line_def.set_parse_action
@@ -31,7 +32,7 @@ def start_of_line_act(toks: ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-end_of_line_def: Keyword = Group(Keyword("line_end") + Suppress("()"))
+end_of_line_def: Keyword = Group(line_end_word + Suppress("()"))
 
 
 @end_of_line_def.set_parse_action
@@ -50,7 +51,7 @@ def end_of_line_act(toks: ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-start_of_string_def: Keyword = Keyword("string_start") + Suppress("()")
+start_of_string_def: Keyword = Group(string_start_word + Suppress("()"))
 
 
 @start_of_string_def.set_parse_action
@@ -69,7 +70,7 @@ def start_of_string_act(toks: ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-end_of_string_def: Keyword = Group(Keyword("string_end") + Suppress("()"))
+end_of_string_def: Keyword = Group(string_end_word + Suppress("()"))
 
 
 @end_of_string_def.set_parse_action
