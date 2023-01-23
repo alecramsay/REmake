@@ -3,7 +3,7 @@ line_start()
 all ("H", "Q")
 "a"
 dollar_sign()
+bell()
 "c"
 any ("a" - "z" | "A" | "B" | "C")
-bell()
 line_end()

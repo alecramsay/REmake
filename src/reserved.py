@@ -15,10 +15,10 @@ kw_dict: dict[str, str] = {
     "string_end": "\\Z",
     # Character shorthands
     "digit": "\\d",
-    "word_char": "\\w",
+    "word_character": "\\w",
     "whitespace": "\\s",
     "word_boundary": "\\b",
-    "any_char": ".",
+    "any_character": ".",
     # Metacharacters
     "dollar_sign": "$",
     "left_paren": "(",
@@ -59,10 +59,10 @@ kw_names: list[str] = list(kw_dict.keys())
     line_end_word,
     string_end_word,
     digit_word,
-    word_char_word,
+    word_character_word,
     whitespace_word,
     word_boundary_word,
-    any_char_word,
+    any_character_word,
     dollar_sign_word,
     left_paren_word,
     right_paren_word,
@@ -97,10 +97,10 @@ reserved_words: ParserElement = (
     | line_end_word
     | string_end_word
     | digit_word
-    | word_char_word
+    | word_character_word
     | whitespace_word
     | word_boundary_word
-    | any_char_word
+    | any_character_word
     | dollar_sign_word
     | left_paren_word
     | right_paren_word

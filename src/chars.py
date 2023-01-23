@@ -18,6 +18,7 @@ from pyparsing import (
 )
 
 import src.globals as G
+from .reserved import *
 from .quantifiers import quantifier
 from .constants import *
 from .utils import *
@@ -26,53 +27,20 @@ from .utils import *
 ### META CHARACTERS ###
 
 meta_chars: str = "$()*+.?[]^}{|"
-meta_names: list[str] = [
-    "dollar_sign",
-    "left_paren",
-    "right_paren",
-    "asterisk",
-    "plus_sign",
-    "period",
-    "question_mark",
-    "left_bracket",
-    "right_bracket",
-    "caret",
-    "left_brace",
-    "right_brace",
-    "pipe",
-]
-meta_dict: dict[str, str] = dict(zip(meta_names, meta_chars))
-
-(
-    dollar_sign,
-    left_paren,
-    right_paren,
-    asterisk,
-    plus_sign,
-    period,
-    question_mark,
-    left_bracket,
-    right_bracket,
-    caret,
-    left_brace,
-    right_brace,
-    pipe,
-) = map(make_keyword_fn, meta_names)
-
 meta_char_def: Keyword = (
-    dollar_sign
-    | left_paren
-    | right_paren
-    | asterisk
-    | plus_sign
-    | period
-    | question_mark
-    | left_bracket
-    | right_bracket
-    | caret
-    | right_brace
-    | left_brace
-    | pipe
+    dollar_sign_word
+    | left_paren_word
+    | right_paren_word
+    | asterisk_word
+    | plus_sign_word
+    | period_word
+    | question_mark_word
+    | left_bracket_word
+    | right_bracket_word
+    | caret_word
+    | right_brace_word
+    | left_brace_word
+    | pipe_word
 )
 
 
@@ -81,7 +49,7 @@ def meta_char_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
-    translation: str = "\\" + meta_dict[toks[0]]
+    translation: str = "\\" + kw_dict[toks[0]]
 
     if G.EMIT_MODE == G.Mode.REGEX:
         return translation
@@ -125,44 +93,14 @@ def char_act(toks: ParseResults) -> str:
 
 ### NON-PRINTABLE CHARACTERS ###
 
-non_printable_chars: list[str] = [
-    "\\a",
-    "\\e",
-    "\\f",
-    "\\n",
-    "\\r",
-    "\\t",
-    "\\v",
-]
-non_printable_names: list[str] = [
-    "bell",
-    "escape",
-    "form_feed",
-    "new_line",
-    "carriage_return",
-    "horizontal_tab",
-    "vertical_tab",
-]
-non_printable_dict: dict[str, str] = dict(zip(non_printable_names, non_printable_chars))
-
-(
-    bell,
-    escape,
-    form_feed,
-    newline,
-    carriage_return,
-    horizontal_tab,
-    vertical_tab,
-) = map(make_keyword_fn, non_printable_names)
-
 non_printable_char_def: Keyword = (
-    bell
-    | escape
-    | form_feed
-    | newline
-    | carriage_return
-    | horizontal_tab
-    | vertical_tab
+    bell_word
+    | escape_word
+    | form_feed_word
+    | newline_word
+    | carriage_return_word
+    | horizontal_tab_word
+    | vertical_tab_word
 )
 
 
@@ -171,7 +109,7 @@ def non_printable_char_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
-    translation: str = non_printable_dict[toks[0]]
+    translation: str = kw_dict[toks[0]]
 
     if G.EMIT_MODE == G.Mode.REGEX:
         return translation
@@ -221,7 +159,7 @@ def string_act(toks: ParseResults) -> str:
 
 ### CHARACTER SHORTHANDS ###
 
-digit_def: Keyword = Keyword("digit") + Suppress("()")
+digit_def: Keyword = digit_word + Suppress("()")
 
 
 @digit_def.set_parse_action
@@ -229,7 +167,7 @@ def digit_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
-    translation: str = "\d"
+    translation: str = kw_dict[toks[0]]
 
     if G.EMIT_MODE == G.Mode.REGEX:
         return translation
@@ -240,7 +178,7 @@ def digit_act(toks: ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-word_char_def: Keyword = Keyword("word_character") + Suppress("()")
+word_char_def: Keyword = word_character_word + Suppress("()")
 
 
 @word_char_def.set_parse_action
@@ -248,7 +186,7 @@ def word_char_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
-    translation: str = "\w"
+    translation: str = kw_dict[toks[0]]
 
     if G.EMIT_MODE == G.Mode.REGEX:
         return translation
@@ -259,7 +197,7 @@ def word_char_act(toks: ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-whitespace_def: Keyword = Keyword("whitespace") + Suppress("()")
+whitespace_def: Keyword = whitespace_word + Suppress("()")
 
 
 @whitespace_def.set_parse_action
@@ -267,7 +205,7 @@ def whitespace_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
-    translation: str = "\s"
+    translation: str = kw_dict[toks[0]]
 
     if G.EMIT_MODE == G.Mode.REGEX:
         return translation
@@ -280,7 +218,7 @@ def whitespace_act(toks: ParseResults) -> str:
 
 ### BOUNDARIES ###
 
-word_boundary_def: Keyword = Keyword("word_boundary") + Suppress("()")
+word_boundary_def: Keyword = word_boundary_word + Suppress("()")
 
 
 @word_boundary_def.set_parse_action
@@ -288,7 +226,7 @@ def word_boundary_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
-    translation: str = "\b"
+    translation: str = kw_dict[toks[0]]
 
     if G.EMIT_MODE == G.Mode.REGEX:
         return translation
@@ -301,7 +239,7 @@ def word_boundary_act(toks: ParseResults) -> str:
 
 ### ANY CHARACTER ###
 
-any_char_def: Keyword = Keyword("any_character") + Suppress("()")
+any_char_def: Keyword = any_character_word + Suppress("()")
 
 
 @any_char_def.set_parse_action
@@ -309,7 +247,7 @@ def any_char_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
-    translation: str = "."
+    translation: str = kw_dict[toks[0]]
 
     if G.EMIT_MODE == G.Mode.REGEX:
         return translation
