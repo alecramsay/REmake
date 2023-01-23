@@ -90,9 +90,6 @@ reserved_word_names: list[str] = list(reserved_word_dict.keys())
     not_word,
 ) = map(Keyword, reserved_word_names)
 
-
-### IMPORT THESE ###
-
 reserved_words: ParserElement = (
     line_start_word
     | string_start_word

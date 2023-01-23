@@ -50,7 +50,6 @@ def meta_char_act(toks: ParseResults) -> str:
         return toks[0]
 
     translation: str = reserved_word_dict[toks[0]]
-    # translation: str = "\\" + reserved_word_dict[toks[0]]
 
     if G.EMIT_MODE == G.Mode.REGEX:
         return translation

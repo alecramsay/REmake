@@ -21,7 +21,7 @@ def start_of_line_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
-    translation: str = "^"
+    translation: str = translate_character_word(toks[0])
 
     if G.EMIT_MODE == G.Mode.REGEX:
         return translation
@@ -40,7 +40,7 @@ def end_of_line_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
-    translation: str = "$"
+    translation: str = translate_character_word(toks[0])
 
     if G.EMIT_MODE == G.Mode.REGEX:
         return translation
@@ -59,7 +59,7 @@ def start_of_string_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
-    translation: str = "\A"
+    translation: str = translate_character_word(toks[0])
 
     if G.EMIT_MODE == G.Mode.REGEX:
         return translation
@@ -78,7 +78,7 @@ def end_of_string_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
-    translation: str = "\Z"
+    translation: str = translate_character_word(toks[0])
 
     if G.EMIT_MODE == G.Mode.REGEX:
         return translation
