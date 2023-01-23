@@ -33,11 +33,11 @@ class TestParser:
 
         expected: list[str] = [
             "line_start",
-            "WordBoundary",
+            "word_boundary",
             "digit",
-            "WordCharacter",
-            "Whitespace",
-            "AnyCharacter",
+            "word_character",
+            "whitespace",
+            "any_character",
             "not",
             "line_end",
         ]

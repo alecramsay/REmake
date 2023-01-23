@@ -1,3 +1,3 @@
 not digit
-not WordCharacter
-not Whitespace
+not word_character
+not whitespace

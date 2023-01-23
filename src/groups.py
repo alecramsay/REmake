@@ -31,11 +31,11 @@ pattern: Forward = Forward()
 ### ALTERNATION ###
 
 """
-Any { pattern1 | pattern2 | ... | patternN }
+any ( pattern1 | pattern2 | ... | patternN )
 """
 
-beg_alt_def: ParserElement = Suppress(Keyword("any")) + Suppress("{")
-end_alt_def: ParserElement = Suppress("}")
+beg_alt_def: ParserElement = Suppress(Keyword("any")) + Suppress("(")
+end_alt_def: ParserElement = Suppress(")")
 
 
 @beg_alt_def.set_parse_action

@@ -240,7 +240,7 @@ def digit_act(toks: ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-word_char_def: Keyword = Keyword("WordCharacter")
+word_char_def: Keyword = Keyword("word_character")
 
 
 @word_char_def.set_parse_action
@@ -259,7 +259,7 @@ def word_char_act(toks: ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-whitespace_def: Keyword = Keyword("Whitespace")
+whitespace_def: Keyword = Keyword("whitespace")
 
 
 @whitespace_def.set_parse_action
@@ -280,7 +280,7 @@ def whitespace_act(toks: ParseResults) -> str:
 
 ### BOUNDARIES ###
 
-word_boundary_def: Keyword = Keyword("WordBoundary")
+word_boundary_def: Keyword = Keyword("word_boundary")
 
 
 @word_boundary_def.set_parse_action
@@ -301,7 +301,7 @@ def word_boundary_act(toks: ParseResults) -> str:
 
 ### ANY CHARACTER ###
 
-any_char_def: Keyword = Keyword("AnyCharacter")
+any_char_def: Keyword = Keyword("any_character")
 
 
 @any_char_def.set_parse_action
@@ -347,8 +347,8 @@ def char_range_act(toks: ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-beg_char_class_def: ParserElement = Suppress(Keyword("any")) + Suppress("{")
-end_char_class_def: ParserElement = Suppress("}")
+beg_char_class_def: ParserElement = Suppress(Keyword("any")) + Suppress("(")
+end_char_class_def: ParserElement = Suppress(")")
 
 
 @beg_char_class_def.set_parse_action
