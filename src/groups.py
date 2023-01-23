@@ -10,7 +10,8 @@ from pyparsing import (
     Keyword,
     delimited_list,
     Word,
-    alphas,
+    identchars,
+    identbodychars,
     Opt,
     ParseResults,
     ParserElement,
@@ -135,7 +136,7 @@ all as name ( pattern1, pattern2, ... , patternN )
 beg_capturing_def: ParserElement = (
     Suppress(Keyword("all"))
     + Suppress(Keyword("as"))
-    + Word(alphas)("id")
+    + Word(identchars, identbodychars)("id")
     + Suppress("(")
 )
 end_capturing_def: ParserElement = Suppress(")")
@@ -181,6 +182,32 @@ capturing_pattern: ParserElement = (
 )
 
 
+# A REFERENCE TO A NAMED CAPTURING GROUP
+
+# TODO - FLAVORS
+# TODO - ADD SYMBOL TABLE LOOKUP
+
+name_def: Word = Word(identchars, identbodychars)
+
+
+@name_def.set_parse_action
+def name_act(toks: ParseResults) -> str:
+    if G.EMIT_MODE == G.Mode.TOKENS:
+        return toks
+
+    name: str = toks[0]
+    translation: str = f"(?P={name})"
+
+    if G.EMIT_MODE == G.Mode.REGEX:
+        return translation
+
+    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
+        comment: str = f"Reference to '{name}' capturing group"
+        return free_space(translation, comment)
+
+    raise ValueError("Invalid emit mode")
+
+
 ### IMPORT THIS ###
 
 atomic_pattern: ParserElement = (
@@ -188,6 +215,7 @@ atomic_pattern: ParserElement = (
     ^ (noncapturing_pattern + Opt(quantifier))
     ^ (capturing_pattern + Opt(quantifier))
     ^ (consuming_char + Opt(quantifier))
+    ^ name_def
     ^ non_consuming_char
 )  # This is not an atomic *group*.
 

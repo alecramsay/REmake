@@ -5,10 +5,9 @@ GRAMMAR
 """
 
 from pyparsing import (
+    StringStart,
+    StringEnd,
     Opt,
-    Word,
-    alphas,
-    alphanums,
     Keyword,
     ParserElement,
 )
@@ -26,12 +25,13 @@ pattern_list: ParserElement = pattern[...]
 
 pattern <<= atomic_pattern[...] | pattern_list
 
+# TODO
+# remake_spec: ParserElement = (
+#     StringStart() + Opt(start_anchor) + pattern + Opt(end_anchor) + StringEnd()
+# )
 remake_spec: ParserElement = Opt(start_anchor) + pattern + Opt(end_anchor)
 
-
 ### TODO - NYI SCRAPS ###
-
-name: Word = Word(alphas, alphanums + "_")
 
 not_def: Keyword = Keyword("not")
 

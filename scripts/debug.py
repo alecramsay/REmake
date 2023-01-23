@@ -10,7 +10,7 @@ from src import *
 
 ### ARGUMENTS ###
 
-source: str = "test/examples/sample.re"
+source: str = "test/examples/sample2.re"
 
 verbose: bool = True
 
