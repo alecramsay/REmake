@@ -58,7 +58,6 @@ meta_dict: dict[str, str] = dict(zip(meta_names, meta_chars))
     right_brace,
     pipe,
 ) = map(make_keyword_fn, meta_names)
-# ) = map(Keyword, meta_names) TODO
 
 meta_char_def: Keyword = (
     dollar_sign
@@ -154,7 +153,7 @@ non_printable_dict: dict[str, str] = dict(zip(non_printable_names, non_printable
     carriage_return,
     horizontal_tab,
     vertical_tab,
-) = map(Keyword, non_printable_names)
+) = map(make_keyword_fn, non_printable_names)
 
 non_printable_char_def: Keyword = (
     bell

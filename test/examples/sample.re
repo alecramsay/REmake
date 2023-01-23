@@ -5,5 +5,5 @@ all ("H", "Q")
 dollar_sign()
 "c"
 any ("a" - "z" | "A" | "B" | "C")
-bell
+bell()
 line_end
