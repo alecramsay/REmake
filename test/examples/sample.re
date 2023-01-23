@@ -5,5 +5,5 @@ All ["H", "Q"]
 dollar_sign
 "c"
 Any {"a" - "z" | "A" | "B" | "C"}
-Bell
+bell
 line_end

@@ -135,13 +135,13 @@ non_printable_chars: list[str] = [
     "\\v",
 ]
 non_printable_names: list[str] = [
-    "Bell",
-    "Escape",
-    "FormFeed",
-    "NewLine",
-    "CarriageReturn",
-    "HorizontalTab",
-    "VerticalTab",
+    "bell",
+    "escape",
+    "form_feed",
+    "new_line",
+    "carriage_return",
+    "horizontal_tab",
+    "vertical_tab",
 ]
 non_printable_dict: dict[str, str] = dict(zip(non_printable_names, non_printable_chars))
 
