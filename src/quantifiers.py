@@ -5,7 +5,6 @@ QUANTIFIERS
 """
 
 from pyparsing import (
-    Keyword,
     Word,
     nums,
     Literal,
@@ -17,6 +16,7 @@ from pyparsing import (
 from typing import Any
 
 import src.globals as G
+from .reserved import *
 from .constants import *
 from .utils import *
 
@@ -30,7 +30,7 @@ quantifier_def: ParserElement = (
         | ellipsis + Suppress(",") + Word(nums)("maxcount")
         | Word(nums)("count")
     )
-    + Opt(Keyword("least"))("lazy")
+    + Opt(lazy_word)("lazy")
 )
 
 

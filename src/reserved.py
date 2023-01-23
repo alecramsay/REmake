@@ -83,7 +83,7 @@ reserved_word_names: list[str] = list(reserved_word_dict.keys())
     carriage_return_word,
     horizontal_tab_word,
     vertical_tab_word,
-    least_word,
+    lazy_word,
     any_word,
     all_word,
     as_word,
@@ -120,7 +120,7 @@ reserved_words: ParserElement = (
     | carriage_return_word
     | horizontal_tab_word
     | vertical_tab_word
-    | least_word
+    | lazy_word
     | any_word
     | all_word
     | as_word
