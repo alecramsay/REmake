@@ -83,8 +83,8 @@ alt_pattern: ParserElement = (
 All [ pattern1, pattern2, ... , patternN ]
 """
 
-beg_noncapturing_def: ParserElement = Suppress(Keyword("all")) + Suppress("[")
-end_noncapturing_def: ParserElement = Suppress("]")
+beg_noncapturing_def: ParserElement = Suppress(Keyword("all")) + Suppress("(")
+end_noncapturing_def: ParserElement = Suppress(")")
 
 
 @beg_noncapturing_def.set_parse_action
@@ -136,9 +136,9 @@ beg_capturing_def: ParserElement = (
     Suppress(Keyword("all"))
     + Suppress(Keyword("as"))
     + Word(alphas)("id")
-    + Suppress("[")
+    + Suppress("(")
 )
-end_capturing_def: ParserElement = Suppress("]")
+end_capturing_def: ParserElement = Suppress(")")
 
 
 @beg_capturing_def.set_parse_action
