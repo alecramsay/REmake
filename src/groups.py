@@ -7,7 +7,6 @@ GROUPS
 from pyparsing import (
     Forward,
     Suppress,
-    Keyword,
     delimited_list,
     Word,
     identchars,
@@ -18,10 +17,11 @@ from pyparsing import (
 )
 
 import src.globals as G
-from .chars import consuming_char, non_consuming_char
-from .quantifiers import quantifier
+from .reserved import *
 from .constants import *
 from .utils import *
+from .chars import consuming_char, non_consuming_char
+from .quantifiers import quantifier
 
 
 ### PATTERN ###
@@ -35,7 +35,7 @@ pattern: Forward = Forward()
 any ( pattern1 | pattern2 | ... | patternN )
 """
 
-beg_alt_def: ParserElement = Suppress(Keyword("any")) + Suppress("(")
+beg_alt_def: ParserElement = Suppress(any_word) + Suppress("(")
 end_alt_def: ParserElement = Suppress(")")
 
 
@@ -84,7 +84,7 @@ alt_pattern: ParserElement = (
 all ( pattern1, pattern2, ... , patternN )
 """
 
-beg_noncapturing_def: ParserElement = Suppress(Keyword("all")) + Suppress("(")
+beg_noncapturing_def: ParserElement = Suppress(all_word) + Suppress("(")
 end_noncapturing_def: ParserElement = Suppress(")")
 
 
@@ -134,8 +134,8 @@ all as name ( pattern1, pattern2, ... , patternN )
 """
 
 beg_capturing_def: ParserElement = (
-    Suppress(Keyword("all"))
-    + Suppress(Keyword("as"))
+    Suppress(all_word)
+    + Suppress(as_word)
     + Word(identchars, identbodychars)("id")
     + Suppress("(")
 )
@@ -184,7 +184,6 @@ capturing_pattern: ParserElement = (
 
 # A REFERENCE TO A NAMED CAPTURING GROUP
 
-# TODO - FLAVORS
 # TODO - ADD SYMBOL TABLE LOOKUP
 
 name_def: Word = Word(identchars, identbodychars)

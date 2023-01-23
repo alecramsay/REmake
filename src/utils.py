@@ -4,7 +4,7 @@
 HELPER UTILITIES
 """
 
-from pyparsing import Keyword, Suppress, ParserElement
+from typing import Any
 
 import src.globals as G
 from .constants import *
@@ -12,6 +12,7 @@ from .constants import *
 
 def free_space(translation: str, comment: str, tab_inc: int = 0) -> str:
     """Return a free-spaced regex translation with a documentation comment."""
+
     spaces: str = " " * (COMMENT_TAB - len(translation))
 
     indent: str = " " * (TAB_SIZE * G.INDENT_LEVEL) if G.INDENT_LEVEL > 0 else ""
@@ -23,6 +24,7 @@ def free_space(translation: str, comment: str, tab_inc: int = 0) -> str:
 
 def keyword_to_words(name: str) -> str:
     """Convert keyword format to spaced, lowercase words."""
+
     result: str = name[0].lower()
 
     for char in name[1:]:

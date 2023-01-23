@@ -4,7 +4,7 @@
 ANCHORS
 """
 
-from pyparsing import Keyword, Group, ParserElement, ParseResults
+from pyparsing import Keyword, Group, ParserElement, ParseResults, Suppress
 from typing import Any
 
 import src.globals as G
@@ -21,7 +21,8 @@ def start_of_line_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
-    translation: str = translate_character_word(toks[0])
+    token: str = unwrap_token(toks)
+    translation: str = reserved_word_dict[token]
 
     if G.EMIT_MODE == G.Mode.REGEX:
         return translation
@@ -40,7 +41,8 @@ def end_of_line_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
-    translation: str = translate_character_word(toks[0])
+    token: str = unwrap_token(toks)
+    translation: str = reserved_word_dict[token]
 
     if G.EMIT_MODE == G.Mode.REGEX:
         return translation
@@ -59,7 +61,8 @@ def start_of_string_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
-    translation: str = translate_character_word(toks[0])
+    token: str = unwrap_token(toks)
+    translation: str = reserved_word_dict[token]
 
     if G.EMIT_MODE == G.Mode.REGEX:
         return translation
@@ -78,7 +81,8 @@ def end_of_string_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
-    translation: str = translate_character_word(toks[0])
+    token: str = unwrap_token(toks)
+    translation: str = reserved_word_dict[token]
 
     if G.EMIT_MODE == G.Mode.REGEX:
         return translation
@@ -87,6 +91,16 @@ def end_of_string_act(toks: ParseResults) -> str:
         return free_space(translation, "End of string")
 
     raise ValueError("Invalid emit mode")
+
+
+### HELPERS ###
+
+
+def unwrap_token(toks: ParseResults) -> Any:
+    """Return the first token from a Group'd ParseResults object."""
+
+    token: str = list(toks[0])[0]
+    return token
 
 
 ### IMPORT THESE ###
