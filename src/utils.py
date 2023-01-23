@@ -37,6 +37,7 @@ def keyword_to_words(name: str) -> str:
     return result
 
 
+# TODO - DELETE
 def make_keyword_fn(name: str) -> ParserElement:
     """Define a keyword function."""
 

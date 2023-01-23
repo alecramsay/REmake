@@ -4,7 +4,7 @@
 ANCHORS
 """
 
-from pyparsing import Keyword, ParserElement, ParseResults
+from pyparsing import Keyword, Group, ParserElement, ParseResults
 from typing import Any
 
 import src.globals as G
@@ -31,7 +31,7 @@ def start_of_line_act(toks: ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-end_of_line_def: Keyword = Keyword("line_end") + Suppress("()")
+end_of_line_def: Keyword = Group(Keyword("line_end") + Suppress("()"))
 
 
 @end_of_line_def.set_parse_action
@@ -69,7 +69,7 @@ def start_of_string_act(toks: ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-end_of_string_def: Keyword = Keyword("string_end") + Suppress("()")
+end_of_string_def: Keyword = Group(Keyword("string_end") + Suppress("()"))
 
 
 @end_of_string_def.set_parse_action
