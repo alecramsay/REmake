@@ -57,7 +57,8 @@ meta_dict: dict[str, str] = dict(zip(meta_names, meta_chars))
     left_brace,
     right_brace,
     pipe,
-) = map(Keyword, meta_names)
+) = map(make_keyword_fn, meta_names)
+# ) = map(Keyword, meta_names) TODO
 
 meta_char_def: Keyword = (
     dollar_sign

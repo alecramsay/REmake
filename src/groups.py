@@ -80,7 +80,7 @@ alt_pattern: ParserElement = (
 ### NON-CAPTURING GROUPS (UNNAMED SEQUENCES) ###
 
 """
-All [ pattern1, pattern2, ... , patternN ]
+all ( pattern1, pattern2, ... , patternN )
 """
 
 beg_noncapturing_def: ParserElement = Suppress(Keyword("all")) + Suppress("(")
@@ -129,7 +129,7 @@ noncapturing_pattern: ParserElement = (
 ### CAPTURING GROUPS (NAMED SEQUENCES) ###
 
 """
-All as name [ pattern1, pattern2, ... , patternN ]
+all as name ( pattern1, pattern2, ... , patternN )
 """
 
 beg_capturing_def: ParserElement = (

@@ -1,9 +1,9 @@
 line_start
 "foo" * 0, 1 least
-All ["H", "Q"]
+all ("H", "Q")
 "a"
-dollar_sign
+dollar_sign()
 "c"
-Any {"a" - "z" | "A" | "B" | "C"}
+any ("a" - "z" | "A" | "B" | "C")
 bell
 line_end
