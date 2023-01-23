@@ -7,7 +7,7 @@ GROUPS
 from pyparsing import (
     Forward,
     Suppress,
-    CaselessKeyword,
+    Keyword,
     delimited_list,
     Word,
     alphas,
@@ -34,7 +34,7 @@ pattern: Forward = Forward()
 Any { pattern1 | pattern2 | ... | patternN }
 """
 
-beg_alt_def: ParserElement = Suppress(CaselessKeyword("Any")) + Suppress("{")
+beg_alt_def: ParserElement = Suppress(Keyword("any")) + Suppress("{")
 end_alt_def: ParserElement = Suppress("}")
 
 
@@ -83,7 +83,7 @@ alt_pattern: ParserElement = (
 All [ pattern1, pattern2, ... , patternN ]
 """
 
-beg_noncapturing_def: ParserElement = Suppress(CaselessKeyword("All")) + Suppress("[")
+beg_noncapturing_def: ParserElement = Suppress(Keyword("all")) + Suppress("[")
 end_noncapturing_def: ParserElement = Suppress("]")
 
 
@@ -133,8 +133,8 @@ All as name [ pattern1, pattern2, ... , patternN ]
 """
 
 beg_capturing_def: ParserElement = (
-    Suppress(CaselessKeyword("All"))
-    + Suppress(CaselessKeyword("as"))
+    Suppress(Keyword("all"))
+    + Suppress(Keyword("as"))
     + Word(alphas)("id")
     + Suppress("[")
 )

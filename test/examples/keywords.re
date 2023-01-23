@@ -1,6 +1,6 @@
 LineStart
 WordBoundary
-Digit
+digit
 WordCharacter
 Whitespace
 AnyCharacter

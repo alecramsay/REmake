@@ -69,13 +69,13 @@ class TestCharacters:
 
     def test_char_classes(self) -> None:
         Grammar: Any = char_class_def
-        input: str = "Any {'a' - 'z'}"
+        input: str = "any {'a' - 'z'}"
         expected: str = ["'a'", "'z'"]
 
         results: ParseResults = Grammar.parseString(input)
         assert list(results) == expected
 
-        input: str = "Any {'a' - 'z' | 'A' - 'Z'}"
+        input: str = "any {'a' - 'z' | 'A' - 'Z'}"
         expected: str = ["'a'", "'z'", "'A'", "'Z'"]
 
         results: ParseResults = Grammar.parseString(input)

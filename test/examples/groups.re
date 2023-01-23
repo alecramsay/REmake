@@ -1,3 +1,3 @@
-All as magic [ digit, digit ]
-Any { "Alice" | "Bob" | "Carol" }
-All [ "foo", "bar", "bas" ]
+all as magic [ digit, digit ]
+any { "Alice" | "Bob" | "Carol" }
+all [ "foo", "bar", "bas" ]

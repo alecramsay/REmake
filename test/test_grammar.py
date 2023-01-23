@@ -34,7 +34,7 @@ class TestParser:
         expected: list[str] = [
             "LineStart",
             "WordBoundary",
-            "Digit",
+            "digit",
             "WordCharacter",
             "Whitespace",
             "AnyCharacter",

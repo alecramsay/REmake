@@ -5,7 +5,7 @@ QUANTIFIERS
 """
 
 from pyparsing import (
-    CaselessKeyword,
+    Keyword,
     Word,
     nums,
     Literal,
@@ -30,7 +30,7 @@ quantifier_def: ParserElement = (
         | ellipsis + Suppress(",") + Word(nums)("maxcount")
         | Word(nums)("count")
     )
-    + Opt(CaselessKeyword("Least"))("lazy")
+    + Opt(Keyword("least"))("lazy")
 )
 
 

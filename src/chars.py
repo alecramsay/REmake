@@ -5,7 +5,7 @@ CHARACTERS
 """
 
 from pyparsing import (
-    CaselessKeyword,
+    Keyword,
     Char,
     printables,
     Combine,
@@ -57,9 +57,9 @@ meta_dict: dict[str, str] = dict(zip(meta_names, meta_chars))
     left_brace,
     right_brace,
     pipe,
-) = map(CaselessKeyword, meta_names)
+) = map(Keyword, meta_names)
 
-meta_char_def: CaselessKeyword = (
+meta_char_def: Keyword = (
     dollar_sign
     | left_paren
     | right_paren
@@ -153,9 +153,9 @@ non_printable_dict: dict[str, str] = dict(zip(non_printable_names, non_printable
     carriage_return,
     horizontal_tab,
     vertical_tab,
-) = map(CaselessKeyword, non_printable_names)
+) = map(Keyword, non_printable_names)
 
-non_printable_char_def: CaselessKeyword = (
+non_printable_char_def: Keyword = (
     bell
     | escape
     | form_feed
@@ -221,7 +221,7 @@ def string_act(toks: ParseResults) -> str:
 
 ### CHARACTER SHORTHANDS ###
 
-digit_def: CaselessKeyword = CaselessKeyword("Digit")
+digit_def: Keyword = Keyword("digit")
 
 
 @digit_def.set_parse_action
@@ -240,7 +240,7 @@ def digit_act(toks: ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-word_char_def: CaselessKeyword = CaselessKeyword("WordCharacter")
+word_char_def: Keyword = Keyword("WordCharacter")
 
 
 @word_char_def.set_parse_action
@@ -259,7 +259,7 @@ def word_char_act(toks: ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-whitespace_def: CaselessKeyword = CaselessKeyword("Whitespace")
+whitespace_def: Keyword = Keyword("Whitespace")
 
 
 @whitespace_def.set_parse_action
@@ -280,7 +280,7 @@ def whitespace_act(toks: ParseResults) -> str:
 
 ### BOUNDARIES ###
 
-word_boundary_def: CaselessKeyword = CaselessKeyword("WordBoundary")
+word_boundary_def: Keyword = Keyword("WordBoundary")
 
 
 @word_boundary_def.set_parse_action
@@ -301,7 +301,7 @@ def word_boundary_act(toks: ParseResults) -> str:
 
 ### ANY CHARACTER ###
 
-any_char_def: CaselessKeyword = CaselessKeyword("AnyCharacter")
+any_char_def: Keyword = Keyword("AnyCharacter")
 
 
 @any_char_def.set_parse_action
@@ -347,7 +347,7 @@ def char_range_act(toks: ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-beg_char_class_def: ParserElement = Suppress(CaselessKeyword("Any")) + Suppress("{")
+beg_char_class_def: ParserElement = Suppress(Keyword("any")) + Suppress("{")
 end_char_class_def: ParserElement = Suppress("}")
 
 
