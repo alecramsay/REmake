@@ -7,7 +7,7 @@ RESERVERD WORDS
 from pyparsing import Keyword, ParserElement
 
 
-kw_dict: dict[str, str] = {
+reserved_word_dict: dict[str, str] = {
     # Anchors
     "line_start": "^",
     "string_start": "\\A",
@@ -20,19 +20,19 @@ kw_dict: dict[str, str] = {
     "word_boundary": "\\b",
     "any_character": ".",
     # Metacharacters
-    "dollar_sign": "$",
-    "left_paren": "(",
-    "right_paren": ")",
-    "asterisk": "*",
-    "plus_sign": "+",
-    "period": ".",
-    "question_mark": "?",
-    "left_bracket": "[",
-    "right_bracket": "]",
-    "caret": "^",
-    "left_brace": "{",
-    "right_brace": "}",
-    "pipe": "|",
+    "dollar_sign": "\\$",
+    "left_paren": "\\(",
+    "right_paren": "\\)",
+    "asterisk": "\\*",
+    "plus_sign": "\\+",
+    "period": "\\.",
+    "question_mark": "\\?",
+    "left_bracket": "\\[",
+    "right_bracket": "\\]",
+    "caret": "\\^",
+    "left_brace": "\\{",
+    "right_brace": "\\}",
+    "pipe": "\\|",
     # Non-printable characters
     "bell": "\\a",
     "escape": "\\e",
@@ -51,7 +51,7 @@ kw_dict: dict[str, str] = {
     "not": "^",
 }
 
-kw_names: list[str] = list(kw_dict.keys())
+reserved_word_names: list[str] = list(reserved_word_dict.keys())
 
 (
     line_start_word,
@@ -88,8 +88,10 @@ kw_names: list[str] = list(kw_dict.keys())
     all_word,
     as_word,
     not_word,
-) = map(Keyword, kw_names)
+) = map(Keyword, reserved_word_names)
 
+
+### IMPORT THESE ###
 
 reserved_words: ParserElement = (
     line_start_word
@@ -127,6 +129,10 @@ reserved_words: ParserElement = (
     | as_word
     | not_word
 )
+
+
+def translate_character_word(word: str) -> str:
+    return reserved_word_dict[word]
 
 
 ### END ###

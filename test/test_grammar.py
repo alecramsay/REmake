@@ -14,6 +14,7 @@ from src.chars import consuming_char, non_consuming_char
 
 
 class TestParser:
+    # TODO - DELETE
     def test_keywords(self) -> None:
         atomic_keywords: ParserElement = (
             start_anchor | end_anchor | non_consuming_char | consuming_char | not_def

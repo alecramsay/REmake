@@ -208,7 +208,7 @@ def name_act(toks: ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-### IMPORT THIS ###
+### IMPORT THESE ###
 
 atomic_pattern: ParserElement = (
     (alt_pattern + Opt(quantifier))
