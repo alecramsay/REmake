@@ -38,7 +38,7 @@ class TestParser:
             "WordCharacter",
             "Whitespace",
             "AnyCharacter",
-            "Not",
+            "not",
             "line_end",
         ]
         assert tokens == expected

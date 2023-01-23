@@ -4,5 +4,5 @@ digit
 WordCharacter
 Whitespace
 AnyCharacter
-Not
+not
 line_end
