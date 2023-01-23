@@ -10,8 +10,8 @@ from src import *
 
 ### ARGUMENTS ###
 
-# source: str = "test/examples/sample.re"
-source: str = "test/examples/groups.re"
+source: str = "test/examples/sample.re"
+
 verbose: bool = True
 
 
