@@ -1,2 +1,2 @@
 "foo"
-line_end
+line_end()

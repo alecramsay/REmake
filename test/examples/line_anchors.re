@@ -1,3 +1,3 @@
-line_start
+line_start()
 "foo"
-line_end
+line_end()

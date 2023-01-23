@@ -1,3 +1,3 @@
-string_start
+string_start()
 "foo"
-string_end
+string_end()
