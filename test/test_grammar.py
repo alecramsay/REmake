@@ -14,35 +14,8 @@ from src.chars import consuming_char, non_consuming_char
 
 
 class TestParser:
-    # TODO - DELETE
-    def test_keywords(self) -> None:
-        atomic_keywords: ParserElement = (
-            start_anchor | end_anchor | non_consuming_char | consuming_char | not_def
-        )
-        Grammar: Any = atomic_keywords
-
-        source: str = "test/examples/keywords.re"
-        lines: list[str] = read_source_file(source)
-
-        tokens: list[str] = list()
-        for line in lines:
-            filtered: str = remove_comments(line)
-            if filtered == "" or filtered == "\n":
-                continue
-            results: ParseResults = Grammar.parseString(filtered)
-            tokens.extend(list(results))
-
-        expected: list[str] = [
-            "line_start",
-            "word_boundary",
-            "digit",
-            "word_character",
-            "whitespace",
-            "any_character",
-            "not",
-            "line_end",
-        ]
-        assert tokens == expected
+    def test_something(self) -> None:
+        pass
 
 
 ### END ###

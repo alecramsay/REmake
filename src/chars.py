@@ -80,7 +80,9 @@ meta_char_def: Keyword = (
 def meta_char_act(toks: ParseResults) -> str:
     token: str = unpack_token(toks)
     translation: str = translate_word(token)
-    comment: str = f"A {keyword_to_words(token)} (escaped)"
+    friendly_name: str = keyword_to_words(token)
+    article: str = "An" if friendly_name[0].lower() in "aeiou" else "A"
+    comment: str = f"{article} {friendly_name} (escaped)"
 
     return modal_act(toks, translation, comment)
 
