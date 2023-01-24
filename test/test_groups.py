@@ -18,7 +18,7 @@ class TestGroups:
 
         expected: list[str] = [
             ["magic", "digit", "digit"],
-            ['"Alice"', '"Bob"', '"Carol"'],
+            ['"Alice"', "|", '"Bob"', "|", '"Carol"'],
             ['"foo"', '"bar"', '"bas"'],
         ]
 
