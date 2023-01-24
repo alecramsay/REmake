@@ -47,7 +47,7 @@ meta_char_def: Keyword = (
 @meta_char_def.set_parse_action
 def meta_char_act(toks: ParseResults) -> str:
     token: str = unpack_token(toks)
-    translation: str = reserved_word_dict[token]
+    translation: str = translate_character_word(token)
     comment: str = f"A {keyword_to_words(token)} (escaped)"
 
     return modal_act(toks, translation, comment)
@@ -91,7 +91,7 @@ non_printable_char_def: Keyword = (
 @non_printable_char_def.set_parse_action
 def non_printable_char_act(toks: ParseResults) -> str:
     token: str = unpack_token(toks)
-    translation: str = reserved_word_dict[token]
+    translation: str = translate_character_word(token)
     comment: str = f"The {keyword_to_words(toks[0])} character"
 
     return modal_act(toks, translation, comment)
@@ -133,7 +133,7 @@ digit_def: Keyword = digit_word + Suppress("()")
 @digit_def.set_parse_action
 def digit_act(toks: ParseResults) -> str:
     token: str = unpack_token(toks)
-    translation: str = reserved_word_dict[token]
+    translation: str = translate_character_word(token)
     comment: str = "A digit"
 
     return modal_act(toks, translation, comment)
@@ -145,7 +145,7 @@ word_char_def: Keyword = word_character_word + Suppress("()")
 @word_char_def.set_parse_action
 def word_char_act(toks: ParseResults) -> str:
     token: str = unpack_token(toks)
-    translation: str = reserved_word_dict[token]
+    translation: str = translate_character_word(token)
     comment: str = "A word character"
 
     return modal_act(toks, translation, comment)
@@ -157,7 +157,7 @@ whitespace_def: Keyword = whitespace_word + Suppress("()")
 @whitespace_def.set_parse_action
 def whitespace_act(toks: ParseResults) -> str:
     token: str = unpack_token(toks)
-    translation: str = reserved_word_dict[token]
+    translation: str = translate_character_word(token)
     comment: str = "A whitespace character"
 
     return modal_act(toks, translation, comment)
@@ -171,7 +171,7 @@ word_boundary_def: Keyword = word_boundary_word + Suppress("()")
 @word_boundary_def.set_parse_action
 def word_boundary_act(toks: ParseResults) -> str:
     token: str = unpack_token(toks)
-    translation: str = reserved_word_dict[token]
+    translation: str = translate_character_word(token)
     comment: str = "Word boundary"
 
     return modal_act(toks, translation, comment)
@@ -185,7 +185,7 @@ any_char_def: Keyword = any_character_word + Suppress("()")
 @any_char_def.set_parse_action
 def any_char_act(toks: ParseResults) -> str:
     token: str = unpack_token(toks)
-    translation: str = reserved_word_dict[token]
+    translation: str = translate_character_word(token)
     comment: str = "Any character (except newline)"
 
     return modal_act(toks, translation, comment)

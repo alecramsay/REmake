@@ -7,6 +7,7 @@ from pyparsing import ParseResults
 from typing import Any
 
 from src.reserved import *
+from src.utils import *
 
 
 class TestReservedWords:

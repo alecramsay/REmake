@@ -18,7 +18,7 @@ from .constants import *
 def modal_act(
     toks: ParseResults, translation: str, comment: str, tab_inc: int = 0
 ) -> str:
-    """Emit respecting the mode."""
+    """Emit raw tokens, a single-line regex, or a free-spaced regex."""
 
     if G.EMIT_MODE == G.Mode.TOKENS:
         # NOTE - tab_inc is zero for atomic words, +/– for paired items
@@ -38,6 +38,10 @@ def unpack_token(toks: ParseResults, grouped: bool = False) -> Any:
 
     token: str = list(toks[0])[0] if grouped else toks[0]
     return token
+
+
+def translate_character_word(word: str) -> str:
+    return reserved_word_dict[word]
 
 
 def free_space(translation: str, comment: str, tab_inc: int = 0) -> str:

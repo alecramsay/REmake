@@ -127,9 +127,4 @@ reserved_words: ParserElement = (
     | not_word
 )
 
-
-def translate_character_word(word: str) -> str:
-    return reserved_word_dict[word]
-
-
 ### END ###
