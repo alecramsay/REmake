@@ -33,18 +33,42 @@ pattern: Forward = Forward()
 ### ALTERNATION ###
 
 """
-any ( pattern1 | pattern2 | ... | patternN )
-any ( pattern1 | pattern2 | ... | patternN )
+any ( <pattern> | <pattern> | ... | <pattern> )
+any as <name> ( <pattern> | <pattern> | ... | <pattern> )
 """
 
-beg_alt_def: ParserElement = Suppress(any_word) + Suppress("(")
+beg_alt_def: ParserElement = (
+    Suppress(any_word)
+    + Opt(Suppress(as_word) + Word(identchars, identbodychars)("id"))
+    + Suppress("(")
+)
 alt_delim_def: ParserElement = Char("|")
 end_alt_def: ParserElement = Suppress(")")
 
 
 @beg_alt_def.set_parse_action
 def beg_alt_act(toks: ParseResults) -> str:
-    return modal_act(toks, "(?:", f"Begin alternatives:", tab_inc=1, tok_list=True)
+    translation: str = "(?:"
+    comment: str = f"Begin alternatives (not captured):"
+
+    if "id" in toks:
+        name: str = toks["id"]
+
+        if name in G.GROUP_IDS:
+            raise ValueError(f"Duplicate group name '{name}'")
+        else:
+            G.GROUP_IDS[name] = "DEFINED"
+
+        translation = f"(?<{name}>"
+        comment = f"Begin alternatives (captured in '{name}'):"
+
+    return modal_act(
+        toks,
+        translation,
+        comment,
+        tab_inc=1,
+        tok_list=True,
+    )
 
 
 @alt_delim_def.set_parse_action
@@ -62,76 +86,53 @@ alt_pattern: ParserElement = (
 )
 
 
-### NON-CAPTURING GROUPS (UNNAMED SEQUENCES) ###
+### GROUPS - CAPTURING AND NON-CAPTURING SEQUENCES ###
 
 """
-all ( pattern1, pattern2, ... , patternN )
+all ( <pattern>, <pattern>, ..., <pattern> )
+all as <name> ( <pattern>, <pattern>, ..., <pattern> )
 """
 
-beg_noncapturing_def: ParserElement = Suppress(all_word) + Suppress("(")
-end_noncapturing_def: ParserElement = Suppress(")")
-
-
-@beg_noncapturing_def.set_parse_action
-def beg_noncapturing_act(toks: ParseResults) -> str:
-    return modal_act(
-        toks, "(?:", f"All sequentially (not captured):", tab_inc=1, tok_list=True
-    )
-
-
-@end_noncapturing_def.set_parse_action
-def end_noncapturing_act(toks: ParseResults) -> str:
-    return modal_act(
-        toks, ")", f"End of non-capturing group", tab_inc=-1, tok_list=True
-    )
-
-
-noncapturing_pattern: ParserElement = (
-    beg_noncapturing_def + delimited_list(pattern, delim=",") + end_noncapturing_def
-)
-
-
-### CAPTURING GROUPS (NAMED SEQUENCES) ###
-
-"""
-all as name ( pattern1, pattern2, ... , patternN )
-"""
-
-beg_capturing_def: ParserElement = (
+beg_group_def: ParserElement = (
     Suppress(all_word)
-    + Suppress(as_word)
-    + Word(identchars, identbodychars)("id")
+    + Opt(Suppress(as_word) + Word(identchars, identbodychars)("id"))
     + Suppress("(")
 )
-end_capturing_def: ParserElement = Suppress(")")
+end_group_def: ParserElement = Suppress(")")
 
 
-@beg_capturing_def.set_parse_action
-def beg_capturing_act(toks: ParseResults) -> str:
-    name: str = toks["id"]
-    translation: str = f"(?<{name}>"
+@beg_group_def.set_parse_action
+def beg_group_act(toks: ParseResults) -> str:
+    translation: str = "(?:"
+    comment: str = f"Begin group (not captured):"
 
-    if name in G.GROUP_IDS:
-        raise ValueError(f"Duplicate group name '{name}'")
-    else:
-        G.GROUP_IDS[name] = "DEFINED"
+    if "id" in toks:
+        name: str = toks["id"]
+
+        if name in G.GROUP_IDS:
+            raise ValueError(f"Duplicate group name '{name}'")
+        else:
+            G.GROUP_IDS[name] = "DEFINED"
+
+        translation = f"(?<{name}>"
+        comment = f"Begin group (captured in '{name}'):"
 
     return modal_act(
         toks,
         translation,
-        f"All sequentially (captured in '{name}'):",
+        comment,
         tab_inc=1,
         tok_list=True,
     )
 
 
-@end_capturing_def.set_parse_action
-def end_capturing_act(toks: ParseResults) -> str:
-    return modal_act(toks, ")", f"End of capturing group", tab_inc=-1, tok_list=True)
+@end_group_def.set_parse_action
+def end_group_act(toks: ParseResults) -> str:
+    return modal_act(toks, ")", f"End of group", tab_inc=-1, tok_list=True)
 
 
 capturing_pattern: ParserElement = (
-    beg_capturing_def + delimited_list(pattern, delim=",") + end_capturing_def
+    beg_group_def + delimited_list(pattern, delim=",") + end_group_def
 )
 
 
@@ -156,7 +157,6 @@ def id_act(toks: ParseResults) -> str:
 
 atomic_pattern: ParserElement = (
     (alt_pattern + Opt(quantifier))
-    ^ (noncapturing_pattern + Opt(quantifier))
     ^ (capturing_pattern + Opt(quantifier))
     ^ (consuming_char + Opt(quantifier))
     ^ (id_def + Opt(quantifier))
