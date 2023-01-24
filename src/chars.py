@@ -27,20 +27,52 @@ from .utils import *
 ### META CHARACTERS ###
 
 meta_chars: str = "$()*+.?[]^}{|"
+meta_char_words: Keyword = [
+    dollar_sign_word,
+    left_paren_word,
+    right_paren_word,
+    asterisk_word,
+    plus_sign_word,
+    period_word,
+    question_mark_word,
+    left_bracket_word,
+    right_bracket_word,
+    caret_word,
+    right_brace_word,
+    left_brace_word,
+    pipe_word,
+]
+
+(
+    dollar_sign_def,
+    left_paren_def,
+    right_paren_def,
+    asterisk_def,
+    plus_sign_def,
+    period_def,
+    question_mark_def,
+    left_bracket_def,
+    right_bracket_def,
+    caret_def,
+    right_brace_def,
+    left_brace_def,
+    pipe_def,
+) = map(append_suppress, meta_char_words)
+
 meta_char_def: Keyword = (
-    dollar_sign_word
-    | left_paren_word
-    | right_paren_word
-    | asterisk_word
-    | plus_sign_word
-    | period_word
-    | question_mark_word
-    | left_bracket_word
-    | right_bracket_word
-    | caret_word
-    | right_brace_word
-    | left_brace_word
-    | pipe_word
+    dollar_sign_def
+    | left_paren_def
+    | right_paren_def
+    | asterisk_def
+    | plus_sign_def
+    | period_def
+    | question_mark_def
+    | left_bracket_def
+    | right_bracket_def
+    | caret_def
+    | right_brace_def
+    | left_brace_def
+    | pipe_def
 )
 
 
