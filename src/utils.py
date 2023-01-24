@@ -28,7 +28,6 @@ def modal_act(
     if G.EMIT_MODE == G.Mode.TOKENS:
         # NOTE - tab_inc is zero for atomic words, +/– for paired items
         return toks if tok_list else toks[0]
-        # return toks[0] if tab_inc == 0 else toks TODO
 
     if G.EMIT_MODE == G.Mode.REGEX:
         return translation

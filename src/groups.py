@@ -34,6 +34,7 @@ pattern: Forward = Forward()
 
 """
 any ( pattern1 | pattern2 | ... | patternN )
+any ( pattern1 | pattern2 | ... | patternN )
 """
 
 beg_alt_def: ParserElement = Suppress(any_word) + Suppress("(")
@@ -43,7 +44,7 @@ end_alt_def: ParserElement = Suppress(")")
 
 @beg_alt_def.set_parse_action
 def beg_alt_act(toks: ParseResults) -> str:
-    return modal_act(toks, "", f"Begin alternatives:", tab_inc=1, tok_list=True)
+    return modal_act(toks, "(?:", f"Begin alternatives:", tab_inc=1, tok_list=True)
 
 
 @alt_delim_def.set_parse_action
@@ -53,16 +54,13 @@ def alt_delim_act(toks: ParseResults) -> str:
 
 @end_alt_def.set_parse_action
 def end_alt_act(toks: ParseResults) -> str:
-    return modal_act(toks, "", f"End of alternatives", tab_inc=-1, tok_list=True)
+    return modal_act(toks, ")", f"End of alternatives", tab_inc=-1, tok_list=True)
 
 
 alt_pattern: ParserElement = (
     beg_alt_def + pattern + (alt_delim_def + pattern)[1, ...] + end_alt_def
 )
-# TODO
-# alt_pattern: ParserElement = (
-#     beg_alt_def + delimited_list(pattern, delim="|") + end_alt_def
-# )
+
 
 ### NON-CAPTURING GROUPS (UNNAMED SEQUENCES) ###
 

@@ -1,7 +1,7 @@
 line_start()
 "foo" * 0, 1 least
 "z"
-all ("H", "Q")
+any ("foo" | "bar" | "bas")
 bell()
 any not ("a" - "z" | "A" | "B" | "C")
 "a"
