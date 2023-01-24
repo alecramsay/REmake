@@ -52,6 +52,10 @@ class TestReservedWords:
             "carriage_return",
             "horizontal_tab",
             "vertical_tab",
+            "not_digit",
+            "not_word_character",
+            "not_whitespace",
+            "not_word_boundary",
         )
 
         for word in atomic_words:

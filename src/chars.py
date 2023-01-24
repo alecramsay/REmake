@@ -194,6 +194,18 @@ def digit_act(toks: ParseResults) -> str:
     return modal_act(toks, translation, comment)
 
 
+not_digit_def: Keyword = not_digit_word + Suppress("()")
+
+
+@not_digit_def.set_parse_action
+def not_digit_act(toks: ParseResults) -> str:
+    token: str = unpack_token(toks)
+    translation: str = translate_word(token)
+    comment: str = "Not a digit"
+
+    return modal_act(toks, translation, comment)
+
+
 word_char_def: Keyword = word_character_word + Suppress("()")
 
 
@@ -202,6 +214,18 @@ def word_char_act(toks: ParseResults) -> str:
     token: str = unpack_token(toks)
     translation: str = translate_word(token)
     comment: str = "A word character"
+
+    return modal_act(toks, translation, comment)
+
+
+not_word_char_def: Keyword = not_word_character_word + Suppress("()")
+
+
+@not_word_char_def.set_parse_action
+def not_word_char_act(toks: ParseResults) -> str:
+    token: str = unpack_token(toks)
+    translation: str = translate_word(token)
+    comment: str = "Not a word character"
 
     return modal_act(toks, translation, comment)
 
@@ -218,6 +242,18 @@ def whitespace_act(toks: ParseResults) -> str:
     return modal_act(toks, translation, comment)
 
 
+not_whitespace_def: Keyword = not_whitespace_word + Suppress("()")
+
+
+@not_whitespace_def.set_parse_action
+def not_whitespace_act(toks: ParseResults) -> str:
+    token: str = unpack_token(toks)
+    translation: str = translate_word(token)
+    comment: str = "Not a whitespace character"
+
+    return modal_act(toks, translation, comment)
+
+
 ### BOUNDARIES ###
 
 word_boundary_def: Keyword = word_boundary_word + Suppress("()")
@@ -228,6 +264,18 @@ def word_boundary_act(toks: ParseResults) -> str:
     token: str = unpack_token(toks)
     translation: str = translate_word(token)
     comment: str = "Word boundary"
+
+    return modal_act(toks, translation, comment)
+
+
+not_word_boundary_def: Keyword = not_word_boundary_word + Suppress("()")
+
+
+@not_word_boundary_def.set_parse_action
+def not_word_boundary_act(toks: ParseResults) -> str:
+    token: str = unpack_token(toks)
+    translation: str = translate_word(token)
+    comment: str = "Not a word boundary"
 
     return modal_act(toks, translation, comment)
 
@@ -301,8 +349,11 @@ char_class_def: ParserElement = (
 consuming_char: ParserElement = (
     char_def
     | digit_def
+    | not_digit_def
     | word_char_def
+    | not_word_char_def
     | whitespace_def
+    | not_whitespace_def
     | any_char_def
     | non_printable_char_def
     | meta_char_def
@@ -310,6 +361,6 @@ consuming_char: ParserElement = (
     | string_def
 )
 
-non_consuming_char: ParserElement = word_boundary_def
+non_consuming_char: ParserElement = word_boundary_def | not_word_boundary_def
 
 ### END ###

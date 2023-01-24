@@ -49,6 +49,11 @@ reserved_word_dict: dict[str, str] = {
     "as": "",
     # Miscellaneous
     "not": "^",
+    # Negations
+    "not_digit": "\\D",
+    "not_word_character": "\\W",
+    "not_whitespace": "\\S",
+    "not_word_boundary": "\\B",
 }
 
 reserved_word_names: list[str] = list(reserved_word_dict.keys())
@@ -88,6 +93,10 @@ reserved_word_names: list[str] = list(reserved_word_dict.keys())
     all_word,
     as_word,
     not_word,
+    not_digit_word,
+    not_word_character_word,
+    not_whitespace_word,
+    not_word_boundary_word,
 ) = map(Keyword, reserved_word_names)
 
 reserved_words: ParserElement = (
@@ -125,6 +134,10 @@ reserved_words: ParserElement = (
     | all_word
     | as_word
     | not_word
+    | not_digit_word
+    | not_word_character_word
+    | not_whitespace_word
+    | not_word_boundary_word
 )
 
 ### END ###
