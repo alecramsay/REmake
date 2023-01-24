@@ -117,10 +117,10 @@ capturing_pattern: ParserElement = (
 
 # TODO - ADD SYMBOL TABLE LOOKUP
 
-name_def: Word = Word(identchars, identbodychars)
+id_def: Word = ~reserved_words + Word(identchars, identbodychars)
 
 
-@name_def.set_parse_action
+@id_def.set_parse_action
 def name_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks
@@ -145,7 +145,7 @@ atomic_pattern: ParserElement = (
     ^ (noncapturing_pattern + Opt(quantifier))
     ^ (capturing_pattern + Opt(quantifier))
     ^ (consuming_char + Opt(quantifier))
-    ^ name_def
+    ^ id_def
     ^ non_consuming_char
 )  # This is not an atomic *group*.
 

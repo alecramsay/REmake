@@ -10,8 +10,8 @@ from src import *
 
 ### ARGUMENTS ###
 
-source: str = "test/examples/sample.re"  # TODO - Not completing
-# source: str = "test/examples/sample2.re"  # TODO - Line end confused with name reference
+# source: str = "test/examples/sample.re"  # TODO - Not completing
+source: str = "test/examples/sample2.re"
 
 verbose: bool = True
 

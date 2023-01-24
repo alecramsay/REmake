@@ -19,7 +19,7 @@ start_of_line_def: Keyword = Group(line_start_word + Suppress("()"))
 @start_of_line_def.set_parse_action
 def start_of_line_act(toks: ParseResults) -> str:
     token: str = unpack_token(toks, grouped=True)
-    translation: str = translate_character_word(token)
+    translation: str = translate_word(token)
     comment: str = f"Start of line"
 
     return modal_act(toks, translation, comment)
@@ -31,7 +31,7 @@ end_of_line_def: Keyword = Group(line_end_word + Suppress("()"))
 @end_of_line_def.set_parse_action
 def end_of_line_act(toks: ParseResults) -> str:
     token: str = unpack_token(toks, grouped=True)
-    translation: str = translate_character_word(token)
+    translation: str = translate_word(token)
     comment: str = f"End of line"
 
     return modal_act(toks, translation, comment)
@@ -43,7 +43,7 @@ start_of_string_def: Keyword = Group(string_start_word + Suppress("()"))
 @start_of_string_def.set_parse_action
 def start_of_string_act(toks: ParseResults) -> str:
     token: str = unpack_token(toks, grouped=True)
-    translation: str = translate_character_word(token)
+    translation: str = translate_word(token)
     comment: str = f"Start of string"
 
     return modal_act(toks, translation, comment)
@@ -55,7 +55,7 @@ end_of_string_def: Keyword = Group(string_end_word + Suppress("()"))
 @end_of_string_def.set_parse_action
 def end_of_string_act(toks: ParseResults) -> str:
     token: str = unpack_token(toks, grouped=True)
-    translation: str = translate_character_word(token)
+    translation: str = translate_word(token)
     comment: str = f"End of string"
 
     return modal_act(toks, translation, comment)

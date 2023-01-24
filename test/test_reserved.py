@@ -22,7 +22,11 @@ class TestReservedWords:
         assert True
 
     def test_character_word_translations(self) -> None:
-        character_words: list[str] = (
+        atomic_words: list[str] = (
+            "line_start",
+            "string_start",
+            "line_end",
+            "string_end",
             "digit",
             "word_character",
             "whitespace",
@@ -50,8 +54,8 @@ class TestReservedWords:
             "vertical_tab",
         )
 
-        for word in character_words:
-            translation: str = translate_character_word(word)
+        for word in atomic_words:
+            translation: str = translate_word(word)
             # print(f"{word} -> {translation}")
 
             assert translation == reserved_word_dict[word]

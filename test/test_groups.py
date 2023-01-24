@@ -27,7 +27,7 @@ class TestGroups:
             print(list(results))
             assert list(results) == expected[i]
 
-        Grammar: Any = name_def
+        Grammar: Any = id_def
         input: str = "magic"
         results: ParseResults = Grammar.parseString(input)
 

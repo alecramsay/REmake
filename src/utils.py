@@ -40,7 +40,9 @@ def unpack_token(toks: ParseResults, grouped: bool = False) -> Any:
     return token
 
 
-def translate_character_word(word: str) -> str:
+def translate_word(word: str) -> str:
+    """Lookup the atomic word in the dictionary."""
+
     return reserved_word_dict[word]
 
 
