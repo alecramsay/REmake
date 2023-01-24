@@ -41,12 +41,12 @@ end_alt_def: ParserElement = Suppress(")")
 
 @beg_alt_def.set_parse_action
 def beg_alt_act(toks: ParseResults) -> str:
-    return modal_act(toks, "(", f"One alternative:", tab_inc=1)
+    return modal_act(toks, "", f"Begin alternatives:", tab_inc=1)
 
 
 @end_alt_def.set_parse_action
 def end_alt_act(toks: ParseResults) -> str:
-    return modal_act(toks, ")", f"End of alternatives", tab_inc=-1)
+    return modal_act(toks, "", f"End of alternatives", tab_inc=-1)
 
 
 alt_pattern: ParserElement = (
@@ -65,7 +65,7 @@ end_noncapturing_def: ParserElement = Suppress(")")
 
 @beg_noncapturing_def.set_parse_action
 def beg_noncapturing_act(toks: ParseResults) -> str:
-    return modal_act(toks, "(", f"All sequentially (not captured):", tab_inc=1)
+    return modal_act(toks, "(?:", f"All sequentially (not captured):", tab_inc=1)
 
 
 @end_noncapturing_def.set_parse_action
@@ -121,18 +121,18 @@ id_def: Word = ~reserved_words + Word(identchars, identbodychars)
 
 
 @id_def.set_parse_action
-def name_act(toks: ParseResults) -> str:
+def id_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks
 
-    name: str = toks[0]
-    translation: str = f"(?P={name})"
+    id: str = unpack_token(toks)
+    translation: str = f"(?P={id})"
 
     if G.EMIT_MODE == G.Mode.REGEX:
         return translation
 
     if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        comment: str = f"Reference to '{name}' capturing group"
+        comment: str = f"Reference to '{id}' capturing group"
         return free_space(translation, comment)
 
     raise ValueError("Invalid emit mode")

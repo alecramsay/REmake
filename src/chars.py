@@ -103,7 +103,7 @@ range_char: Char = char_def.copy()
 
 @char_def.set_parse_action
 def char_act(toks: ParseResults) -> str:
-    translation: str = toks[0][1:-1]
+    translation: str = unpack_token(toks)[1:-1]
     comment: str = f"The character '{translation}'"
 
     return modal_act(toks, translation, comment)
@@ -146,7 +146,7 @@ non_printable_char_def: Keyword = (
 def non_printable_char_act(toks: ParseResults) -> str:
     token: str = unpack_token(toks)
     translation: str = translate_word(token)
-    comment: str = f"The {keyword_to_words(toks[0])} character"
+    comment: str = f"The {keyword_to_words(unpack_token(toks))} character"
 
     return modal_act(toks, translation, comment)
 
@@ -173,7 +173,7 @@ string_def: QuotedString = QuotedString('"', unquote_results=False) | QuotedStri
 
 @string_def.set_parse_action
 def string_act(toks: ParseResults) -> str:
-    translation: str = toks[0][1:-1]
+    translation: str = unpack_token(toks)[1:-1]
     comment: str = f"The character string '{translation}'"
 
     return modal_act(toks, translation, comment)
