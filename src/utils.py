@@ -15,6 +15,21 @@ from .constants import *
 ### EMIT HELPERS ###
 
 
+def modal_act(
+    toks: ParseResults, translation: str, comment: str, tab_inc: int = 0
+) -> str:
+    if G.EMIT_MODE == G.Mode.TOKENS:
+        return toks[0]
+
+    if G.EMIT_MODE == G.Mode.REGEX:
+        return translation
+
+    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
+        return free_space(translation, comment, tab_inc=tab_inc)
+
+    raise ValueError("Invalid emit mode")
+
+
 def word_act(toks: ParseResults, translation: str, comment: str) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
