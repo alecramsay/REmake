@@ -4,7 +4,7 @@
 HELPER UTILITIES
 """
 
-from pyparsing import ParseResults
+from pyparsing import ParseResults, Suppress
 from typing import Any
 
 import src.globals as G
@@ -73,6 +73,12 @@ def keyword_to_words(name: str) -> str:
             result += char
 
     return result
+
+
+def append_suppress(word: Keyword) -> Keyword:
+    """Append a Suppress to a reserved keyword."""
+
+    return word + Suppress("()")
 
 
 ### END ###

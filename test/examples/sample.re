@@ -1,8 +1,9 @@
 line_start()
 "foo" * 0, 1 least
+"z"
 all ("H", "Q")
-any ("a" - "z" | "A" | "B" | "C")
 bell()
+any ("a" - "z" | "A" | "B" | "C")
 "a"
 dollar_sign()
 "c"

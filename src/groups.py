@@ -145,7 +145,7 @@ atomic_pattern: ParserElement = (
     ^ (noncapturing_pattern + Opt(quantifier))
     ^ (capturing_pattern + Opt(quantifier))
     ^ (consuming_char + Opt(quantifier))
-    ^ id_def
+    ^ (id_def + Opt(quantifier))
     ^ non_consuming_char
 )  # This is not an atomic *group*.
 

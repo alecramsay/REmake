@@ -77,14 +77,34 @@ def char_act(toks: ParseResults) -> str:
 
 ### NON-PRINTABLE CHARACTERS ###
 
+non_printable_char_words: Keyword = [
+    bell_word,
+    escape_word,
+    form_feed_word,
+    newline_word,
+    carriage_return_word,
+    horizontal_tab_word,
+    vertical_tab_word,
+]
+
+(
+    bell_def,
+    escape_def,
+    form_feed_def,
+    newline_def,
+    carriage_return_def,
+    horizontal_tab_def,
+    vertical_tab_def,
+) = map(append_suppress, non_printable_char_words)
+
 non_printable_char_def: Keyword = (
-    bell_word
-    | escape_word
-    | form_feed_word
-    | newline_word
-    | carriage_return_word
-    | horizontal_tab_word
-    | vertical_tab_word
+    bell_def
+    | escape_def
+    | form_feed_def
+    | newline_def
+    | carriage_return_def
+    | horizontal_tab_def
+    | vertical_tab_def
 )
 
 
