@@ -54,13 +54,17 @@ def translate_word(word: str) -> str:
 def free_space(translation: str, comment: str, tab_inc: int = 0) -> str:
     """Return a free-spaced regex translation with a documentation comment."""
 
-    spaces: str = " " * (COMMENT_TAB - len(translation))
-
     indent: str = " " * (TAB_SIZE * G.INDENT_LEVEL) if G.INDENT_LEVEL > 0 else ""
+
+    if COMMENT_TAB < (len(translation) + len(indent)):
+        raise ValueError("Comment tab is too small")
+
+    spaces: str = " " * (COMMENT_TAB - len(translation) - len(indent))
+
     # Apply the tab increment for the next comment(s)
     G.INDENT_LEVEL += tab_inc
 
-    return translation + spaces + "# " + indent + comment + "\n"
+    return indent + translation + spaces + "# " + comment + "\n"
 
 
 def keyword_to_words(name: str) -> str:
