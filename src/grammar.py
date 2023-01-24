@@ -26,9 +26,4 @@ pattern <<= atomic_pattern[...] | pattern_list
 
 remake_spec: ParserElement = Opt(start_anchor) + pattern + Opt(end_anchor)
 
-### TODO - NYI SCRAPS ###
-
-not_def: Keyword = not_word
-
-
 ### END ###

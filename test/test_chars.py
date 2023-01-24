@@ -103,5 +103,11 @@ class TestCharacters:
         results: ParseResults = Grammar.parseString(input)
         assert list(results) == expected
 
+        input: str = "any not ('a' - 'z')"
+        expected: str = ["not", "'a'", "'z'"]
+
+        results: ParseResults = Grammar.parseString(input)
+        assert list(results) == expected
+
 
 ### END ###

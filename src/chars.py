@@ -13,6 +13,7 @@ from pyparsing import (
     QuotedString,
     Suppress,
     delimited_list,
+    Opt,
     ParseResults,
     ParserElement,
 )
@@ -263,14 +264,23 @@ def char_range_act(toks: ParseResults) -> str:
     return modal_act(toks, translation, comment, tok_list=True)
 
 
-beg_char_class_def: ParserElement = Suppress(any_word) + Suppress("(")
+beg_char_class_def: ParserElement = (
+    Suppress(any_word) + Opt(not_word)("negated") + Suppress("(")
+)
 end_char_class_def: ParserElement = Suppress(")")
 
 
 @beg_char_class_def.set_parse_action
 def beg_char_class_act(toks: ParseResults) -> str:
+    open_class: str = "[^" if toks.negated else "["
+    qualifier: str = "not " if toks.negated else ""
+
     return modal_act(
-        toks, "[", f"Any character in the class:", tab_inc=1, tok_list=True
+        toks,
+        open_class,
+        f"Any character {qualifier}in the class:",
+        tab_inc=1,
+        tok_list=True,
     )
 
 
