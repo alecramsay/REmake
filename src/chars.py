@@ -296,6 +296,10 @@ def any_char_act(toks: ParseResults) -> str:
 
 ### CHARACTER CLASSES ###
 
+"""
+any not* ( <character-or-range> | <character-or-range> | ... | <character-or-range> )
+"""
+
 char_range_def: ParserElement = (
     range_char("from_char") + Suppress("-") + range_char("to_char")
 )

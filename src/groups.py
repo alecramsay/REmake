@@ -33,8 +33,8 @@ pattern: Forward = Forward()
 ### ALTERNATION ###
 
 """
-any ( pattern1 | pattern2 | ... | patternN )
-any ( pattern1 | pattern2 | ... | patternN )
+any ( <pattern> | <pattern> | ... | <pattern> )
+any as <name> ( <pattern> | <pattern> | ... | <pattern> )
 """
 
 beg_alt_def: ParserElement = Suppress(any_word) + Suppress("(")
@@ -65,8 +65,8 @@ alt_pattern: ParserElement = (
 ### GROUPS - CAPTURING AND NON-CAPTURING SEQUENCES ###
 
 """
-all ( pattern1, pattern2, ... , patternN )
-all as name ( pattern1, pattern2, ... , patternN )
+all ( <pattern>, <pattern>, ..., <pattern> )
+all as <name> ( <pattern>, <pattern>, ..., <pattern> )
 """
 
 beg_group_def: ParserElement = (
