@@ -12,10 +12,11 @@ from pyparsing import (
     ParserElement,
 )
 
-from .groups import pattern, atomic_pattern
-from .anchors import start_anchor, end_anchor
+from .reserved import *
 from .constants import *
 from .utils import *
+from .groups import pattern, atomic_pattern
+from .anchors import start_anchor, end_anchor
 
 
 # NOTE - The forward declaration of 'pattern' is in groups.py,
@@ -33,7 +34,7 @@ remake_spec: ParserElement = Opt(start_anchor) + pattern + Opt(end_anchor)
 
 ### TODO - NYI SCRAPS ###
 
-not_def: Keyword = Keyword("not")
+not_def: Keyword = not_word
 
 
 ### END ###

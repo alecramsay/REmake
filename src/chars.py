@@ -49,7 +49,7 @@ def meta_char_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
-    token: str = toks[0]
+    token: str = unpack_token(toks)
     translation: str = reserved_word_dict[token]
 
     if G.EMIT_MODE == G.Mode.REGEX:
@@ -110,7 +110,7 @@ def non_printable_char_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
-    token: str = toks[0]
+    token: str = unpack_token(toks)
     translation: str = reserved_word_dict[token]
 
     if G.EMIT_MODE == G.Mode.REGEX:
@@ -169,7 +169,7 @@ def digit_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
-    token: str = toks[0]
+    token: str = unpack_token(toks)
     translation: str = reserved_word_dict[token]
 
     if G.EMIT_MODE == G.Mode.REGEX:
@@ -189,7 +189,7 @@ def word_char_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
-    token: str = toks[0]
+    token: str = unpack_token(toks)
     translation: str = reserved_word_dict[token]
 
     if G.EMIT_MODE == G.Mode.REGEX:
@@ -209,7 +209,7 @@ def whitespace_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
-    token: str = toks[0]
+    token: str = unpack_token(toks)
     translation: str = reserved_word_dict[token]
 
     if G.EMIT_MODE == G.Mode.REGEX:
@@ -231,7 +231,7 @@ def word_boundary_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
-    token: str = toks[0]
+    token: str = unpack_token(toks)
     translation: str = reserved_word_dict[token]
 
     if G.EMIT_MODE == G.Mode.REGEX:
@@ -253,7 +253,7 @@ def any_char_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:
         return toks[0]
 
-    token: str = toks[0]
+    token: str = unpack_token(toks)
     translation: str = reserved_word_dict[token]
 
     if G.EMIT_MODE == G.Mode.REGEX:
@@ -292,7 +292,7 @@ def char_range_act(toks: ParseResults) -> str:
     raise ValueError("Invalid emit mode")
 
 
-beg_char_class_def: ParserElement = Suppress(Keyword("any")) + Suppress("(")
+beg_char_class_def: ParserElement = Suppress(any_word) + Suppress("(")
 end_char_class_def: ParserElement = Suppress(")")
 
 

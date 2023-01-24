@@ -4,10 +4,18 @@
 HELPER UTILITIES
 """
 
+from pyparsing import ParseResults
 from typing import Any
 
 import src.globals as G
 from .constants import *
+
+
+def unpack_token(toks: ParseResults, grouped: bool = False) -> Any:
+    """Unpack the token from ParseResults object."""
+
+    token: str = list(toks[0])[0] if grouped else toks[0]
+    return token
 
 
 def free_space(translation: str, comment: str, tab_inc: int = 0) -> str:
