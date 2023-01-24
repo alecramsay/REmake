@@ -18,57 +18,17 @@ from .constants import *
 def modal_act(
     toks: ParseResults, translation: str, comment: str, tab_inc: int = 0
 ) -> str:
+    """Emit respecting the mode."""
+
     if G.EMIT_MODE == G.Mode.TOKENS:
-        return toks[0]
+        # NOTE - tab_inc is zero for atomic words, +/– for paired items
+        return toks[0] if tab_inc == 0 else toks
 
     if G.EMIT_MODE == G.Mode.REGEX:
         return translation
 
     if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
         return free_space(translation, comment, tab_inc=tab_inc)
-
-    raise ValueError("Invalid emit mode")
-
-
-def word_act(toks: ParseResults, translation: str, comment: str) -> str:
-    if G.EMIT_MODE == G.Mode.TOKENS:
-        return toks[0]
-
-    if G.EMIT_MODE == G.Mode.REGEX:
-        return translation
-
-    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        return free_space(translation, comment)
-
-    raise ValueError("Invalid emit mode")
-
-
-def beg_paired_act(toks: ParseResults, translation: str, comment: str) -> str:
-    """Open pair action template."""
-
-    if G.EMIT_MODE == G.Mode.TOKENS:
-        return toks
-
-    if G.EMIT_MODE == G.Mode.REGEX:
-        return translation
-
-    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        return free_space(translation, comment, tab_inc=1)
-
-    raise ValueError("Invalid emit mode")
-
-
-def end_paired_act(toks: ParseResults, translation: str, comment: str) -> str:
-    """Close pair action template."""
-
-    if G.EMIT_MODE == G.Mode.TOKENS:
-        return toks
-
-    if G.EMIT_MODE == G.Mode.REGEX:
-        return translation
-
-    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        return free_space(translation, comment, tab_inc=-1)
 
     raise ValueError("Invalid emit mode")
 

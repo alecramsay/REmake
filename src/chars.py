@@ -50,7 +50,7 @@ def meta_char_act(toks: ParseResults) -> str:
     translation: str = reserved_word_dict[token]
     comment: str = f"A {keyword_to_words(token)} (escaped)"
 
-    return word_act(toks, translation, comment)
+    return modal_act(toks, translation, comment)
 
 
 ### PRINTABLE CHARACTERS ###
@@ -72,7 +72,7 @@ def char_act(toks: ParseResults) -> str:
     translation: str = toks[0][1:-1]
     comment: str = f"The character '{translation}'"
 
-    return word_act(toks, translation, comment)
+    return modal_act(toks, translation, comment)
 
 
 ### NON-PRINTABLE CHARACTERS ###
@@ -94,7 +94,7 @@ def non_printable_char_act(toks: ParseResults) -> str:
     translation: str = reserved_word_dict[token]
     comment: str = f"The {keyword_to_words(toks[0])} character"
 
-    return word_act(toks, translation, comment)
+    return modal_act(toks, translation, comment)
 
 
 ### MULTI-CHARACTER STRINGS ###
@@ -122,7 +122,7 @@ def string_act(toks: ParseResults) -> str:
     translation: str = toks[0][1:-1]
     comment: str = f"The character string '{translation}'"
 
-    return word_act(toks, translation, comment)
+    return modal_act(toks, translation, comment)
 
 
 ### CHARACTER SHORTHANDS ###
@@ -136,7 +136,7 @@ def digit_act(toks: ParseResults) -> str:
     translation: str = reserved_word_dict[token]
     comment: str = "A digit"
 
-    return word_act(toks, translation, comment)
+    return modal_act(toks, translation, comment)
 
 
 word_char_def: Keyword = word_character_word + Suppress("()")
@@ -148,7 +148,7 @@ def word_char_act(toks: ParseResults) -> str:
     translation: str = reserved_word_dict[token]
     comment: str = "A word character"
 
-    return word_act(toks, translation, comment)
+    return modal_act(toks, translation, comment)
 
 
 whitespace_def: Keyword = whitespace_word + Suppress("()")
@@ -160,7 +160,7 @@ def whitespace_act(toks: ParseResults) -> str:
     translation: str = reserved_word_dict[token]
     comment: str = "A whitespace character"
 
-    return word_act(toks, translation, comment)
+    return modal_act(toks, translation, comment)
 
 
 ### BOUNDARIES ###
@@ -174,7 +174,7 @@ def word_boundary_act(toks: ParseResults) -> str:
     translation: str = reserved_word_dict[token]
     comment: str = "Word boundary"
 
-    return word_act(toks, translation, comment)
+    return modal_act(toks, translation, comment)
 
 
 ### ANY CHARACTER ###
@@ -188,7 +188,7 @@ def any_char_act(toks: ParseResults) -> str:
     translation: str = reserved_word_dict[token]
     comment: str = "Any character (except newline)"
 
-    return word_act(toks, translation, comment)
+    return modal_act(toks, translation, comment)
 
 
 ### CHARACTER CLASSES ###
@@ -224,12 +224,12 @@ end_char_class_def: ParserElement = Suppress(")")
 
 @beg_char_class_def.set_parse_action
 def beg_char_class_act(toks: ParseResults) -> str:
-    return beg_paired_act(toks, "[", f"Any character in the class:")
+    return modal_act(toks, "[", f"Any character in the class:", tab_inc=1)
 
 
 @end_char_class_def.set_parse_action
 def end_char_class_act(toks: ParseResults) -> str:
-    return end_paired_act(toks, "]", f"End of character class")
+    return modal_act(toks, "]", f"End of character class", tab_inc=-1)
 
 
 char_class_def: ParserElement = (
