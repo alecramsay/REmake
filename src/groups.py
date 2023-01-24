@@ -37,14 +37,38 @@ any ( <pattern> | <pattern> | ... | <pattern> )
 any as <name> ( <pattern> | <pattern> | ... | <pattern> )
 """
 
-beg_alt_def: ParserElement = Suppress(any_word) + Suppress("(")
+beg_alt_def: ParserElement = (
+    Suppress(any_word)
+    + Opt(Suppress(as_word) + Word(identchars, identbodychars)("id"))
+    + Suppress("(")
+)
 alt_delim_def: ParserElement = Char("|")
 end_alt_def: ParserElement = Suppress(")")
 
 
 @beg_alt_def.set_parse_action
 def beg_alt_act(toks: ParseResults) -> str:
-    return modal_act(toks, "(?:", f"Begin alternatives:", tab_inc=1, tok_list=True)
+    translation: str = "(?:"
+    comment: str = f"Begin alternatives (not captured):"
+
+    if "id" in toks:
+        name: str = toks["id"]
+
+        if name in G.GROUP_IDS:
+            raise ValueError(f"Duplicate group name '{name}'")
+        else:
+            G.GROUP_IDS[name] = "DEFINED"
+
+        translation = f"(?<{name}>"
+        comment = f"Begin alternatives (captured in '{name}'):"
+
+    return modal_act(
+        toks,
+        translation,
+        comment,
+        tab_inc=1,
+        tok_list=True,
+    )
 
 
 @alt_delim_def.set_parse_action
@@ -91,7 +115,7 @@ def beg_group_act(toks: ParseResults) -> str:
             G.GROUP_IDS[name] = "DEFINED"
 
         translation = f"(?<{name}>"
-        f"Begin group (captured in '{name}'):"
+        comment = f"Begin group (captured in '{name}'):"
 
     return modal_act(
         toks,
