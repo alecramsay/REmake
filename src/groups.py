@@ -41,12 +41,12 @@ end_alt_def: ParserElement = Suppress(")")
 
 @beg_alt_def.set_parse_action
 def beg_alt_act(toks: ParseResults) -> str:
-    return modal_act(toks, "", f"Begin alternatives:", tab_inc=1)
+    return modal_act(toks, "", f"Begin alternatives:", tab_inc=1, tok_list=True)
 
 
 @end_alt_def.set_parse_action
 def end_alt_act(toks: ParseResults) -> str:
-    return modal_act(toks, "", f"End of alternatives", tab_inc=-1)
+    return modal_act(toks, "", f"End of alternatives", tab_inc=-1, tok_list=True)
 
 
 alt_pattern: ParserElement = (
@@ -65,12 +65,16 @@ end_noncapturing_def: ParserElement = Suppress(")")
 
 @beg_noncapturing_def.set_parse_action
 def beg_noncapturing_act(toks: ParseResults) -> str:
-    return modal_act(toks, "(?:", f"All sequentially (not captured):", tab_inc=1)
+    return modal_act(
+        toks, "(?:", f"All sequentially (not captured):", tab_inc=1, tok_list=True
+    )
 
 
 @end_noncapturing_def.set_parse_action
 def end_noncapturing_act(toks: ParseResults) -> str:
-    return modal_act(toks, ")", f"End of non-capturing group", tab_inc=-1)
+    return modal_act(
+        toks, ")", f"End of non-capturing group", tab_inc=-1, tok_list=True
+    )
 
 
 noncapturing_pattern: ParserElement = (
@@ -104,13 +108,17 @@ def beg_capturing_act(toks: ParseResults) -> str:
         G.GROUP_IDS[name] = "DEFINED"
 
     return modal_act(
-        toks, translation, f"All sequentially (captured in '{name}'):", tab_inc=1
+        toks,
+        translation,
+        f"All sequentially (captured in '{name}'):",
+        tab_inc=1,
+        tok_list=True,
     )
 
 
 @end_capturing_def.set_parse_action
 def end_capturing_act(toks: ParseResults) -> str:
-    return modal_act(toks, ")", f"End of capturing group", tab_inc=-1)
+    return modal_act(toks, ")", f"End of capturing group", tab_inc=-1, tok_list=True)
 
 
 capturing_pattern: ParserElement = (

@@ -251,25 +251,16 @@ char_range_def: ParserElement = (
     range_char("from_char") + Suppress("-") + range_char("to_char")
 )
 
-# TODO - Refactor
+
 @char_range_def.set_parse_action
 def char_range_act(toks: ParseResults) -> str:
-    if G.EMIT_MODE == G.Mode.TOKENS:
-        return toks
+    if ord(toks.to_char[1:-1]) <= ord(toks.from_char[1:-1]):
+        raise ValueError("Invalid range: order of characters is reversed.")
 
     translation: str = f"{toks.from_char[1:-1]}-{toks.to_char[1:-1]}"
+    comment: str = f"Characters in the range '{translation}'"
 
-    if G.EMIT_MODE == G.Mode.REGEX:
-        if ord(toks.to_char[1:-1]) > ord(toks.from_char[1:-1]):
-            return translation
-        else:
-            raise ValueError("Invalid range: order of characters is reversed.")
-
-    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        comment: str = f"Characters in the range '{translation}'"
-        return free_space(translation, comment)
-
-    raise ValueError("Invalid emit mode")
+    return modal_act(toks, translation, comment, tok_list=True)
 
 
 beg_char_class_def: ParserElement = Suppress(any_word) + Suppress("(")
@@ -278,12 +269,14 @@ end_char_class_def: ParserElement = Suppress(")")
 
 @beg_char_class_def.set_parse_action
 def beg_char_class_act(toks: ParseResults) -> str:
-    return modal_act(toks, "[", f"Any character in the class:", tab_inc=1)
+    return modal_act(
+        toks, "[", f"Any character in the class:", tab_inc=1, tok_list=True
+    )
 
 
 @end_char_class_def.set_parse_action
 def end_char_class_act(toks: ParseResults) -> str:
-    return modal_act(toks, "]", f"End of character class", tab_inc=-1)
+    return modal_act(toks, "]", f"End of character class", tab_inc=-1, tok_list=True)
 
 
 char_class_def: ParserElement = (

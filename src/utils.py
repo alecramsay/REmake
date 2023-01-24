@@ -16,13 +16,19 @@ from .constants import *
 
 
 def modal_act(
-    toks: ParseResults, translation: str, comment: str, tab_inc: int = 0
+    toks: ParseResults,
+    translation: str,
+    comment: str,
+    *,
+    tab_inc: int = 0,
+    tok_list: bool = False
 ) -> str:
     """Emit raw tokens, a single-line regex, or a free-spaced regex."""
 
     if G.EMIT_MODE == G.Mode.TOKENS:
         # NOTE - tab_inc is zero for atomic words, +/– for paired items
-        return toks[0] if tab_inc == 0 else toks
+        return toks if tok_list else toks[0]
+        # return toks[0] if tab_inc == 0 else toks TODO
 
     if G.EMIT_MODE == G.Mode.REGEX:
         return translation

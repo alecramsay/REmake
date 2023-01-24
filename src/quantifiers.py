@@ -34,12 +34,8 @@ quantifier_def: ParserElement = (
 )
 
 
-# TODO - Refactor
 @quantifier_def.set_parse_action
 def quantifier_act(toks: ParseResults) -> str:
-    if G.EMIT_MODE == G.Mode.TOKENS:
-        return toks
-
     translation: str
     comment: str
 
@@ -81,13 +77,7 @@ def quantifier_act(toks: ParseResults) -> str:
     else:
         raise ValueError("Invalid quantifier")
 
-    if G.EMIT_MODE == G.Mode.REGEX:
-        return translation
-
-    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        return free_space(translation, comment)
-
-    raise ValueError("Invalid emit mode")
+    return modal_act(toks, translation, comment, tok_list=True)
 
 
 ### IMPORT THESE ###
