@@ -11,6 +11,39 @@ import src.globals as G
 from .constants import *
 
 
+### EMIT HELPERS ###
+
+
+def beg_paired_act(toks: ParseResults, translation: str, comment: str) -> str:
+    """Open pair action template."""
+
+    if G.EMIT_MODE == G.Mode.TOKENS:
+        return toks
+
+    if G.EMIT_MODE == G.Mode.REGEX:
+        return translation
+
+    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
+        return free_space(translation, comment, tab_inc=1)
+
+    raise ValueError("Invalid emit mode")
+
+
+def end_paired_act(toks: ParseResults, translation: str, comment: str) -> str:
+    """Close pair action template."""
+
+    if G.EMIT_MODE == G.Mode.TOKENS:
+        return toks
+
+    if G.EMIT_MODE == G.Mode.REGEX:
+        return translation
+
+    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
+        return free_space(translation, comment, tab_inc=-1)
+
+    raise ValueError("Invalid emit mode")
+
+
 def unpack_token(toks: ParseResults, grouped: bool = False) -> Any:
     """Unpack the token from ParseResults object."""
 

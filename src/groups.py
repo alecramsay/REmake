@@ -41,37 +41,12 @@ end_alt_def: ParserElement = Suppress(")")
 
 @beg_alt_def.set_parse_action
 def beg_alt_act(toks: ParseResults) -> str:
-    if G.EMIT_MODE == G.Mode.TOKENS:
-        return toks
-
-    translation: str = "("
-
-    if G.EMIT_MODE == G.Mode.REGEX:
-        return translation
-
-    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        comment: str = f"One alternative:"
-        return free_space(translation, comment, tab_inc=1)
-
-    raise ValueError("Invalid emit mode")
+    return beg_paired_act(toks, "(", f"One alternative:")
 
 
 @end_alt_def.set_parse_action
 def end_alt_act(toks: ParseResults) -> str:
-    if G.EMIT_MODE == G.Mode.TOKENS:
-        return toks
-
-    translation: str = ")"
-
-    if G.EMIT_MODE == G.Mode.REGEX:
-        return translation
-
-    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        comment: str = f"End of alternatives"
-
-        return free_space(translation, comment, tab_inc=-1)
-
-    raise ValueError("Invalid emit mode")
+    return end_paired_act(toks, ")", f"End of alternatives")
 
 
 alt_pattern: ParserElement = (
@@ -90,36 +65,12 @@ end_noncapturing_def: ParserElement = Suppress(")")
 
 @beg_noncapturing_def.set_parse_action
 def beg_noncapturing_act(toks: ParseResults) -> str:
-    if G.EMIT_MODE == G.Mode.TOKENS:
-        return toks
-
-    translation: str = "("
-
-    if G.EMIT_MODE == G.Mode.REGEX:
-        return translation
-
-    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        comment: str = f"All sequentially (not captured):"
-        return free_space(translation, comment, tab_inc=1)
-
-    raise ValueError("Invalid emit mode")
+    return beg_paired_act(toks, "(", f"All sequentially (not captured):")
 
 
 @end_noncapturing_def.set_parse_action
 def end_noncapturing_act(toks: ParseResults) -> str:
-    if G.EMIT_MODE == G.Mode.TOKENS:
-        return toks
-
-    translation: str = ")"
-
-    if G.EMIT_MODE == G.Mode.REGEX:
-        return translation
-
-    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        comment: str = f"End of non-capturing group"
-        return free_space(translation, comment, tab_inc=-1)
-
-    raise ValueError("Invalid emit mode")
+    return end_paired_act(toks, ")", f"End of non-capturing group")
 
 
 noncapturing_pattern: ParserElement = (
@@ -144,37 +95,17 @@ end_capturing_def: ParserElement = Suppress(")")
 
 @beg_capturing_def.set_parse_action
 def beg_capturing_act(toks: ParseResults) -> str:
-    if G.EMIT_MODE == G.Mode.TOKENS:
-        return toks
-
     name: str = toks["id"]
     translation: str = f"(?<{name}>"
 
-    if G.EMIT_MODE == G.Mode.REGEX:
-        return translation
-
-    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        comment: str = f"All sequentially (captured in '{name}'):"
-        return free_space(translation, comment, tab_inc=1)
-
-    raise ValueError("Invalid emit mode")
+    return beg_paired_act(
+        toks, translation, f"All sequentially (captured in '{name}'):"
+    )
 
 
 @end_capturing_def.set_parse_action
 def end_capturing_act(toks: ParseResults) -> str:
-    if G.EMIT_MODE == G.Mode.TOKENS:
-        return toks
-
-    translation: str = ")"
-
-    if G.EMIT_MODE == G.Mode.REGEX:
-        return translation
-
-    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        comment: str = f"End of capturing group"
-        return free_space(translation, comment, tab_inc=-1)
-
-    raise ValueError("Invalid emit mode")
+    return end_paired_act(toks, ")", f"End of capturing group")
 
 
 capturing_pattern: ParserElement = (
