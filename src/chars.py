@@ -46,20 +46,11 @@ meta_char_def: Keyword = (
 
 @meta_char_def.set_parse_action
 def meta_char_act(toks: ParseResults) -> str:
-    if G.EMIT_MODE == G.Mode.TOKENS:
-        return toks[0]
-
     token: str = unpack_token(toks)
     translation: str = reserved_word_dict[token]
+    comment: str = f"A {keyword_to_words(token)} (escaped)"
 
-    if G.EMIT_MODE == G.Mode.REGEX:
-        return translation
-
-    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        comment: str = f"A {keyword_to_words(toks[0])} (escaped)"
-        return free_space(translation, comment)
-
-    raise ValueError("Invalid emit mode")
+    return word_act(toks, translation, comment)
 
 
 ### PRINTABLE CHARACTERS ###
@@ -78,18 +69,10 @@ range_char: Char = char_def.copy()
 
 @char_def.set_parse_action
 def char_act(toks: ParseResults) -> str:
-    if G.EMIT_MODE == G.Mode.TOKENS:
-        return toks[0]
-
     translation: str = toks[0][1:-1]
+    comment: str = f"The character '{translation}'"
 
-    if G.EMIT_MODE == G.Mode.REGEX:
-        return translation
-
-    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        return free_space(translation, f"The character '{translation}'")
-
-    raise ValueError("Invalid emit mode")
+    return word_act(toks, translation, comment)
 
 
 ### NON-PRINTABLE CHARACTERS ###
@@ -107,20 +90,11 @@ non_printable_char_def: Keyword = (
 
 @non_printable_char_def.set_parse_action
 def non_printable_char_act(toks: ParseResults) -> str:
-    if G.EMIT_MODE == G.Mode.TOKENS:
-        return toks[0]
-
     token: str = unpack_token(toks)
     translation: str = reserved_word_dict[token]
+    comment: str = f"The {keyword_to_words(toks[0])} character"
 
-    if G.EMIT_MODE == G.Mode.REGEX:
-        return translation
-
-    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        comment: str = f"The {keyword_to_words(toks[0])} character"
-        return free_space(translation, comment)
-
-    raise ValueError("Invalid emit mode")
+    return word_act(toks, translation, comment)
 
 
 ### MULTI-CHARACTER STRINGS ###
@@ -145,18 +119,10 @@ string_def: QuotedString = QuotedString('"', unquote_results=False) | QuotedStri
 
 @string_def.set_parse_action
 def string_act(toks: ParseResults) -> str:
-    if G.EMIT_MODE == G.Mode.TOKENS:
-        return toks[0]
-
     translation: str = toks[0][1:-1]
+    comment: str = f"The character string '{translation}'"
 
-    if G.EMIT_MODE == G.Mode.REGEX:
-        return translation
-
-    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        return free_space(translation, f"The character string '{translation}'")
-
-    raise ValueError("Invalid emit mode")
+    return word_act(toks, translation, comment)
 
 
 ### CHARACTER SHORTHANDS ###
@@ -166,19 +132,11 @@ digit_def: Keyword = digit_word + Suppress("()")
 
 @digit_def.set_parse_action
 def digit_act(toks: ParseResults) -> str:
-    if G.EMIT_MODE == G.Mode.TOKENS:
-        return toks[0]
-
     token: str = unpack_token(toks)
     translation: str = reserved_word_dict[token]
+    comment: str = "A digit"
 
-    if G.EMIT_MODE == G.Mode.REGEX:
-        return translation
-
-    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        return free_space(translation, "A digit")
-
-    raise ValueError("Invalid emit mode")
+    return word_act(toks, translation, comment)
 
 
 word_char_def: Keyword = word_character_word + Suppress("()")
@@ -186,19 +144,11 @@ word_char_def: Keyword = word_character_word + Suppress("()")
 
 @word_char_def.set_parse_action
 def word_char_act(toks: ParseResults) -> str:
-    if G.EMIT_MODE == G.Mode.TOKENS:
-        return toks[0]
-
     token: str = unpack_token(toks)
     translation: str = reserved_word_dict[token]
+    comment: str = "A word character"
 
-    if G.EMIT_MODE == G.Mode.REGEX:
-        return translation
-
-    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        return free_space(translation, "A word character")
-
-    raise ValueError("Invalid emit mode")
+    return word_act(toks, translation, comment)
 
 
 whitespace_def: Keyword = whitespace_word + Suppress("()")
@@ -206,19 +156,11 @@ whitespace_def: Keyword = whitespace_word + Suppress("()")
 
 @whitespace_def.set_parse_action
 def whitespace_act(toks: ParseResults) -> str:
-    if G.EMIT_MODE == G.Mode.TOKENS:
-        return toks[0]
-
     token: str = unpack_token(toks)
     translation: str = reserved_word_dict[token]
+    comment: str = "A whitespace character"
 
-    if G.EMIT_MODE == G.Mode.REGEX:
-        return translation
-
-    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        return free_space(translation, "A whitespace character")
-
-    raise ValueError("Invalid emit mode")
+    return word_act(toks, translation, comment)
 
 
 ### BOUNDARIES ###
@@ -228,19 +170,11 @@ word_boundary_def: Keyword = word_boundary_word + Suppress("()")
 
 @word_boundary_def.set_parse_action
 def word_boundary_act(toks: ParseResults) -> str:
-    if G.EMIT_MODE == G.Mode.TOKENS:
-        return toks[0]
-
     token: str = unpack_token(toks)
     translation: str = reserved_word_dict[token]
+    comment: str = "Word boundary"
 
-    if G.EMIT_MODE == G.Mode.REGEX:
-        return translation
-
-    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        return free_space(translation, "Word boundary")
-
-    raise ValueError("Invalid emit mode")
+    return word_act(toks, translation, comment)
 
 
 ### ANY CHARACTER ###
@@ -250,19 +184,11 @@ any_char_def: Keyword = any_character_word + Suppress("()")
 
 @any_char_def.set_parse_action
 def any_char_act(toks: ParseResults) -> str:
-    if G.EMIT_MODE == G.Mode.TOKENS:
-        return toks[0]
-
     token: str = unpack_token(toks)
     translation: str = reserved_word_dict[token]
+    comment: str = "Any character (except newline)"
 
-    if G.EMIT_MODE == G.Mode.REGEX:
-        return translation
-
-    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        return free_space(translation, "Any character (except newline)")
-
-    raise ValueError("Invalid emit mode")
+    return word_act(toks, translation, comment)
 
 
 ### CHARACTER CLASSES ###
@@ -298,36 +224,12 @@ end_char_class_def: ParserElement = Suppress(")")
 
 @beg_char_class_def.set_parse_action
 def beg_char_class_act(toks: ParseResults) -> str:
-    if G.EMIT_MODE == G.Mode.TOKENS:
-        return toks
-
-    translation: str = "["
-
-    if G.EMIT_MODE == G.Mode.REGEX:
-        return translation
-
-    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        comment: str = f"Any character in the class:"
-        return free_space(translation, comment, tab_inc=1)
-
-    raise ValueError("Invalid emit mode")
+    return beg_paired_act(toks, "[", f"Any character in the class:")
 
 
 @end_char_class_def.set_parse_action
 def end_char_class_act(toks: ParseResults) -> str:
-    if G.EMIT_MODE == G.Mode.TOKENS:
-        return toks
-
-    translation: str = "]"
-
-    if G.EMIT_MODE == G.Mode.REGEX:
-        return translation
-
-    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        comment: str = f"End of character class"
-        return free_space(translation, comment, tab_inc=-1)
-
-    raise ValueError("Invalid emit mode")
+    return end_paired_act(toks, "]", f"End of character class")
 
 
 char_class_def: ParserElement = (

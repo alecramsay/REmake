@@ -8,10 +8,24 @@ from pyparsing import ParseResults
 from typing import Any
 
 import src.globals as G
+from .reserved import *
 from .constants import *
 
 
 ### EMIT HELPERS ###
+
+
+def word_act(toks: ParseResults, translation: str, comment: str) -> str:
+    if G.EMIT_MODE == G.Mode.TOKENS:
+        return toks[0]
+
+    if G.EMIT_MODE == G.Mode.REGEX:
+        return translation
+
+    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
+        return free_space(translation, comment)
+
+    raise ValueError("Invalid emit mode")
 
 
 def beg_paired_act(toks: ParseResults, translation: str, comment: str) -> str:
