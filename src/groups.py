@@ -98,6 +98,11 @@ def beg_capturing_act(toks: ParseResults) -> str:
     name: str = toks["id"]
     translation: str = f"(?<{name}>"
 
+    if name in G.GROUP_IDS:
+        raise ValueError(f"Duplicate group name '{name}'")
+    else:
+        G.GROUP_IDS[name] = "DEFINED"
+
     return modal_act(
         toks, translation, f"All sequentially (captured in '{name}'):", tab_inc=1
     )
@@ -115,27 +120,19 @@ capturing_pattern: ParserElement = (
 
 # A REFERENCE TO A NAMED CAPTURING GROUP
 
-# TODO - ADD SYMBOL TABLE LOOKUP
-
 id_def: Word = ~reserved_words + Word(identchars, identbodychars)
 
 
 @id_def.set_parse_action
 def id_act(toks: ParseResults) -> str:
-    if G.EMIT_MODE == G.Mode.TOKENS:
-        return toks
-
     id: str = unpack_token(toks)
     translation: str = f"(?P={id})"
+    comment: str = f"Reference to '{id}' capturing group"
 
-    if G.EMIT_MODE == G.Mode.REGEX:
-        return translation
+    if id not in G.GROUP_IDS:
+        raise ValueError(f"Undefined group name '{id}'")
 
-    if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        comment: str = f"Reference to '{id}' capturing group"
-        return free_space(translation, comment)
-
-    raise ValueError("Invalid emit mode")
+    return modal_act(toks, translation, comment)
 
 
 ### IMPORT THESE ###

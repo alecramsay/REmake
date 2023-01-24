@@ -251,7 +251,7 @@ char_range_def: ParserElement = (
     range_char("from_char") + Suppress("-") + range_char("to_char")
 )
 
-
+# TODO - Refactor
 @char_range_def.set_parse_action
 def char_range_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:

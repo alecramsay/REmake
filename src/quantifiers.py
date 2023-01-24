@@ -34,6 +34,7 @@ quantifier_def: ParserElement = (
 )
 
 
+# TODO - Refactor
 @quantifier_def.set_parse_action
 def quantifier_act(toks: ParseResults) -> str:
     if G.EMIT_MODE == G.Mode.TOKENS:

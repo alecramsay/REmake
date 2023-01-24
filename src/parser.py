@@ -26,6 +26,7 @@ def parse_lines(
 
     G.EMIT_MODE = mode
     G.EMIT_FLAVOR = flavor
+    G.GROUP_IDS = dict()
 
     # Remove Python-style comments
     filtered: list[str] = list()
@@ -44,6 +45,7 @@ def parse_lines(
     # Restore the default modes
     G.EMIT_MODE = G.Mode.TOKENS
     G.EMIT_FLAVOR = G.Flavor.PYTHON
+    G.GROUP_IDS = dict()
 
     return results
 

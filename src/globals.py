@@ -13,6 +13,8 @@ EMIT_MODE: Mode = Mode.TOKENS
 Flavor: Any = Enum("Flavor", ["PYTHON"])
 EMIT_FLAVOR: Flavor = Flavor.PYTHON
 
+GROUP_IDS: dict[str, str] = dict()
+
 INDENT_LEVEL: int = 0
 
 ### END ###
