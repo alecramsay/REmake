@@ -25,7 +25,7 @@ class TestComments:
             result: str = remove_comments(teststring)
             assert result == expected[i]
 
-        source: str = "test/examples/comments.re"
+        source: str = "test/files/comments.re"
         lines: list[str] = read_source_file(source)
         results: ParseResults = parse_lines(lines)
 

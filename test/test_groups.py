@@ -13,7 +13,7 @@ class TestGroups:
     def test_groups(self) -> None:
         Grammar: Any = atomic_pattern
 
-        source: str = "test/examples/groups.re"
+        source: str = "test/files/groups.re"
         lines: list[str] = read_source_file(source)
 
         expected: list[str] = [

@@ -31,7 +31,7 @@ class TestCharacters:
         results: ParseResults = Grammar.parseString(input)
         assert list(results) == ["'foobar'"]
 
-        source: str = "test/examples/strings.re"
+        source: str = "test/files/strings.re"
         lines: list[str] = read_source_file(source)
         results: ParseResults = parse_lines(lines)
 
