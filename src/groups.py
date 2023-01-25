@@ -48,7 +48,7 @@ end_alt_def: ParserElement = Suppress(")")
 
 @beg_alt_def.set_parse_action
 def beg_alt_act(toks: ParseResults) -> str:
-    translation: str = "(?:"
+    translation: str = "("
     comment: str = f"Begin alternatives (not captured):"
 
     if "id" in toks:
@@ -59,6 +59,7 @@ def beg_alt_act(toks: ParseResults) -> str:
         else:
             G.GROUP_IDS[name] = "DEFINED"
 
+        # TODO - Can alternation be captured like this?
         translation = f"(?<{name}>"
         comment = f"Begin alternatives (captured in '{name}'):"
 
