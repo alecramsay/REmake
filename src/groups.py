@@ -5,7 +5,6 @@ GROUPS
 """
 
 from pyparsing import (
-    Forward,
     Suppress,
     delimited_list,
     Word,
@@ -21,13 +20,10 @@ import src.globals as G
 from .reserved import *
 from .constants import *
 from .utils import *
+
 from .chars import consuming_char, non_consuming_char
 from .quantifiers import quantifier
-
-
-### PATTERN ###
-
-pattern: Forward = Forward()
+from .lookarounds import lookaround_pattern
 
 
 ### ALTERNATION ###
@@ -161,6 +157,7 @@ atomic_pattern: ParserElement = (
     ^ (capturing_pattern + Opt(quantifier))
     ^ (consuming_char + Opt(quantifier))
     ^ (id_def + Opt(quantifier))
+    ^ lookaround_pattern
     ^ non_consuming_char
 )  # This is not an atomic *group*.
 

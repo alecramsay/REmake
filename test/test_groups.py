@@ -24,7 +24,6 @@ class TestGroups:
 
         for i, line in enumerate(lines):
             results: ParseResults = Grammar.parseString(line)
-            print(list(results))
             assert list(results) == expected[i]
 
         Grammar: Any = id_def

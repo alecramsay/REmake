@@ -11,8 +11,9 @@ from src import *
 ### ARGUMENTS ###
 
 # source: str = "test/examples/sample.re"
-source: str = "test/examples/sample2.re"
+# source: str = "test/examples/sample2.re"
 # source: str = "test/examples/atomic_words.re"
+source: str = "test/examples/lookarounds.re"
 
 verbose: bool = True
 

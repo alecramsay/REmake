@@ -54,6 +54,9 @@ reserved_word_dict: dict[str, str] = {
     "not_word_character": "\\W",
     "not_whitespace": "\\S",
     "not_word_boundary": "\\B",
+    # Lookarounds
+    "preceded_by": "",
+    "followed_by": "",
 }
 
 reserved_word_names: list[str] = list(reserved_word_dict.keys())
@@ -97,6 +100,8 @@ reserved_word_names: list[str] = list(reserved_word_dict.keys())
     not_word_character_word,
     not_whitespace_word,
     not_word_boundary_word,
+    preceded_by_word,
+    followed_by_word,
 ) = map(Keyword, reserved_word_names)
 
 reserved_words: ParserElement = (
@@ -138,6 +143,8 @@ reserved_words: ParserElement = (
     | not_word_character_word
     | not_whitespace_word
     | not_word_boundary_word
+    | preceded_by_word
+    | followed_by_word
 )
 
 ### END ###

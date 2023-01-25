@@ -4,12 +4,17 @@
 HELPER UTILITIES
 """
 
-from pyparsing import ParseResults, Suppress
+from pyparsing import ParseResults, Suppress, Forward
 from typing import Any
 
 import src.globals as G
 from .reserved import *
 from .constants import *
+
+
+### PATTERN ###
+
+pattern: Forward = Forward()
 
 
 ### EMIT HELPERS ###

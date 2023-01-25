@@ -56,6 +56,8 @@ class TestReservedWords:
             "not_word_character",
             "not_whitespace",
             "not_word_boundary",
+            "preceded_by",
+            "followed_by",
         )
 
         for word in atomic_words:
