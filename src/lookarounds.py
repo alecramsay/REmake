@@ -37,13 +37,14 @@ def beg_lookahead_act(toks: ParseResults) -> str:
         toks,
         translation,
         comment,
+        tab_inc=1,
         tok_list=True,
     )
 
 
 @end_lookahead_def.set_parse_action
 def end_lookahead_act(toks: ParseResults) -> str:
-    return modal_act(toks, ")", f"End of lookhead", tok_list=True)
+    return modal_act(toks, ")", f"End of lookhead", tab_inc=-1, tok_list=True)
 
 
 lookahead_pattern: ParserElement = beg_lookahead_def + pattern + end_lookahead_def
@@ -69,13 +70,14 @@ def beg_lookbehind_act(toks: ParseResults) -> str:
         toks,
         translation,
         comment,
+        tab_inc=1,
         tok_list=True,
     )
 
 
 @end_lookbehind_def.set_parse_action
 def end_lookbehind_act(toks: ParseResults) -> str:
-    return modal_act(toks, ")", f"End of lookbehind", tok_list=True)
+    return modal_act(toks, ")", f"End of lookbehind", tab_inc=-1, tok_list=True)
 
 
 lookbehind_pattern: ParserElement = beg_lookbehind_def + pattern + end_lookbehind_def
