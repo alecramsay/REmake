@@ -363,6 +363,7 @@ consuming_char: ParserElement = (
     | meta_char_def
     | char_class_def
     | string_def
+    | char_class_def
 )
 
 non_consuming_char: ParserElement = word_boundary_def | not_word_boundary_def
