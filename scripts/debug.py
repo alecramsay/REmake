@@ -14,7 +14,7 @@ from src import *
 # source: str = "test/files/sample2.re"
 # source: str = "test/files/atomic_words.re"
 # source: str = "test/files/lookarounds.re"
-source: str = "examples/recipe_2_10.re"
+source: str = "examples/recipe_2_11d.re"
 
 verbose: bool = True
 
