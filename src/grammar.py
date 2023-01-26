@@ -24,6 +24,9 @@ pattern_list: ParserElement = pattern[...]
 
 pattern <<= atomic_pattern[...] | pattern_list
 
+
+### IMPORT THIS ###
+
 remake_spec: ParserElement = Opt(start_anchor) + pattern + Opt(end_anchor)
 
 ### END ###
