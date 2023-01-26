@@ -4,8 +4,9 @@
 #
 
 from src.chars import *
-from src.readwrite import *
-from src.parser import *
+from src.readwrite import read_source_file
+from src.parser import parse_lines
+from src.comments import remove_comments
 
 
 class TestCharacters:

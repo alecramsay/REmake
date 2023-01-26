@@ -6,7 +6,6 @@ GRAMMAR
 
 from pyparsing import (
     Opt,
-    Keyword,
     ParserElement,
 )
 

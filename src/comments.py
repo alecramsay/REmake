@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 
 """
-CHARACTERS
+COMMENTS
 """
 
 from pyparsing import Regex, QuotedString, ParserElement
-from typing import Any
 
 from .constants import *
 from .utils import *

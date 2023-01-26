@@ -3,8 +3,9 @@
 # TEST ANCHORS
 #
 
-from src.readwrite import *
-from src.parser import *
+from pyparsing import ParseResults
+from src.readwrite import read_source_file
+from src.parser import parse_lines
 
 
 class TestAnchors:

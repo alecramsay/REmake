@@ -8,9 +8,10 @@ from pyparsing import ParseResults
 from typing import Any
 
 import src.globals as G
-from .readwrite import *
-from .comments import *
-from .grammar import *
+
+# from .readwrite import *
+from .comments import remove_comments
+from .grammar import remake_spec
 from .constants import *
 from .utils import *
 

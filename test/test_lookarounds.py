@@ -6,7 +6,7 @@
 from typing import Any
 
 from src.lookarounds import *
-from src.readwrite import *
+from src.readwrite import read_source_file
 
 
 class TestLookarounds:

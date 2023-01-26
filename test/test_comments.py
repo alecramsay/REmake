@@ -3,7 +3,11 @@
 # TEST COMMENTS
 #
 
-from src import *
+from pyparsing import ParseResults
+
+from src.comments import remove_comments
+from src.readwrite import read_source_file
+from src.parser import parse_lines
 
 
 class TestComments:
