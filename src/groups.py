@@ -111,7 +111,7 @@ def beg_group_act(toks: ParseResults) -> str:
         else:
             G.GROUP_IDS[name] = "DEFINED"
 
-        translation = f"(?<{name}>"
+        translation = f"(?P<{name}>"
         comment = f"Begin group (captured in '{name}'):"
 
     return modal_act(
