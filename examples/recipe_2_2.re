@@ -1,4 +1,4 @@
-# 5.2 Match Nonprintable Characters
+# 2.2 Match Nonprintable Characters
 #
 # Regex: \a\e\f\n\r\t\v
 # Flavor: Python

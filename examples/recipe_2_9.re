@@ -1,4 +1,4 @@
-# 5.3 Group and Capture Parts of the Match
+# 2.9 Group and Capture Parts of the Match
 #
 # Regex: \b(?:Mary|Jane|Sue)\b
 # Flavor: Python
