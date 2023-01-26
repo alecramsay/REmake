@@ -153,9 +153,9 @@ def id_act(toks: ParseResults) -> str:
 ### IMPORT THESE ###
 
 atomic_pattern: ParserElement = (
-    (alt_pattern + Opt(quantifier))
+    (consuming_char + Opt(quantifier))
+    ^ (alt_pattern + Opt(quantifier))
     ^ (capturing_pattern + Opt(quantifier))
-    ^ (consuming_char + Opt(quantifier))
     ^ (id_def + Opt(quantifier))
     ^ lookaround_pattern
     ^ non_consuming_char
