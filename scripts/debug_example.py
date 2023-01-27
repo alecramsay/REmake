@@ -12,7 +12,7 @@ from src.readwrite import *
 from src.parser import parse_lines
 
 
-source: str = "examples/recipe_2_4.re"
+source: str = "examples/recipe_2_13.re"
 verbose: bool = True
 
 
