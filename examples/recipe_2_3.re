@@ -10,5 +10,3 @@ any("a" | "e")
 "nd"
 any("a" | "e")
 "r"
-
-# TODO - These are being parsed as alternative as opposed to character classes.
