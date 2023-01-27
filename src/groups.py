@@ -24,6 +24,7 @@ from .utils import *
 from .chars import consuming_char, non_consuming_char
 from .quantifiers import quantifier
 from .lookarounds import lookaround_pattern
+from .modes import modes_pattern
 
 
 ### ALTERNATION ###
@@ -159,6 +160,7 @@ atomic_pattern: ParserElement = (
     ^ (id_def + Opt(quantifier))
     ^ lookaround_pattern
     ^ non_consuming_char
+    ^ modes_pattern
 )  # This is not an atomic *group*.
 
 ### END ###

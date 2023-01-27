@@ -11,10 +11,10 @@ from src import *
 ### ARGUMENTS ###
 
 # source: str = "test/files/sample.re"
-# source: str = "test/files/sample2.re"
+source: str = "test/files/sample2.re"
 # source: str = "test/files/atomic_words.re"
 # source: str = "test/files/lookarounds.re"
-source: str = "examples/recipe_2_11d.re"
+# source: str = "examples/recipe_2_11d.re"
 
 verbose: bool = True
 
