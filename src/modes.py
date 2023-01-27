@@ -49,23 +49,25 @@ def translate_modes(toks) -> str:
     translation: str = ""
 
     if isinstance(toks[0], str):  # Either all on or all off
-        translation = "(?" + translate_mode_list(toks) + ")"
+        mod_list: list[str] = toks
+        translation = "(?" + translate_mode_list(mod_list) + ")"
 
     else:  # Mixed on/off
+        on_list: list[str] = toks[0]
+        off_list: list[str] = toks[1]
         translation = (
-            "(?" + translate_mode_list(toks[0]) + translate_mode_list(toks[1]) + ")"
+            "(?" + translate_mode_list(on_list) + translate_mode_list(off_list) + ")"
         )
 
     return translation
 
 
-def translate_mode_list(toks) -> str:
+def translate_mode_list(toks: list) -> str:
     """Translate a list of either on or off modes to a portion of a regex string."""
 
     translation: str = ""
     translation += "" if toks[0] == "on" else "-"
     for tok in toks[1:]:
-        # token: str = unpack_token(toks, grouped=True)
         translation += translate_word(tok)
 
     return translation
