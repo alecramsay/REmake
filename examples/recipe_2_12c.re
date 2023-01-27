@@ -1,4 +1,4 @@
-# 2.11 Repeat Part of the Regex a Certain Number of Times
+# 2.12 Repeat Part of the Regex a Certain Number of Times
 # Hexadecimal number with optional suffix
 #
 # Regex: \b[a-f0-9]{1,8}h?\b

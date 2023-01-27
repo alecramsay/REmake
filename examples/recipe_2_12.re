@@ -1,4 +1,4 @@
-# 2.11 Repeat Part of the Regex a Certain Number of Times
+# 2.12 Repeat Part of the Regex a Certain Number of Times
 # Googol
 #
 # Regex: \b\d{100}\b
