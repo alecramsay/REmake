@@ -19,13 +19,13 @@ from .utils import *
 
 """
 Inline mode modifiers, i.e., toggle on/off for the remainder of the expression:
-ignore_case, multi_line, dot_all, free_space 
+ignore_case, multi_line, and dot_all but not free_space (too meta)
 
 modes (on: <mode>, <mode>, ... <mode>, off: <mode>, <mode>, ... <mode>)
 """
 
 mode: ParserElement = (
-    ignore_case_word | multi_line_word | dot_all_word | free_space_word
+    ignore_case_word | multi_line_word | dot_all_word  # | free_space_word
 )
 on_group_def: ParserElement = Group(
     on_word("on") + Suppress(":") + delimited_list(mode)

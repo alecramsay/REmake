@@ -38,7 +38,7 @@ def modal_act(
         return translation
 
     if G.EMIT_MODE == G.Mode.FREE_SPACED_REGEX:
-        return free_space(translation, comment, tab_inc=tab_inc)
+        return free_space_translation(translation, comment, tab_inc=tab_inc)
 
     raise ValueError("Invalid emit mode")
 
@@ -56,7 +56,7 @@ def translate_word(word: str) -> str:
     return reserved_word_dict[word]
 
 
-def free_space(translation: str, comment: str, tab_inc: int = 0) -> str:
+def free_space_translation(translation: str, comment: str, tab_inc: int = 0) -> str:
     """Return a free-spaced regex translation with a documentation comment."""
 
     indent: str = " " * (TAB_SIZE * G.INDENT_LEVEL) if G.INDENT_LEVEL > 0 else ""

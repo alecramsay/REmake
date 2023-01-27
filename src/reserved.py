@@ -64,7 +64,7 @@ reserved_word_dict: dict[str, str] = {
     "ignore_case": "i",
     "multi_line": "m",
     "dot_all": "s",
-    "free_space": "x",
+    # "free_space": "x", # NOTE - This would be very meta
     # Quotation marks
     "single_quote": "'",
     "double_quote": '"',
@@ -119,7 +119,7 @@ reserved_word_names: list[str] = list(reserved_word_dict.keys())
     ignore_case_word,
     multi_line_word,
     dot_all_word,
-    free_space_word,
+    # free_space_word,
     single_quote_word,
     double_quote_word,
 ) = map(Keyword, reserved_word_names)
@@ -171,7 +171,7 @@ reserved_words: ParserElement = (
     | ignore_case_word
     | multi_line_word
     | dot_all_word
-    | free_space_word
+    # | free_space_word
     | single_quote_word
     | double_quote_word
 )
