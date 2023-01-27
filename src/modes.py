@@ -7,9 +7,7 @@ MODES
 from pyparsing import (
     Suppress,
     delimited_list,
-    Opt,
     Group,
-    ParseResults,
     ParserElement,
 )
 
@@ -44,28 +42,6 @@ mode_groups_def: ParserElement = (
 beg_modes_def: ParserElement = Suppress(modes_word) + Suppress("(")
 end_modes_def: ParserElement = Suppress(")")
 
-# TODO
-# @beg_modes_def.set_parse_action
-# def beg_modes_act(toks: ParseResults) -> str:
-#     translation: str = "(?:"
-#     comment: str = f"Begin inline mode modifiers:"
-
-#     return modal_act(
-#         toks,
-#         translation,
-#         comment,
-#         tab_inc=1,
-#         tok_list=True,
-#     )
-
-
-# TODO
-# @end_modes_def.set_parse_action
-# def end_modes_act(toks: ParseResults) -> str:
-#     return modal_act(
-#         toks, ")", f"End of inline mode modifiers", tab_inc=-1, tok_list=True
-#     )
-
 
 def translate_modes(toks) -> str:
     """Translate a combined list of on/off modes to a regex string."""
@@ -95,14 +71,10 @@ def translate_mode_list(toks) -> str:
     return translation
 
 
-# TODO
 @mode_groups_def.set_parse_action
 def mode_groups_act(toks: list) -> str:
-    translation: str = "TODO"
-    comment: str = "TODO"
-
-    # translation: str = translate_modes(toks)
-    # comment: str = f"Inline mode modifiers"
+    translation: str = translate_modes(toks[0])
+    comment: str = f"Inline mode modifiers"
     return modal_act(toks, translation, comment)
 
 
