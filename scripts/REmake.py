@@ -16,6 +16,7 @@ scripts/REmake.py -h
 
 import argparse
 from argparse import ArgumentParser, Namespace
+from pyparsing import ParseResults
 
 from src import *
 
