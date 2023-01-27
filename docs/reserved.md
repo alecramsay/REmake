@@ -1,51 +1,51 @@
 
 | Word | Translation |
 |------|-------------|
-| line_start | ^ |
-| string_start | \\A |
-| line_end | $ |
-| string_end | \\Z |
-| digit | \\d |
-| word_character | \\w |
-| whitespace | \\s |
-| word_boundary | \\b |
-| any_character | . |
-| dollar_sign | \\$ |
-| left_paren | \\( |
-| right_paren | \\) |
-| asterisk | \\* |
-| plus_sign | \\+ |
-| period | \\. |
-| question_mark | \\? |
-| left_bracket | \\[ |
-| right_bracket | \\] |
-| caret | \\^ |
-| left_brace | \\{ |
-| right_brace | \\} |
-| pipe | \\| |
-| bell | \\a |
-| escape | \\e |
-| form_feed | \\f |
-| newline | \\n |
-| carriage_return | \\r |
-| horizontal_tab | \\t |
-| vertical_tab | \\v |
-| least |  |
-| any |  |
 | all |  |
+| any |  |
+| any_character | . |
 | as |  |
+| asterisk | \\* |
+| bell | \\a |
+| caret | \\^ |
+| carriage_return | \\r |
+| digit | \\d |
+| dollar_sign | \\$ |
+| dot_all | s |
+| double_quote": '"',
+| escape | \\e |
+| followed_by |  |
+| form_feed | \\f |
+| horizontal_tab | \\t |
+| ignore_case | i |
+| least |  |
+| left_brace | \\{ |
+| left_bracket | \\[ |
+| left_paren | \\( |
+| line_end | $ |
+| line_start | ^ |
+| modes |  |
+| multi_line | m |
+| newline | \\n |
 | not | ^ |
 | not_digit | \\D |
-| not_word_character | \\W |
 | not_whitespace | \\S |
 | not_word_boundary | \\B |
-| preceded_by |  |
-| followed_by |  |
-| modes |  |
-| on |  |
+| not_word_character | \\W |
 | off |  |
-| ignore_case | i |
-| multi_line | m |
-| dot_all | s |
+| on |  |
+| period | \\. |
+| pipe | \\| |
+| plus_sign | \\+ |
+| preceded_by |  |
+| question_mark | \\? |
+| right_brace | \\} |
+| right_bracket | \\] |
+| right_paren | \\) |
 | single_quote | ' |
-| double_quote": '"',
+| string_end | \\Z |
+| string_start | \\A |
+| vertical_tab | \\v |
+| whitespace | \\s |
+| word_boundary | \\b |
+| word_character | \\w |
