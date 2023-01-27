@@ -110,6 +110,25 @@ def char_act(toks: ParseResults) -> str:
     return modal_act(toks, translation, comment)
 
 
+### QUOTATION MARKS ###
+
+(
+    single_quote_def,
+    double_quote_def,
+) = map(append_suppress, [single_quote_word, double_quote_word])
+
+quote_char_def: Keyword = single_quote_def | double_quote_def
+
+
+@quote_char_def.set_parse_action
+def quote_char_act(toks: ParseResults) -> str:
+    token: str = unpack_token(toks)
+    translation: str = translate_word(token)
+    comment: str = f"The {keyword_to_words(token)} character"
+
+    return modal_act(toks, translation, comment)
+
+
 ### NON-PRINTABLE CHARACTERS ###
 
 non_printable_char_words: Keyword = [
@@ -289,7 +308,7 @@ any_char_def: Keyword = any_character_word + Suppress("()")
 def any_char_act(toks: ParseResults) -> str:
     token: str = unpack_token(toks)
     translation: str = translate_word(token)
-    comment: str = "Any character (except newline)"
+    comment: str = "Any character"
 
     return modal_act(toks, translation, comment)
 
@@ -359,6 +378,7 @@ consuming_char: ParserElement = (
     | whitespace_def
     | not_whitespace_def
     | any_char_def
+    | quote_char_def
     | non_printable_char_def
     | meta_char_def
     | char_class_def

@@ -8,22 +8,14 @@ DEBUG REmake
 from src import *
 
 
-### ARGUMENTS ###
-
-# source: str = "test/files/sample.re"
-source: str = "test/files/sample2.re"
-# source: str = "test/files/atomic_words.re"
-# source: str = "test/files/lookarounds.re"
-# source: str = "examples/recipe_2_11d.re"
+# source: str = "test/files/sample2.re"
+source: str = "examples/recipe_2_4.re"
 
 verbose: bool = True
 
 
 def main() -> None:
 
-    # <deleted>
-
-    # PARSE SOURCE FILE & GENERATE REGEX
     lines: list[str] = read_source_file(source)
 
     results: ParseResults = parse_lines(lines, mode=G.Mode.REGEX)
