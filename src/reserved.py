@@ -57,6 +57,14 @@ reserved_word_dict: dict[str, str] = {
     # Lookarounds
     "preceded_by": "",
     "followed_by": "",
+    # Modes
+    "modes": "",
+    "on": "",
+    "off": "",
+    "ignore_case": "i",
+    "multi_line": "m",
+    "dot_all": "s",
+    "free_space": "x",
 }
 
 reserved_word_names: list[str] = list(reserved_word_dict.keys())
@@ -102,6 +110,13 @@ reserved_word_names: list[str] = list(reserved_word_dict.keys())
     not_word_boundary_word,
     preceded_by_word,
     followed_by_word,
+    modes_word,
+    on_word,
+    off_word,
+    ignore_case_word,
+    multi_line_word,
+    dot_all_word,
+    free_space_word,
 ) = map(Keyword, reserved_word_names)
 
 reserved_words: ParserElement = (
@@ -145,6 +160,13 @@ reserved_words: ParserElement = (
     | not_word_boundary_word
     | preceded_by_word
     | followed_by_word
+    | modes_word
+    | on_word
+    | off_word
+    | ignore_case_word
+    | multi_line_word
+    | dot_all_word
+    | free_space_word
 )
 
 ### END ###
