@@ -2,6 +2,8 @@
 
 TODO
 
+## Characters
+
 | Word | Translation |
 |------|-------------|
 | line_start | ^ |
@@ -52,3 +54,7 @@ TODO
 | dot_all | s |
 | single_quote | ' |
 | double_quote | " |
+
+## Character Classes
+
+- any
