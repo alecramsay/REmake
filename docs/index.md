@@ -23,7 +23,7 @@ probably care about using a much more readable and intentionally transparent lan
 
 Regular expressions are left-to-right horizontal strings of characters.
 This language allows you define top-to-bottom vertical sequences of predicates that must all match.
-This sequence looks and feels much more like a program.
+This sequence looks and feels much more like a traditional program.
 
 Most predicates look like function calls, e.g., `digit()`.
 A few look more like programming language constructs, e.g., `all( ... )`.
@@ -40,4 +40,4 @@ all (
 ```
 
 Each of the major constructs in the language are enumerated in the [Table of Contents](#contents) above.
-Here is a [library of examples](../examples/).
+You can find a library of examples in the examples directory in the GitHub [REmake repository](https://github.com/alecramsay/REmake).
