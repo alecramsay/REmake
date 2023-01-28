@@ -1,8 +1,11 @@
 # Reserved Words
 
-| Word | Translation |
+The following words are reserved and may not be used as identifiers in capturing groups.
+They can, of course, be used in quoted literal strings, e.g., "reserved".
+
+| Word | Details |
 |------|-------------|
-| all |  |
+| all | See [Groups](groups.md). |
 | any |  |
 | any_character | . |
 | as |  |
