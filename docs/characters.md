@@ -2,19 +2,21 @@
 
 TODO
 
-## Characters
-
-Character shorthands:
+## Character Shorthands
 
 | Word | Translation |
 |------|-------------|
 | digit | \\d |
+| not_digit | \\D |
 | word_character | \\w |
+| not_word_character | \\W |
 | whitespace | \\s |
+| not_whitespace | \\S |
 | word_boundary | \\b |
+| not_word_boundary | \\B |
 | any_character | . |
 
-Metacharacters:
+## Metacharacters
 
 | Word | Translation |
 |------|-------------|
@@ -32,14 +34,14 @@ Metacharacters:
 | right_brace | \\} |
 | pipe | \\| |
 
-Quotation marks:
+## Quotation Marks
 
 | Word | Translation |
 |------|-------------|
 | single_quote | ' |
 | double_quote | " |
 
-Nonprintable characters:
+## Nonprintable Characters
 
 | Word | Translation |
 |------|-------------|
@@ -50,15 +52,6 @@ Nonprintable characters:
 | carriage_return | \\r |
 | horizontal_tab | \\t |
 | vertical_tab | \\v |
-
-Negations <<< Where do these go?
-
-| Word | Translation |
-|------|-------------|
-| not_digit | \\D |
-| not_word_character | \\W |
-| not_whitespace | \\S |
-| not_word_boundary | \\B |
 
 ## Character Classes
 
