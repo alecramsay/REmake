@@ -2,7 +2,9 @@
 
 TODO
 
-- line_start
-- line_end
-- string_start
-- string_end
+| Word | Translation |
+|------|-------------|
+| line_start | ^ |
+| string_start | \\A |
+| line_end | $ |
+| string_end | \\Z |
