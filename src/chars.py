@@ -299,6 +299,16 @@ def not_word_boundary_act(toks: ParseResults) -> str:
     return modal_act(toks, translation, comment)
 
 
+char_shorthand_def: ParserElement = (
+    digit_def
+    | not_digit_def
+    | word_char_def
+    | not_word_char_def
+    | whitespace_def
+    | not_whitespace_def
+)
+
+
 ### ANY CHARACTER ###
 
 any_char_def: Keyword = any_character_word + Suppress("()")
@@ -371,12 +381,7 @@ char_class_def: ParserElement = (
 
 consuming_char: ParserElement = (
     char_def
-    | digit_def
-    | not_digit_def
-    | word_char_def
-    | not_word_char_def
-    | whitespace_def
-    | not_whitespace_def
+    | char_shorthand_def
     | any_char_def
     | quote_char_def
     | non_printable_char_def

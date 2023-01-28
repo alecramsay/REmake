@@ -1,58 +1,101 @@
 # Characters
 
+These patterns match specific characters and fall into several groups:
+
+- character literals
+- character shorthands
+- any character
+- non-printable characters
+- metacharacters
+- quotation marks
+
+All represent consuming characters and can be quantified, except `word_boundary` and `not_word_boundary`.
+
+## Character Literals
+
+The pattern of the form `"<character>"` matches that character, e.g., `"q"` matchines the letter 'q'.
+Character patterns represented this way are restricted to the printable characters.
+
+As a convenience, multi-character strings may also be represented this way, e.g., `"foo"`.
+
+## Character Classes
+
 TODO
+
+- any
+
 
 ## Character Shorthands
 
+These are four pairs of character shorthands along with their default regex translation (in Python):
+
 | Word | Translation |
 |------|-------------|
-| digit | \\d |
-| not_digit | \\D |
-| word_character | \\w |
-| not_word_character | \\W |
-| whitespace | \\s |
-| not_whitespace | \\S |
-| word_boundary | \\b |
-| not_word_boundary | \\B |
-| any_character | . |
+| digit() | \\d |
+| not_digit() | \\D |
+| word_character() | \\w |
+| not_word_character() | \\W |
+| whitespace() | \\s |
+| not_whitespace() | \\S |
+| word_boundary() | \\b |
+| not_word_boundary() | \\B |
+
+## Any Character
+
+This predicate matches any character:
+
+| Word | Translation |
+|------|-------------|
+| any_character() | . |
+
+## Non-printable Characters
+
+Thes predicates match non-printable characters:
+
+| Word | Translation |
+|------|-------------|
+| bell() | \\a |
+| escape() | \\e |
+| form_feed() | \\f |
+| newline() | \\n |
+| carriage_return() | \\r |
+| horizontal_tab() | \\t |
+| vertical_tab() | \\v |
 
 ## Metacharacters
 
+These predicates match the regex metacharacters:
+
 | Word | Translation |
 |------|-------------|
-| dollar_sign | \\$ |
-| left_paren | \\( |
-| right_paren | \\) |
-| asterisk | \\* |
-| plus_sign | \\+ |
-| period | \\. |
-| question_mark | \\? |
-| left_bracket | \\[ |
-| right_bracket | \\] |
-| caret | \\^ |
-| left_brace | \\{ |
-| right_brace | \\} |
-| pipe | \\| |
+| dollar_sign() | \\$ |
+| left_paren() | \\( |
+| right_paren() | \\) |
+| asterisk() | \\* |
+| plus_sign() | \\+ |
+| period() | \\. |
+| question_mark() | \\? |
+| left_bracket() | \\[ |
+| right_bracket() | \\] |
+| caret() | \\^ |
+| left_brace() | \\{ |
+| right_brace() | \\} |
+| pipe() | \\| |
 
 ## Quotation Marks
+
+Finally, because character literals are quoted, these two predicates match single and double 
+quotation marks.
 
 | Word | Translation |
 |------|-------------|
 | single_quote | ' |
 | double_quote | " |
 
-## Nonprintable Characters
+To match the characters f, o, o quoted, the sequence is:
 
-| Word | Translation |
-|------|-------------|
-| bell | \\a |
-| escape | \\e |
-| form_feed | \\f |
-| newline | \\n |
-| carriage_return | \\r |
-| horizontal_tab | \\t |
-| vertical_tab | \\v |
-
-## Character Classes
-
-- any
+```
+double_quote()
+"foo"
+double_quote()
+```
