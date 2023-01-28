@@ -9,7 +9,8 @@ probably care about using a much more readable and intentionally transparent lan
 
 ## Contents
 
-- [Overview](#overview)
+These are the major language constructs:
+
 - [Anchors](anchors.md)
 - [Characters](characters.md)
 - [Quantifiers](quantifiers.md)
@@ -27,7 +28,7 @@ This sequence looks and feels much more like a traditional program.
 
 Most predicates look like function calls, e.g., `digit()`.
 A few look more like programming language constructs, e.g., `all( ... )`.
-Here's a simple example for finding floating pointing numbers:
+This is an example for finding floating pointing numbers:
 
 ```
 digit() * 0, ...
@@ -39,5 +40,26 @@ all (
 ) * 0, 1
 ```
 
-Each of the major constructs in the language are enumerated in the [Table of Contents](#contents) above.
+When interpreted by the tool, this source produces a single-line regex: 
+
+```
+\d*\.\d+(?:e\d+)?
+```
+
+as well as a free-spaced regex:
+
+```
+\d                  # A digit
+*                   # Zero or more times (greedy)
+\.                  # A period (escaped)
+\d                  # A digit
++                   # One or more times (greedy)
+(?:                 # Begin group (not captured):
+  e                 # The character 'e'
+  \d                # A digit
+  +                 # One or more times (greedy)
+  )                 # End of group
+?                   # Optionally (greedy)
+```
+
 You can find a library of examples in the examples directory in the GitHub [REmake repository](https://github.com/alecramsay/REmake).

@@ -3,4 +3,4 @@
 from .parser import parse_lines
 from .grammar import remake_spec
 from .readwrite import read_source_file
-from .globals import *
+import src.globals as G
