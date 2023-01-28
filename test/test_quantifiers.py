@@ -22,9 +22,9 @@ class TestQuantifiers:
         results: ParseResults = Grammar.parseString(input)
         assert list(results) == ["1", "3"]
 
-        input: str = "* 1,3 least"
+        input: str = "* 1,3 lazy"
         results: ParseResults = Grammar.parseString(input)
-        assert list(results) == ["1", "3", "least"]
+        assert list(results) == ["1", "3", "lazy"]
 
 
 ### END ###

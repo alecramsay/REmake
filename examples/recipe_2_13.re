@@ -4,5 +4,5 @@
 # Flavor: Python
 
 "<p>"
-any_character() * 0, ... least
+any_character() * 0, ... lazy
 "</p>"

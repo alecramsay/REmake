@@ -2,4 +2,4 @@
 
 TODO
 
-- least
+- lazy

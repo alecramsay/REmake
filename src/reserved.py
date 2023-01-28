@@ -42,7 +42,7 @@ reserved_word_dict: dict[str, str] = {
     "horizontal_tab": "\\t",
     "vertical_tab": "\\v",
     # Quantifiers
-    "least": "",
+    "lazy": "",
     # Groups
     "any": "",
     "all": "",

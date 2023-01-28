@@ -1,5 +1,5 @@
 line_start()
-"foo" * 0, 1 least
+"foo" * 0, 1 lazy
 "z"
 any ("foo" | "bar" | "bas")
 bell()

@@ -22,7 +22,7 @@ They can, of course, be used in quoted literal strings, e.g., "reserved".
 | form_feed | See [Characters](characters.md). |
 | horizontal_tab | See [Characters](characters.md). |
 | ignore_case | See [Inline Mode Modifiers](modes.md). |
-| least | See [Quantifiers](quantifiers.md). |
+| lazy | See [Quantifiers](quantifiers.md). |
 | left_brace | See [Characters](characters.md). |
 | left_bracket | See [Characters](characters.md). |
 | left_paren | See [Characters](characters.md). |
