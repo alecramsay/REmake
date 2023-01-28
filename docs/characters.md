@@ -3,17 +3,18 @@
 These patterns match specific characters and fall into several groups:
 
 - character literals
+- character classes
 - character shorthands
 - any character
 - non-printable characters
 - metacharacters
 - quotation marks
 
-All represent consuming characters and can be quantified, except `word_boundary` and `not_word_boundary`.
+All represent consuming characters and can therefore be quantified, except `word_boundary` and `not_word_boundary`.
 
 ## Character Literals
 
-The pattern of the form `"<character>"` matches that character, e.g., `"q"` matchines the letter 'q'.
+The pattern `"<character>"` matches a character, e.g., `"q"` matchines the letter 'q'.
 Character patterns represented this way are restricted to the printable characters.
 
 As a convenience, multi-character strings may also be represented this way, e.g., `"foo"`.
@@ -50,7 +51,7 @@ This predicate matches any character:
 
 ## Non-printable Characters
 
-Thes predicates match non-printable characters:
+These predicates match non-printable characters:
 
 | Word | Translation |
 |------|-------------|
@@ -92,7 +93,7 @@ quotation marks.
 | single_quote | ' |
 | double_quote | " |
 
-To match the characters f, o, o quoted, the sequence is:
+This allows you to match the characters f, o, o quoted like this:
 
 ```
 double_quote()
