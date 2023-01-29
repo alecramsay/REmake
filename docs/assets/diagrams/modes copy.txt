@@ -1,0 +1,22 @@
+ComplexDiagram(
+	Sequence(Terminal('modes'), Terminal('(')),
+	MultipleChoice(1, 'any',
+		Sequence(
+			Sequence(Terminal('on'), Terminal(':')),
+			MultipleChoice(1, 'any',
+				Terminal('ignore_case'),
+				Terminal('multi_line'),
+				Terminal('dot_all')
+			)
+		),
+		Sequence(
+			Sequence(Terminal('off'), Terminal(':')),
+			MultipleChoice(1, 'any',
+				Terminal('ignore_case'),
+				Terminal('multi_line'),
+				Terminal('dot_all')
+			)
+		),
+	),
+	Terminal(')')
+)
