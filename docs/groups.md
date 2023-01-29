@@ -1,4 +1,4 @@
-# Groups & Alternatives
+# Groups
 
 TODO
 
