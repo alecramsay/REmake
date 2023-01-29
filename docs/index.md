@@ -11,6 +11,7 @@ probably care about using a much more readable and intentionally transparent lan
 
 These are the major language constructs:
 
+- [Programs](programs.md)
 - [Anchors](anchors.md)
 - [Characters](characters.md)
 - [Quantifiers](quantifiers.md)
