@@ -4,8 +4,8 @@ ComplexDiagram(
 	Optional(Terminal('not')),
 	OneOrMore(
 		Choice(1, 
-			Terminal('"character"'), 
-			Sequence(Terminal('"character"'), Terminal('-'), Terminal('"character"'))
+			Terminal('"{char}"'), 
+			Sequence(Terminal('"{char}"'), Terminal('-'), Terminal('"{char}"'))
 		),
 		Terminal('|')
 	),
