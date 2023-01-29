@@ -1,8 +1,11 @@
 # Programs
 
-A REmake program consists of an optional start anchor, one or more patterns, and an optional end anchor (see [Anchors](anchors.md)).
+Programs are a series of patterns (or predicates) that specify matches.
+A program consists of an optional start anchor pattern, one or more non-anchor patterns, 
+and an optional end anchor pattern (see [Anchors](anchors.md)).
 
-Patterns can be [Characters](characters.md), [Alternatives](alternatives.md), [Groups](groups.md), [Lookarounds](lookarounds.md), and [Modes](modes.md). 
+Non-anchor patterns can be [Characters](characters.md), [Alternatives](alternatives.md), [Groups](groups.md), 
+[Lookarounds](lookarounds.md), and [Modes](modes.md). 
 All character patterns can be quantified -- see [Quantifiers](quantifiers.md) -- except word boundaries, which are not character consuming.
 Groups and alternatives can also be quantified, but not lookarounds or modes.
 
