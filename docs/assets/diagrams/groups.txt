@@ -1,0 +1,10 @@
+ComplexDiagram(
+	Terminal('all'),
+	Optional(Sequence(Terminal('as'), Terminal('{identfier}'))),
+	Terminal('('),
+	OneOrMore(
+		'{pattern}',
+		Optional(Terminal(','))
+	),
+	Terminal(')')
+)

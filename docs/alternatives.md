@@ -1,12 +1,8 @@
-# Groups & Alternatives
+# Alternatives
 
 TODO
 
-- all
-- any
-- as
-
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="railroad-diagram" width="601.5" height="120" viewBox="0 0 601.5 120">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="railroad-diagram" width="601.5" height="107" viewBox="0 0 601.5 107">
   <g transform="translate(.5 .5)">
     <g>
       <path d="M20 34v20m0 -10h20"></path>
@@ -16,7 +12,7 @@ TODO
       <path d="M50 44h0"></path>
       <path d="M95.5 44h0"></path>
       <rect x="50" y="33" width="45.5" height="22" rx="10" ry="10"></rect>
-      <text x="72.75" y="48">all</text>
+      <text x="72.75" y="48">any</text>
     </g>
     <path d="M95.5 44h10"></path>
     <g>
@@ -68,25 +64,14 @@ TODO
         <text x="442.75" y="48">{pattern}</text>
       </g>
       <path d="M491 44h12"></path>
-      <path d="M394.5 44a12 12 0 0 0 -12 12v21a12 12 0 0 0 12 12"></path>
-      <g>
-        <path d="M394.5 89h10"></path>
-        <path d="M481 89h10"></path>
-        <path d="M404.5 89a12 12 0 0 0 12 -12v0a12 12 0 0 1 12 -12"></path>
-        <g>
-          <path d="M428.5 65h28.5"></path>
-        </g>
-        <path d="M457 65a12 12 0 0 1 12 12v0a12 12 0 0 0 12 12"></path>
-        <path d="M404.5 89h24"></path>
-        <g class="terminal ">
-          <path d="M428.5 89h0"></path>
-          <path d="M457 89h0"></path>
-          <rect x="428.5" y="78" width="28.5" height="22" rx="10" ry="10"></rect>
-          <text x="442.75" y="93">,</text>
-        </g>
-        <path d="M457 89h24"></path>
+      <path d="M394.5 44a12 12 0 0 0 -12 12v8a12 12 0 0 0 12 12"></path>
+      <g class="terminal ">
+        <path d="M394.5 76h34"></path>
+        <path d="M457 76h34"></path>
+        <rect x="428.5" y="65" width="28.5" height="22" rx="10" ry="10"></rect>
+        <text x="442.75" y="80">|</text>
       </g>
-      <path d="M491 89a12 12 0 0 0 12 -12v-21a12 12 0 0 0 -12 -12"></path>
+      <path d="M491 76a12 12 0 0 0 12 -12v-8a12 12 0 0 0 -12 -12"></path>
     </g>
     <path d="M503 44h10"></path>
     <path d="M513 44h10"></path>
@@ -224,3 +209,4 @@ TODO
     }
   </style>
 </svg>
+

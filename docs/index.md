@@ -14,6 +14,7 @@ These are the major language constructs:
 - [Anchors](anchors.md)
 - [Characters](characters.md)
 - [Quantifiers](quantifiers.md)
+- [Alternatives](alternatives.md)
 - [Groups](groups.md)
 - [Lookarounds](lookarounds.md)
 - [Modes](modes.md)

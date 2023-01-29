@@ -23,8 +23,6 @@ As a convenience, multi-character strings may also be represented this way, e.g.
 
 TODO
 
-![Character Class](assets/images/character_class.png)
-
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="railroad-diagram" width="672.5" height="126" viewBox="0 0 672.5 126">
   <g transform="translate(.5 .5)">
     <g>
