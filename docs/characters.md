@@ -1,6 +1,6 @@
 # Characters
 
-These patterns match specific characters and fall into several groups:
+There are a variety of character predicates for matching specific characters:
 
 - character literals
 - character classes
@@ -10,7 +10,7 @@ These patterns match specific characters and fall into several groups:
 - metacharacters
 - special characters
 
-All represent consuming characters and can therefore be quantified, except `word_boundary` and `not_word_boundary`.
+Except `word_boundary` and `not_word_boundary`, represent *consuming* characters and can therefore be quantified.
 
 ## Character Literals
 
