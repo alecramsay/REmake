@@ -269,4 +269,4 @@ Groups and alternatives can also be quantified, but not lookarounds or modes.
   </style>
 </svg>
 
-Programs may contain Python-style # comments [Comments](comments.md) which are ignored.
+Whitespace, including newlines, and Python-style # comments [Comments](comments.md) are ignored.

@@ -1,6 +1,6 @@
 # Anchors
 
-Anchors match the beginning of a line or the entire string (sometimes called the "subject") or
+Anchors match the beginning of a line or the entire string or
 the end of the line or string.
 
 | Word | Translation |

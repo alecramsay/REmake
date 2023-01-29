@@ -12,7 +12,7 @@ from src.parser import parse_lines
 
 
 class TestParser:
-    def test_something(self) -> None:
+    def test_examples(self) -> None:
         examples_dir: str = "examples/"
         examples: list[str] = os.listdir(examples_dir)
 
@@ -38,6 +38,13 @@ class TestParser:
 
             except:
                 assert False
+
+    def test_whitespace(self) -> None:
+        source: str = "test/files/whitespace.re"
+        lines: list[str] = read_source_file(source)
+        results: ParseResults = parse_lines(lines)
+
+        assert list(results) == ["line_start", '"foo"', "line_end"]
 
 
 ### END ###
