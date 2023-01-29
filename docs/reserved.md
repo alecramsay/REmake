@@ -20,6 +20,7 @@ They can, of course, be used in quoted literal strings, e.g., "reserved".
 | escape | See [Characters](characters.md). |
 | followed_by | See [Lookarounds](lookarounds.md). |
 | form_feed | See [Characters](characters.md). |
+| hash | See [Characters](characters.md). |
 | horizontal_tab | See [Characters](characters.md). |
 | ignore_case | See [Inline Mode Modifiers](modes.md). |
 | lazy | See [Quantifiers](quantifiers.md). |

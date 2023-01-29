@@ -8,7 +8,7 @@ These patterns match specific characters and fall into several groups:
 - any character
 - non-printable characters
 - metacharacters
-- quotation marks
+- special characters
 
 All represent consuming characters and can therefore be quantified, except `word_boundary` and `not_word_boundary`.
 
@@ -312,17 +312,18 @@ These predicates match the regex metacharacters:
 | right_brace() | \\} |
 | pipe() | \\| |
 
-## Quotation Marks
+## Special Characters
 
-Finally, because character literals are quoted, these two predicates match single and double 
-quotation marks.
+Finally, because character literals are quoted and comments start with the number sign, 
+use these predicates to represent quotations and hashes, respectively.
 
 | Word | Translation |
 |------|-------------|
-| single_quote | ' |
-| double_quote | " |
+| single_quote() | ' |
+| double_quote() | " |
+| hash() | # |
 
-This allows you to match the characters f, o, o quoted like this:
+For example, to match the quoted characters f, o, o, do this:
 
 ```
 double_quote()

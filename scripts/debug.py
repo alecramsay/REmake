@@ -9,8 +9,8 @@ from pyparsing import ParseResults
 from src import *
 
 
-# source: str = "test/files/sample2.re"
-source: str = "examples/recipe_2_12d.re"
+source: str = "test/files/hashes.re"
+# source: str = "examples/recipe_2_12d.re"
 
 verbose: bool = True
 

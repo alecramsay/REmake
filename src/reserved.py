@@ -65,9 +65,10 @@ reserved_word_dict: dict[str, str] = {
     "multi_line": "m",
     "dot_all": "s",
     # "free_space": "x", # NOTE - This would be very meta
-    # Quotation marks
+    # Special characters
     "single_quote": "'",
     "double_quote": '"',
+    "hash": "#",
 }
 
 reserved_word_names: list[str] = list(reserved_word_dict.keys())
@@ -122,6 +123,7 @@ reserved_word_names: list[str] = list(reserved_word_dict.keys())
     # free_space_word,
     single_quote_word,
     double_quote_word,
+    hash_word,
 ) = map(Keyword, reserved_word_names)
 
 reserved_words: ParserElement = (
@@ -174,6 +176,7 @@ reserved_words: ParserElement = (
     # | free_space_word
     | single_quote_word
     | double_quote_word
+    | hash_word
 )
 
 ### END ###

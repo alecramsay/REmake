@@ -110,5 +110,19 @@ class TestCharacters:
         results: ParseResults = Grammar.parseString(input)
         assert list(results) == expected
 
+    def test_quotes(self) -> None:
+        source: str = "test/files/quotes.re"
+        lines: list[str] = read_source_file(source)
+        results: ParseResults = parse_lines(lines)
+
+        assert list(results) == ["double_quote", '"foo"', "double_quote"]
+
+    def test_hashes(self) -> None:
+        source: str = "test/files/hashes.re"
+        lines: list[str] = read_source_file(source)
+        results: ParseResults = parse_lines(lines)
+
+        assert list(results) == ["hash", '"foo"', "hash"]
+
 
 ### END ###
