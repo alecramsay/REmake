@@ -23,7 +23,7 @@ As a convenience, multi-character strings may also be represented this way, e.g.
 
 TODO
 
-- any
+![Character Class](assets/images/character_class.png)
 
 
 ## Character Shorthands

@@ -1,0 +1,13 @@
+ComplexDiagram(
+	Terminal('any'),
+	Terminal('('),
+	Optional(Terminal('not')),
+	OneOrMore(
+		Choice(1, 
+			Terminal('"character"'), 
+			Sequence(Terminal('"character"'), Terminal('-'), Terminal('"character"'))
+		),
+		Terminal('|')
+	),
+	Terminal(')')
+)
