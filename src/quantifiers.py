@@ -27,7 +27,7 @@ quantifier_def: ParserElement = (
     + (
         Word(nums)("mincount") + Suppress(",") + Word(nums)("maxcount")
         | Word(nums)("mincount") + Suppress(",") + ellipsis
-        | ellipsis + Suppress(",") + Word(nums)("maxcount")
+        # | ellipsis + Suppress(",") + Word(nums)("maxcount")
         | Word(nums)("count")
     )
     + Opt(lazy_word)("lazy")

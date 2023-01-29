@@ -1,0 +1,12 @@
+ComplexDiagram(
+	Optional(Terminal('not')),
+	Choice(1,
+		Sequence(Terminal('followed_by'), Terminal('(')),
+		Sequence(Terminal('preceded_by'), Terminal('('))
+	),
+	OneOrMore(
+		'{pattern}',
+		Optional(Terminal(','))
+	),
+	Terminal(')')
+)

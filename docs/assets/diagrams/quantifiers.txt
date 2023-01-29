@@ -1,0 +1,10 @@
+ComplexDiagram(
+	Terminal('{pattern}'),
+	Terminal('*'),
+	Choice(1,
+		Terminal('{int}'),
+		Sequence(Terminal('{int}'), Terminal(','), Terminal('...')),
+		Sequence(Terminal('{int}'), Terminal(','), Terminal('{int}'))
+	),
+	Optional(Terminal('lazy'))
+)

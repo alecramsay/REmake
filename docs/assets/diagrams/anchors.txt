@@ -1,0 +1,13 @@
+ComplexDiagram(
+	Optional(Choice(1, 
+		Sequence(Terminal('line_start'), Terminal('()')),
+		Sequence(Terminal('string_start'), Terminal('()'))
+		)
+	),
+	OneOrMore(Terminal('{pattern}')),
+	Optional(Choice(1, 
+		Sequence(Terminal('line_end'), Terminal('()')),
+		Sequence(Terminal('string_end'), Terminal('()'))
+		)
+	)
+)
