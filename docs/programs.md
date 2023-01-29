@@ -269,4 +269,22 @@ Groups and alternatives can also be quantified, but not lookarounds or modes.
   </style>
 </svg>
 
-Whitespace, including newlines, and Python-style # comments [Comments](comments.md) are ignored.
+Whitespace and Python-style # [comments](comments.md) are ignored. So, this:
+
+```
+# Floating-point number
+
+digit() * 0, ...
+period()
+digit() * 1, ...
+all (
+  "e"
+  digit() * 1, ...
+) * 0, 1
+```
+
+is equivalent to this:
+
+```
+digit() * 0, ... period() digit() * 1, ... all ("e" digit() * 1, ... ) * 0, 1
+```
