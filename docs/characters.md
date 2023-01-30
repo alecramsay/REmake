@@ -330,7 +330,9 @@ These predicates match the regex metacharacters:
 | caret() | \\^ |
 | left_brace() | \\{ |
 | right_brace() | \\} |
-| pipe() | \\\| |
+| pipe() | \\\\| |
+
+The translation escapes the metacharacter with a backslash.
 
 ## Special Characters
 
