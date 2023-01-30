@@ -336,7 +336,7 @@ The translation escapes the metacharacter with a backslash.
 
 ## Special Characters
 
-Finally, because character literals are quoted and comments start with the hash symbol, 
+Finally, because character literals are quoted and [comments](comments.md) start with the hash symbol, 
 use these predicates to match those characters:[^1]
 
 | Word | Translation |
