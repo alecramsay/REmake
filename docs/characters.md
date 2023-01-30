@@ -11,7 +11,7 @@ There are a variety of character predicates for matching specific characters:
 - special characters
 
 All except the character shorthands `word_boundary` and `not_word_boundary` represent *consuming* characters 
-and can be quantified (see [Quantifiers](quantifiers.md)).
+and can be [quantified](quantifiers.md)).
 
 ## Character Literals
 
@@ -296,7 +296,7 @@ This predicate matches any character except the newline:
 |------|-------------|
 | any_character() | . |
 
-To make this match the newline character, turn on the `dot_all` inline mode modifier (see [Modes](modes.md)).
+To make this match the newline character, turn on the `dot_all` [inline mode modifier](modes.md)).
 
 ## Non-printable Characters
 
