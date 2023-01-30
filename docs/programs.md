@@ -1,6 +1,6 @@
 # Programs
 
-Programs are a series of patterns (or predicates) that specify matches.
+Programs are a series of patterns that act like predicates that specify matches.
 A program consists of an optional start anchor pattern, one or more non-anchor patterns, 
 and an optional end anchor pattern (see [Anchors](anchors.md)).
 
