@@ -10,18 +10,26 @@ There are a variety of character predicates for matching specific characters:
 - metacharacters
 - special characters
 
-Except `word_boundary` and `not_word_boundary`, represent *consuming* characters and can therefore be quantified.
+All except `word_boundary` and `not_word_boundary` represent *consuming* characters and can be quantified.
 
 ## Character Literals
 
-The pattern `"<character>"` matches a character, e.g., `"q"` matchines the letter 'q'.
+To match a specific character, double quote it.
+For example, the pattern `"f"` matchines the letter 'f'.
 Character patterns represented this way are restricted to the printable characters.
 
-As a convenience, multi-character strings may also be represented this way, e.g., `"foo"`.
+As a convenience, multi-character strings may also be represented as strings, e.g., `"foo"`
+is equivalent to this:
+
+```
+"f" 
+"o" 
+"o"
+```
 
 ## Character Classes
 
-TODO
+To match one of many possible characters, you can specify a character class as a series characters and/or character ranges:
 
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="railroad-diagram" width="672.5" height="126" viewBox="0 0 672.5 126">
   <g transform="translate(.5 .5)">
@@ -253,11 +261,12 @@ TODO
   </style>
 </svg>
 
-
+If you want the class to *exclude* characters, use the 'not' option.
 
 ## Character Shorthands
 
-These are four pairs of character shorthands along with their default regex translation (in Python):
+These are four pairs of predicated for regex character shorthands.
+They are shown along with their default translations (in Python) in the following table:
 
 | Word | Translation |
 |------|-------------|
@@ -314,8 +323,8 @@ These predicates match the regex metacharacters:
 
 ## Special Characters
 
-Finally, because character literals are quoted and comments start with the number sign, 
-use these predicates to represent quotations and hashes, respectively.
+Finally, because character literals are quoted and comments start with the hash symbol, 
+use these predicates to match those characters:[^1]
 
 | Word | Translation |
 |------|-------------|
@@ -330,3 +339,7 @@ double_quote()
 "foo"
 double_quote()
 ```
+
+## Footnotes
+
+[^1]: The number sign, pound sign, or hash symbol.
