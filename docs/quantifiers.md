@@ -238,4 +238,13 @@ The syntax is simple and regular:
   </style>
 </svg>
 
+Use an ellipsis ('...') to indicate no maximum number of repetitions.
+All of these are valid quantifiers:
+
+```
+{pattern} * 10      # Exactly 10 times
+{pattern} * 0, 1    # Zero or one time (optional)
+{pattern} * 1, ...  # One or more times
+```
+
 By default, quantifiers are "greedy." To do "lazy" matching instead, use the 'lazy' option.
