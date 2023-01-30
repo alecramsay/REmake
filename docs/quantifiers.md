@@ -243,7 +243,8 @@ All of these are valid quantifiers:
 
 ```
 {pattern} * 10      # Exactly 10 times
-{pattern} * 0, 1    # Zero or one time (optional)
+{pattern} * 0, 1    # Zero or one time
+{pattern} * 0, ...  # Zero or more times
 {pattern} * 1, ...  # One or more times
 ```
 
