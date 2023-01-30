@@ -7,14 +7,15 @@ There are a variety of character predicates for matching specific characters:
 - character shorthands
 - any character
 - non-printable characters
-- metacharacters
+- metacharacters, and
 - special characters
 
-All except `word_boundary` and `not_word_boundary` represent *consuming* characters and can be quantified.
+All except `word_boundary` and `not_word_boundary` represent *consuming* characters and can be quantified 
+(see [Quantifiers](quantifiers.md)).
 
 ## Character Literals
 
-To match a specific character, double quote it.
+To match a specific character, simply double quote it.
 For example, the pattern `"f"` matchines the letter 'f'.
 Character patterns represented this way are restricted to the printable characters.
 
@@ -29,7 +30,7 @@ is equivalent to this:
 
 ## Character Classes
 
-To match one of many possible characters, you can specify a character class as a series characters and/or character ranges:
+To match one of many possible characters, you can specify a character class as a series characters and/or ranges of characters:
 
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="railroad-diagram" width="672.5" height="126" viewBox="0 0 672.5 126">
   <g transform="translate(.5 .5)">
@@ -261,12 +262,18 @@ To match one of many possible characters, you can specify a character class as a
   </style>
 </svg>
 
+For example, this represents any lower or upper case letter A through Z:
+
+```
+any ('a' - 'z' | 'A' - 'Z')
+```
+
 If you want the class to *exclude* characters, use the 'not' option.
 
 ## Character Shorthands
 
-These are four pairs of predicated for regex character shorthands.
-They are shown along with their default translations (in Python) in the following table:
+These are four pairs of predicates for regex character shorthands, 
+shown along with their default translations (in Python):
 
 | Word | Translation |
 |------|-------------|
@@ -332,7 +339,7 @@ use these predicates to match those characters:[^1]
 | double_quote() | " |
 | hash() | # |
 
-For example, to match the quoted characters f, o, o, do this:
+For example, to match the quoted characters 'f', 'o', and 'o', do this:
 
 ```
 double_quote()
@@ -342,4 +349,4 @@ double_quote()
 
 ## Footnotes
 
-[^1]: The number sign, pound sign, or hash symbol.
+[^1]: The hash symbol is also known as the number sign and pound sign.

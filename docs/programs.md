@@ -1,14 +1,10 @@
 # Programs
 
-Programs are a series of patterns that act like predicates that specify matches.
+Programs consist of a series of patterns that act like predicates that specify matches.
+Each predicate has an implicit `matches a ...` before it, e.g., `matches a digit()`.
+
 A program consists of an optional start anchor pattern, one or more non-anchor patterns, 
 and an optional end anchor pattern (see [Anchors](anchors.md)).
-
-Non-anchor patterns can be [Characters](characters.md), [Alternatives](alternatives.md), [Groups](groups.md), 
-[Lookarounds](lookarounds.md), and [Modes](modes.md). 
-All character patterns can be quantified -- see [Quantifiers](quantifiers.md) -- except word boundaries, which are not character consuming.
-Groups and alternatives can also be quantified, but not lookarounds or modes.
-
 
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="railroad-diagram" width="753.5" height="117" viewBox="0 0 753.5 117">
   <g transform="translate(.5 .5)">
@@ -271,6 +267,11 @@ Groups and alternatives can also be quantified, but not lookarounds or modes.
     }
   </style>
 </svg>
+
+Non-anchor patterns can be [Characters](characters.md), [Alternatives](alternatives.md), [Groups](groups.md), 
+[Lookarounds](lookarounds.md), and [Modes](modes.md). 
+All character patterns can be quantified -- see [Quantifiers](quantifiers.md) -- except word boundaries, which are not character consuming.
+Groups and alternatives can also be quantified, but not lookarounds or modes.
 
 Whitespace and Python-style # [comments](comments.md) are ignored. So, this:
 
