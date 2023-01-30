@@ -224,3 +224,28 @@ TODO
     }
   </style>
 </svg>
+
+Example:
+
+```
+# Floating-point number
+
+digit() * 0, ...
+period()
+digit() * 1, ...
+all (
+  "e"
+  digit() * 1, ...
+) * 0, 1
+```
+
+> NOTE - I think 'all' is an OK keyword here, but consider it a placeholder.
+> "sequence" (or "seq") or "group" (which is the regex construct) are other possibilities.
+> I'm not sure which is best, given the "match (a) <predicate/pattern>" template. 
+> For example:
+
+```
+all ("e" digit() * 1, ...) * 0, 1
+sequence ("e" digit() * 1, ...) * 0, 1
+group ("e" digit() * 1, ...) * 0, 1
+```

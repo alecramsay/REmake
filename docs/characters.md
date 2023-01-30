@@ -270,6 +270,16 @@ any ('a' - 'z' | 'A' - 'Z')
 
 If you want the class to *exclude* characters, use the 'not' option.
 
+> NOTE - I don't think 'any' is the right keyword here. Consider it a placeholder.
+> Given the "match (a) <predicate/pattern>" template, I think a better keyword or
+> phrase here might be "character in" and "character except" for the negated character set. 
+> For example:
+
+```
+character in ('a' - 'z' | 'A' - 'Z')
+character except ('a' - 'z' | 'A' - 'Z')
+```
+
 ## Character Shorthands
 
 These are four pairs of predicates for regex character shorthands, 

@@ -250,3 +250,5 @@ TODO
     }
   </style>
 </svg>
+
+> NOTE - This syntax seems overly complicated. Is there a simpler way to express the same thing?

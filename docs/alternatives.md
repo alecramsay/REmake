@@ -210,3 +210,12 @@ TODO
   </style>
 </svg>
 
+> NOTE - I don't think 'any' is the right keyword here. Consider it a placeholder.
+> Given the "match (a) <predicate/pattern>" template, I think a better keyword or
+> phrase here might be "one" or "one_of". 
+> For example:
+
+```
+one ("Alice" | "Bob" | "Carol")
+one_of ("Alice" | "Bob" | "Carol")
+```
