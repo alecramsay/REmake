@@ -1,8 +1,8 @@
 # Quantifiers
 
-TODO
-
-- lazy
+Except for non-consuming character patterns and anchor patterns, patterns can be quantified,
+i.e., a number of repetitions can be specified.
+The syntax is simple and regular:
 
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="railroad-diagram" width="588.5" height="126" viewBox="0 0 588.5 126">
   <g transform="translate(.5 .5)">
@@ -237,3 +237,5 @@ TODO
     }
   </style>
 </svg>
+
+By default, quantifiers are "greedy." To do "lazy" matching instead, use the 'lazy' option.
