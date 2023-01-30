@@ -10,8 +10,8 @@ There are a variety of character predicates for matching specific characters:
 - metacharacters, and
 - special characters
 
-All except `word_boundary` and `not_word_boundary` represent *consuming* characters and can be quantified 
-(see [Quantifiers](quantifiers.md)).
+All except the character shorthands `word_boundary` and `not_word_boundary` represent *consuming* characters 
+and can be quantified (see [Quantifiers](quantifiers.md)).
 
 ## Character Literals
 
@@ -286,13 +286,17 @@ shown along with their default translations (in Python):
 | word_boundary() | \\b |
 | not_word_boundary() | \\B |
 
+As mentioned above, `word_boundary` and `not_word_boundary` are non-consuming patterns and cannot be quantified.
+
 ## Any Character
 
-This predicate matches any character:
+This predicate matches any character except the newline:
 
 | Word | Translation |
 |------|-------------|
 | any_character() | . |
+
+To make this match the newline character, turn on the `dot_all` inline mode modifier (see [Modes](modes.md)).
 
 ## Non-printable Characters
 
@@ -326,7 +330,7 @@ These predicates match the regex metacharacters:
 | caret() | \\^ |
 | left_brace() | \\{ |
 | right_brace() | \\} |
-| pipe() | \\| |
+| pipe() | \\\| |
 
 ## Special Characters
 
