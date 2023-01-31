@@ -58,3 +58,11 @@ as well as a free-spaced regex:
 ## Documentation
 
 The language is documented [here](docs/index.md).
+
+## Feedback
+
+I welcome your feedback:
+
+- What language features would make this tool most useful?
+- What output flavors would make this tool most useful?
+- What operating systems would you like to see this tool support?
