@@ -1,9 +1,6 @@
 # Lookarounds
 
-TODO
-
-- followed_by
-- preceded_by
+To match a pattern before or after another pattern without consuming any input, use the 'predeced_by' and 'followed_by' predicates:
 
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="railroad-diagram" width="572.5" height="139" viewBox="0 0 572.5 139">
   <g transform="translate(.5 .5)">
@@ -239,3 +236,7 @@ TODO
     }
   </style>
 </svg>
+
+The `preceded_by ( ... )` and `followed_by ( ... )` expressions create regex
+look behind and look ahead assertions, respectively. 
+Use the `not` keyword to create negative assertions.
