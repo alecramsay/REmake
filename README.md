@@ -57,7 +57,7 @@ as well as a free-spaced regex:
 
 ## Documentation
 
-The language is documented [here](docs/index.md).
+The language is documented [here](https://alecramsay.github.io/REmake/).
 
 ## Feedback
 
