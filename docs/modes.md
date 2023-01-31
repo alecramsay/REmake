@@ -1,13 +1,6 @@
 # Inline Mode Modifiers
 
-TODO
-
-- modes
-- on
-- off
-- dot_all
-- ignore_case
-- multi_line
+To turn the mode modifiers on or off, use the `mode` predicate:
 
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="railroad-diagram" width="643" height="136" viewBox="0 0 643 136">
   <g transform="translate(.5 .5)">
@@ -250,5 +243,11 @@ TODO
     }
   </style>
 </svg>
+
+The modifiers are:
+
+- ignore_case: ignore case when matching
+- dot_all: allow the any_character() predicate ('.') to match newlines
+- multi_line: allow the start_of_line() and end_of_line() predicates ('^' and '$') to match newlines
 
 > NOTE - This syntax seems overly complicated. Is there a simpler way to express the same thing?
