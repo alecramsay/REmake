@@ -1,9 +1,9 @@
 REmake implements a simple high-level language for authoring regular expressions. 
-If regular expressions are machine code, then the language is assembler. 
+If regular expressions are like machine code, then the language is like assembler. 
 You still deal with the low-level regex model, but you do it using more human-friendly terms.
 
 The purpose of the language is to make it easier to write regular expressions for most *scenarios*,
-as opposed to writing all regular expressions. In other words, there are some regular expressions that
+as opposed to writing all regular expressions. In other words, there are some regex constructs & expressions that
 you cannot generate using this tool, but you can create most of the regular expressions that you
 probably care about using a much more readable and intentionally transparent language.
 

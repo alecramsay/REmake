@@ -1,6 +1,6 @@
 # Inline Mode Modifiers
 
-To turn the mode modifiers on or off, use the `mode` predicate:
+To turn the mode modifiers on or off, use the `modes` predicate:
 
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="railroad-diagram" width="643" height="136" viewBox="0 0 643 136">
   <g transform="translate(.5 .5)">
