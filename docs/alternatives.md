@@ -1,6 +1,6 @@
 # Alternatives
 
-TODO
+To match one of several alternative patterns, use the 'any' predicate, separating the alternatives with pipes ('|'):
 
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="railroad-diagram" width="601.5" height="107" viewBox="0 0 601.5 107">
   <g transform="translate(.5 .5)">
@@ -209,6 +209,12 @@ TODO
     }
   </style>
 </svg>
+
+So you can precede and follow a set of alternatives with other patterns,
+alternatives create a regex group.
+You can name the group for later reference, using the `'as' {identifier}` clause.
+
+```
 
 > NOTE - I don't think 'any' is the right keyword here. Consider it a placeholder.
 > Given the "match (a) <predicate/pattern>" template, I think a better keyword or

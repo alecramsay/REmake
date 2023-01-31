@@ -1,10 +1,6 @@
 # Groups
 
-TODO
-
-- all
-- any
-- as
+To create an uber pattern that consists of several patterns in sequence, use the 'all' predicate:
 
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="railroad-diagram" width="601.5" height="120" viewBox="0 0 601.5 120">
   <g transform="translate(.5 .5)">
@@ -225,18 +221,23 @@ TODO
   </style>
 </svg>
 
-Example:
+This creates a regex group.
+You can name a group for later reference, using the `'as' {identifier}` clause.
+For example:
 
 ```
-# Floating-point number
-
-digit() * 0, ...
-period()
-digit() * 1, ...
-all (
-  "e"
-  digit() * 1, ...
-) * 0, 1
+word_boundary()
+digit()
+digit()
+all as magic (
+  digit()
+  digit()
+)
+"-"
+magic
+"-"
+magic
+word_boundary()
 ```
 
 > NOTE - I think 'all' is an OK keyword here, but consider it a placeholder.
