@@ -246,8 +246,8 @@ To turn the mode modifiers on or off, use the `mode` predicate:
 
 The modifiers are:
 
-- ignore_case: ignore case when matching
-- dot_all: allow the any_character() predicate ('.') to match newlines
-- multi_line: allow the start_of_line() and end_of_line() predicates ('^' and '$') to match newlines
+- `ignore_case` - ignore case when matching
+- `dot_all` - allow the any_character() predicate ('.') to match newlines
+- `multi_line` - allow the start_of_line() and end_of_line() predicates ('^' and '$') to match newlines
 
 > NOTE - This syntax seems overly complicated. Is there a simpler way to express the same thing?

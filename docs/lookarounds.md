@@ -237,6 +237,5 @@ To match a pattern before or after another pattern without consuming any input, 
   </style>
 </svg>
 
-The `preceded_by ( ... )` and `followed_by ( ... )` expressions create regex
-look behind and look ahead assertions, respectively. 
+These expressions create regex look behind and look ahead assertions, respectively. 
 Use the `not` keyword to create negative assertions.
