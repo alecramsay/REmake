@@ -61,8 +61,10 @@ The language is documented [here](https://alecramsay.github.io/REmake/).
 
 ## Feedback
 
-I welcome your feedback:
+I welcome your feedback in [Discussions](https://github.com/alecramsay/REmake/discussions):
 
-- What language features would make this tool most useful?
-- What output flavors would make this tool most useful?
-- What operating systems would you like to see this tool support?
+- What [language features](https://github.com/alecramsay/REmake/discussions/categories/features) would make this tool most useful?
+- What [output flavors](https://github.com/alecramsay/REmake/discussions/categories/flavors) would make this tool most useful?
+
+Obviously, I need a Windows executable. 
+I would appreciate help with that, as I don't have a Windows PC.
