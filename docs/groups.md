@@ -1,6 +1,6 @@
 # Groups
 
-To create an &Uuml;ber pattern that consists of several patterns in sequence, use the `all` predicate:
+To create an &uuml;ber pattern that consists of several patterns in sequence, use the `all` predicate:
 
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="railroad-diagram" width="601.5" height="120" viewBox="0 0 601.5 120">
   <g transform="translate(.5 .5)">
