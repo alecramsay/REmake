@@ -6,7 +6,7 @@ Make a regular expression from the REmake grammar.
 
 For example:
 
-scripts/REmake.py -f sample.re
+scripts/REmake.py sample.re
 
 For documentation, type:
 
@@ -26,9 +26,11 @@ from src import *
 
 def parse_args() -> Namespace:
     parser: ArgumentParser = argparse.ArgumentParser(
-        description="Make a regular expression from the REmake grammar."
+        description="Compile a regular expression from a REmake program."
     )
-    parser.add_argument("-f", "--file", help="Source file of REmake commands", type=str)
+    parser.add_argument(
+        "file", help="Source file containing a REmake program", type=str
+    )
     parser.add_argument(
         "-v", "--verbose", dest="verbose", action="store_true", help="Verbose mode"
     )
