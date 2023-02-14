@@ -178,13 +178,13 @@ string_def: QuotedString = QuotedString('"', unquote_results=False) | QuotedStri
 )
 # TODO - None of these variations trying to exclude meta characters work for some reason.
 # string: Word = Word(printables, exclude_chars=meta_chars, min=2, as_keyword=True)
-# string_def: ParserElement = Combine(double_quote + string + double_quote) | Combine(
-#     single_quote + char + single_quote
-# )
-#
-# double_quoted_string: ParserElement = Combine(double_quote + string + double_quote)
-# single_quoted_string: ParserElement = Combine(single_quote + string + single_quote)
-# -or-
+# # string_def: ParserElement = Combine(double_quote + string + double_quote) | Combine(
+# #     single_quote + char + single_quote
+# # )
+
+# # double_quoted_string: ParserElement = Combine(double_quote + string + double_quote)
+# # single_quoted_string: ParserElement = Combine(single_quote + string + single_quote)
+# # -or-
 # double_quoted_string: ParserElement = double_quote + string + double_quote
 # single_quoted_string: ParserElement = single_quote + string + single_quote
 # string_def: ParserElement = double_quoted_string | single_quoted_string
