@@ -176,8 +176,9 @@ def non_printable_char_act(toks: ParseResults) -> str:
 string_def: QuotedString = QuotedString('"', unquote_results=False) | QuotedString(
     "'", unquote_results=False
 )
-# TODO - None of these variations trying to exclude meta characters work for some reason.
+# TODO - HERE
 # string: Word = Word(printables, exclude_chars=meta_chars, min=2, as_keyword=True)
+# string: Word = Word(printables, min=2)
 # # string_def: ParserElement = Combine(double_quote + string + double_quote) | Combine(
 # #     single_quote + char + single_quote
 # # )
@@ -389,6 +390,18 @@ consuming_char: ParserElement = (
     | string_def
     | char_class_def
 )
+# TODO
+# consuming_char: ParserElement = (
+#     char_def
+#     ^ char_shorthand_def
+#     ^ any_char_def
+#     ^ special_char_def
+#     ^ non_printable_char_def
+#     ^ meta_char_def
+#     ^ char_class_def
+#     ^ string_def
+#     ^ char_class_def
+# )
 
 non_consuming_char: ParserElement = word_boundary_def | not_word_boundary_def
 
