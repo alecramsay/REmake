@@ -174,7 +174,7 @@ def non_printable_char_act(toks: ParseResults) -> str:
 ### MULTI-CHARACTER STRINGS ###
 
 quotes: str = "\"'"
-string: Word = Word(printables, exclude_chars=quotes, min=2)
+string: Word = Word(printables, exclude_chars=quotes + meta_chars, min=2)
 double_quoted_string: ParserElement = Combine(double_quote + string + double_quote)
 single_quoted_string: ParserElement = Combine(single_quote + string + single_quote)
 string_def: ParserElement = double_quoted_string | single_quoted_string
