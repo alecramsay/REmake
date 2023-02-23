@@ -1,1 +1,1 @@
-all("c", any("a" | "e"), "l", any("a" | "e"), "n", "d", any("a" | "e"), "r")
+group("c", alternative("a" | "e"), "l", alternative("a" | "e"), "n", "d", alternative("a" | "e"), "r")

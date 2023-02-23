@@ -44,8 +44,8 @@ reserved_word_dict: dict[str, str] = {
     # Quantifiers
     "lazy": "",
     # Groups
-    "any": "",
-    "all": "",
+    "alternative": "",
+    "group": "",
     "as": "",
     # Miscellaneous
     "not": "^",
@@ -104,8 +104,8 @@ reserved_word_names: list[str] = list(reserved_word_dict.keys())
     horizontal_tab_word,
     vertical_tab_word,
     lazy_word,
-    any_word,
-    all_word,
+    alternative_word,
+    group_word,
     as_word,
     not_word,
     not_digit_word,
@@ -157,8 +157,8 @@ reserved_words: ParserElement = (
     | horizontal_tab_word
     | vertical_tab_word
     | lazy_word
-    | any_word
-    | all_word
+    | alternative_word
+    | group_word
     | as_word
     | not_word
     | not_digit_word

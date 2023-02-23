@@ -320,7 +320,7 @@ def any_char_act(toks: ParseResults) -> str:
 ### CHARACTER CLASSES ###
 
 """
-any not* ( <character-or-range> | <character-or-range> | ... | <character-or-range> )
+alternative not* ( <character-or-range> | <character-or-range> | ... | <character-or-range> )
 """
 
 char_range_def: ParserElement = (
@@ -340,7 +340,7 @@ def char_range_act(toks: ParseResults) -> str:
 
 
 beg_char_class_def: ParserElement = (
-    Suppress(any_word) + Opt(not_word)("negated") + Suppress("(")
+    Suppress(alternative_word) + Opt(not_word)("negated") + Suppress("(")
 )
 end_char_class_def: ParserElement = Suppress(")")
 

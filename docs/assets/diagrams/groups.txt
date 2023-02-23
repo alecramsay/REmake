@@ -1,5 +1,5 @@
 ComplexDiagram(
-	Terminal('all'),
+	Terminal('group'),
 	Optional(Sequence(Terminal('as'), Terminal('{identfier}'))),
 	Terminal('('),
 	OneOrMore(

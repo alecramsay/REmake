@@ -92,19 +92,19 @@ class TestCharacters:
 
     def test_char_classes(self) -> None:
         Grammar: Any = char_class_def
-        input: str = "any ('a' - 'z')"
+        input: str = "alternative ('a' - 'z')"
         expected: str = ["'a'", "'z'"]
 
         results: ParseResults = Grammar.parseString(input)
         assert list(results) == expected
 
-        input: str = "any ('a' - 'z' | 'A' - 'Z')"
+        input: str = "alternative ('a' - 'z' | 'A' - 'Z')"
         expected: str = ["'a'", "'z'", "'A'", "'Z'"]
 
         results: ParseResults = Grammar.parseString(input)
         assert list(results) == expected
 
-        input: str = "any not ('a' - 'z')"
+        input: str = "alternative not ('a' - 'z')"
         expected: str = ["not", "'a'", "'z'"]
 
         results: ParseResults = Grammar.parseString(input)

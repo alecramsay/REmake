@@ -8,7 +8,7 @@
 word_boundary()
 digit()
 digit()
-all as magic (
+group as magic (
   digit()
   digit()
 )

@@ -5,8 +5,7 @@ They can, of course, be used in quoted literal strings, e.g., "reserved".
 
 | Word | Use |
 |------|-------------|
-| all | See [Groups & Alternatives](groups.md). |
-| any | See [Characters](characters.md) and [Groups & Alternatives](groups.md). |
+| alternative | See [Characters](characters.md) and [Groups & Alternatives](groups.md). |
 | any_character | See [Characters](characters.md). |
 | as | See [Groups & Alternatives](groups.md). |
 | asterisk | See [Characters](characters.md). |
@@ -20,6 +19,7 @@ They can, of course, be used in quoted literal strings, e.g., "reserved".
 | escape | See [Characters](characters.md). |
 | followed_by | See [Lookarounds](lookarounds.md). |
 | form_feed | See [Characters](characters.md). |
+| group | See [Groups & Alternatives](groups.md). |
 | hash | See [Characters](characters.md). |
 | horizontal_tab | See [Characters](characters.md). |
 | ignore_case | See [Inline Mode Modifiers](modes.md). |
