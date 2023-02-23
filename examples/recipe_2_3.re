@@ -4,9 +4,9 @@
 # Flavor: Python
 
 "c"
-any("a" | "e")
+alternative("a" | "e")
 "l"
-any("a" | "e")
+alternative("a" | "e")
 "nd"
-any("a" | "e")
+alternative("a" | "e")
 "r"

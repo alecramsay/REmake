@@ -29,14 +29,14 @@ This language allows you define top-to-bottom vertical sequences of predicates t
 This sequence looks and feels much more like a traditional program.
 
 Most predicates look like function calls, e.g., `digit()`.
-A few look more like programming language constructs, e.g., `all( ... )`.
+A few look more like programming language constructs, e.g., `group( ... )`.
 This is an example for finding floating pointing numbers:
 
 ```
 digit() * 0, ...
 period()
 digit() * 1, ...
-all (
+group (
   "e"
   digit() * 1, ...
 ) * 0, 1

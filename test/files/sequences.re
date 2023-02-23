@@ -1,4 +1,4 @@
 # 2.1 Match Literal Text
 # Example: foobar
 
-all("f", "o", "o", "b", "a", "r")
+group("f", "o", "o", "b", "a", "r")

@@ -265,7 +265,7 @@ To match one of many possible characters, you can specify a character class as a
 For example, this represents any lower or upper case letter A through Z:
 
 ```
-any ('a' - 'z' | 'A' - 'Z')
+alternative ('a' - 'z' | 'A' - 'Z')
 ```
 
 If you want the class to *exclude* characters, use the 'not' option.

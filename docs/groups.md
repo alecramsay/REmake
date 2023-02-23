@@ -1,8 +1,8 @@
 # Groups
 
-To create an &uuml;ber pattern that consists of several patterns in sequence, use the `all` predicate:
+To create an &uuml;ber pattern that consists of several patterns in sequence, use the `group` predicate:
 
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="railroad-diagram" width="601.5" height="120" viewBox="0 0 601.5 120">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="railroad-diagram" width="618.5" height="120" viewBox="0 0 618.5 120">
   <g transform="translate(.5 .5)">
     <g>
       <path d="M20 34v20m0 -10h20"></path>
@@ -10,90 +10,90 @@ To create an &uuml;ber pattern that consists of several patterns in sequence, us
     <path d="M40 44h10"></path>
     <g class="terminal ">
       <path d="M50 44h0"></path>
-      <path d="M95.5 44h0"></path>
-      <rect x="50" y="33" width="45.5" height="22" rx="10" ry="10"></rect>
-      <text x="72.75" y="48">all</text>
+      <path d="M112.5 44h0"></path>
+      <rect x="50" y="33" width="62.5" height="22" rx="10" ry="10"></rect>
+      <text x="81.25" y="48">group</text>
     </g>
-    <path d="M95.5 44h10"></path>
+    <path d="M112.5 44h10"></path>
     <g>
-      <path d="M105.5 44h0"></path>
-      <path d="M324 44h0"></path>
-      <path d="M105.5 44a12 12 0 0 0 12 -12v0a12 12 0 0 1 12 -12"></path>
+      <path d="M122.5 44h0"></path>
+      <path d="M341 44h0"></path>
+      <path d="M122.5 44a12 12 0 0 0 12 -12v0a12 12 0 0 1 12 -12"></path>
       <g>
-        <path d="M129.5 20h170.5"></path>
+        <path d="M146.5 20h170.5"></path>
       </g>
-      <path d="M300 20a12 12 0 0 1 12 12v0a12 12 0 0 0 12 12"></path>
-      <path d="M105.5 44h24"></path>
+      <path d="M317 20a12 12 0 0 1 12 12v0a12 12 0 0 0 12 12"></path>
+      <path d="M122.5 44h24"></path>
       <g>
-        <path d="M129.5 44h0"></path>
-        <path d="M300 44h0"></path>
+        <path d="M146.5 44h0"></path>
+        <path d="M317 44h0"></path>
         <g class="terminal ">
-          <path d="M129.5 44h0"></path>
-          <path d="M166.5 44h0"></path>
-          <rect x="129.5" y="33" width="37" height="22" rx="10" ry="10"></rect>
-          <text x="148" y="48">as</text>
+          <path d="M146.5 44h0"></path>
+          <path d="M183.5 44h0"></path>
+          <rect x="146.5" y="33" width="37" height="22" rx="10" ry="10"></rect>
+          <text x="165" y="48">as</text>
         </g>
-        <path d="M166.5 44h10"></path>
-        <path d="M176.5 44h10"></path>
+        <path d="M183.5 44h10"></path>
+        <path d="M193.5 44h10"></path>
         <g class="terminal ">
-          <path d="M186.5 44h0"></path>
-          <path d="M300 44h0"></path>
-          <rect x="186.5" y="33" width="113.5" height="22" rx="10" ry="10"></rect>
-          <text x="243.25" y="48">{identfier}</text>
+          <path d="M203.5 44h0"></path>
+          <path d="M317 44h0"></path>
+          <rect x="203.5" y="33" width="113.5" height="22" rx="10" ry="10"></rect>
+          <text x="260.25" y="48">{identfier}</text>
         </g>
       </g>
-      <path d="M300 44h24"></path>
+      <path d="M317 44h24"></path>
     </g>
-    <path d="M324 44h10"></path>
+    <path d="M341 44h10"></path>
     <g class="terminal ">
-      <path d="M334 44h0"></path>
-      <path d="M362.5 44h0"></path>
-      <rect x="334" y="33" width="28.5" height="22" rx="10" ry="10"></rect>
-      <text x="348.25" y="48">(</text>
+      <path d="M351 44h0"></path>
+      <path d="M379.5 44h0"></path>
+      <rect x="351" y="33" width="28.5" height="22" rx="10" ry="10"></rect>
+      <text x="365.25" y="48">(</text>
     </g>
-    <path d="M362.5 44h10"></path>
-    <path d="M372.5 44h10"></path>
+    <path d="M379.5 44h10"></path>
+    <path d="M389.5 44h10"></path>
     <g>
-      <path d="M382.5 44h0"></path>
-      <path d="M503 44h0"></path>
-      <path d="M382.5 44h12"></path>
+      <path d="M399.5 44h0"></path>
+      <path d="M520 44h0"></path>
+      <path d="M399.5 44h12"></path>
       <g class="terminal ">
-        <path d="M394.5 44h0"></path>
-        <path d="M491 44h0"></path>
-        <rect x="394.5" y="33" width="96.5" height="22" rx="10" ry="10"></rect>
-        <text x="442.75" y="48">{pattern}</text>
+        <path d="M411.5 44h0"></path>
+        <path d="M508 44h0"></path>
+        <rect x="411.5" y="33" width="96.5" height="22" rx="10" ry="10"></rect>
+        <text x="459.75" y="48">{pattern}</text>
       </g>
-      <path d="M491 44h12"></path>
-      <path d="M394.5 44a12 12 0 0 0 -12 12v21a12 12 0 0 0 12 12"></path>
+      <path d="M508 44h12"></path>
+      <path d="M411.5 44a12 12 0 0 0 -12 12v21a12 12 0 0 0 12 12"></path>
       <g>
-        <path d="M394.5 89h10"></path>
-        <path d="M481 89h10"></path>
-        <path d="M404.5 89a12 12 0 0 0 12 -12v0a12 12 0 0 1 12 -12"></path>
+        <path d="M411.5 89h10"></path>
+        <path d="M498 89h10"></path>
+        <path d="M421.5 89a12 12 0 0 0 12 -12v0a12 12 0 0 1 12 -12"></path>
         <g>
-          <path d="M428.5 65h28.5"></path>
+          <path d="M445.5 65h28.5"></path>
         </g>
-        <path d="M457 65a12 12 0 0 1 12 12v0a12 12 0 0 0 12 12"></path>
-        <path d="M404.5 89h24"></path>
+        <path d="M474 65a12 12 0 0 1 12 12v0a12 12 0 0 0 12 12"></path>
+        <path d="M421.5 89h24"></path>
         <g class="terminal ">
-          <path d="M428.5 89h0"></path>
-          <path d="M457 89h0"></path>
-          <rect x="428.5" y="78" width="28.5" height="22" rx="10" ry="10"></rect>
-          <text x="442.75" y="93">,</text>
+          <path d="M445.5 89h0"></path>
+          <path d="M474 89h0"></path>
+          <rect x="445.5" y="78" width="28.5" height="22" rx="10" ry="10"></rect>
+          <text x="459.75" y="93">,</text>
         </g>
-        <path d="M457 89h24"></path>
+        <path d="M474 89h24"></path>
       </g>
-      <path d="M491 89a12 12 0 0 0 12 -12v-21a12 12 0 0 0 -12 -12"></path>
+      <path d="M508 89a12 12 0 0 0 12 -12v-21a12 12 0 0 0 -12 -12"></path>
     </g>
-    <path d="M503 44h10"></path>
-    <path d="M513 44h10"></path>
+    <path d="M520 44h10"></path>
+    <path d="M530 44h10"></path>
     <g class="terminal ">
-      <path d="M523 44h0"></path>
-      <path d="M551.5 44h0"></path>
-      <rect x="523" y="33" width="28.5" height="22" rx="10" ry="10"></rect>
-      <text x="537.25" y="48">)</text>
+      <path d="M540 44h0"></path>
+      <path d="M568.5 44h0"></path>
+      <rect x="540" y="33" width="28.5" height="22" rx="10" ry="10"></rect>
+      <text x="554.25" y="48">)</text>
     </g>
-    <path d="M551.5 44h10"></path>
-    <path d="M 561.5 44 h 20 m 0 -10 v 20"></path>
+    <path d="M568.5 44h10"></path>
+    <path d="M 578.5 44 h 20 m 0 -10 v 20"></path>
   </g>
   <style>
     svg.railroad-diagram {
@@ -229,7 +229,7 @@ For example:
 word_boundary()
 digit()
 digit()
-all as magic (
+group as magic (
   digit()
   digit()
 )
@@ -238,15 +238,4 @@ magic
 "-"
 magic
 word_boundary()
-```
-
-> NOTE - I think 'all' is an OK keyword here, but consider it a placeholder.
-> "sequence" (or "seq") or "group" (which is the regex construct) are other possibilities.
-> I'm not sure which is best, given the "match (a) <predicate/pattern>" template. 
-> For example:
-
-```
-all ("e" digit() * 1, ...) * 0, 1
-sequence ("e" digit() * 1, ...) * 0, 1
-group ("e" digit() * 1, ...) * 0, 1
 ```

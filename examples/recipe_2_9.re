@@ -4,5 +4,5 @@
 # Flavor: Python
 
 word_boundary()
-any("Mary" | "Jane" | "Sue")
+alternative("Mary" | "Jane" | "Sue")
 word_boundary()

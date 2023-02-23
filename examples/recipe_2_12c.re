@@ -5,6 +5,6 @@
 # Flavor: Python
 
 word_boundary()
-any ("a"-"f" | "0"-"9") * 1, 8
+alternative ("a"-"f" | "0"-"9") * 1, 8
 "h" * 0, 1
 word_boundary()

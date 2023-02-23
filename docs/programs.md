@@ -281,7 +281,7 @@ Whitespace and Python-style # [comments](comments.md) are ignored. So, this:
 digit() * 0, ...
 period()
 digit() * 1, ...
-all (
+group (
   "e"
   digit() * 1, ...
 ) * 0, 1
@@ -290,5 +290,5 @@ all (
 is equivalent to this:
 
 ```
-digit() * 0, ... period() digit() * 1, ... all ("e" digit() * 1, ... ) * 0, 1
+digit() * 0, ... period() digit() * 1, ... group ("e" digit() * 1, ... ) * 0, 1
 ```

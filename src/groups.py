@@ -30,12 +30,12 @@ from .modes import modes_pattern
 ### ALTERNATION ###
 
 """
-any ( <pattern> | <pattern> | ... | <pattern> )
-any as <name> ( <pattern> | <pattern> | ... | <pattern> )
+alternative ( <pattern> | <pattern> | ... | <pattern> )
+alternative as <name> ( <pattern> | <pattern> | ... | <pattern> )
 """
 
 beg_alt_def: ParserElement = (
-    Suppress(any_word)
+    Suppress(alternative_word)
     + Opt(Suppress(as_word) + Word(identchars, identbodychars)("id"))
     + Suppress("(")
 )
@@ -87,12 +87,12 @@ alt_pattern: ParserElement = (
 ### GROUPS - CAPTURING AND NON-CAPTURING SEQUENCES ###
 
 """
-all ( <pattern>, <pattern>, ..., <pattern> )
-all as <name> ( <pattern>, <pattern>, ..., <pattern> )
+group ( <pattern>, <pattern>, ..., <pattern> )
+group as <name> ( <pattern>, <pattern>, ..., <pattern> )
 """
 
 beg_group_def: ParserElement = (
-    Suppress(all_word)
+    Suppress(group_word)
     + Opt(Suppress(as_word) + Word(identchars, identbodychars)("id"))
     + Suppress("(")
 )
