@@ -79,36 +79,31 @@ class TestCharacters:
     def test_char_ranges(self) -> None:
         Grammar: Any = char_range_def | char_def
         input: str = "'a'-'z'"
-        expected: str = ["'a'", "'z'"]
 
         results: ParseResults = Grammar.parseString(input)
-        assert list(results) == expected
+        assert list(results) == ["'a'", "'z'"]
 
         input: str = "'a' - 'z'"
-        expected: str = ["'a'", "'z'"]
 
         results: ParseResults = Grammar.parseString(input)
-        assert list(results) == expected
+        assert list(results) == ["'a'", "'z'"]
 
     def test_char_classes(self) -> None:
         Grammar: Any = char_class_def
         input: str = "alternative ('a' - 'z')"
-        expected: str = ["'a'", "'z'"]
 
         results: ParseResults = Grammar.parseString(input)
-        assert list(results) == expected
+        assert list(results) == ["'a'", "'z'"]
 
         input: str = "alternative ('a' - 'z' | 'A' - 'Z')"
-        expected: str = ["'a'", "'z'", "'A'", "'Z'"]
 
         results: ParseResults = Grammar.parseString(input)
-        assert list(results) == expected
+        assert list(results) == ["'a'", "'z'", "'A'", "'Z'"]
 
         input: str = "alternative not ('a' - 'z')"
-        expected: str = ["not", "'a'", "'z'"]
 
         results: ParseResults = Grammar.parseString(input)
-        assert list(results) == expected
+        assert list(results) == ["not", "'a'", "'z'"]
 
     def test_quotes(self) -> None:
         source: str = "test/files/quotes.re"

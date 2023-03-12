@@ -16,7 +16,7 @@ class TestGroups:
         source: str = "test/files/groups.re"
         lines: list[str] = read_source_file(source)
 
-        expected: list[str] = [
+        expected: list[list[str]] = [
             ["magic", "digit", "digit"],
             ['"Alice"', "|", '"Bob"', "|", '"Carol"'],
             ['"foo"', '"bar"', '"bas"'],

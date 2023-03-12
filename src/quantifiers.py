@@ -35,7 +35,7 @@ quantifier_def: ParserElement = (
 
 
 @quantifier_def.set_parse_action
-def quantifier_act(toks: ParseResults) -> str:
+def quantifier_act(toks: ParseResults) -> str | list[str]:
     translation: str
     comment: str
 
@@ -43,17 +43,17 @@ def quantifier_act(toks: ParseResults) -> str:
     style: str = "lazy" if "lazy" in toks else "greedy"
 
     if "count" in toks:
-        if int(toks.count) >= 1:
+        if int(str(toks.count)) >= 1:
             translation = f"{{{toks.count}}}{lazy}"
             comment = f"Exactly {translation} times ({style})"
         else:
             raise ValueError("Invalid quantifier: repetitions must be positive")
 
     elif "mincount" in toks and "maxcount" in toks:
-        if int(toks.mincount) == 0 and int(toks.maxcount) == 1:
+        if int(str(toks.mincount)) == 0 and int(str(toks.maxcount)) == 1:
             translation = f"?{lazy}"
             comment = f"Optionally ({style})"
-        elif int(toks.mincount) < int(toks.maxcount):
+        elif int(str(toks.mincount)) < int(str(toks.maxcount)):
             translation = f"{{{toks.mincount},{toks.maxcount}}}{lazy}"
             comment = f"Between {toks.mincount} and {toks.maxcount} times ({style})"
         else:
@@ -62,13 +62,13 @@ def quantifier_act(toks: ParseResults) -> str:
             )
 
     elif "mincount" in toks:
-        if int(toks.mincount) == 0:
+        if int(str(toks.mincount)) == 0:
             translation = f"*{lazy}"
             comment = f"Zero or more times ({style})"
-        elif int(toks.mincount) == 1:
+        elif int(str(toks.mincount)) == 1:
             translation = f"+{lazy}"
             comment = f"One or more times ({style})"
-        elif int(toks.mincount) > 1:
+        elif int(str(toks.mincount)) > 1:
             translation = f"{{{toks.mincount},}}{lazy}"
             comment = f"At least {toks.mincount} times ({style})"
         else:

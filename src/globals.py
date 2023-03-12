@@ -8,10 +8,10 @@ from enum import Enum
 from typing import Any
 
 Mode: Any = Enum("Mode", ["TOKENS", "REGEX", "FREE_SPACED_REGEX"])
-EMIT_MODE: Mode = Mode.TOKENS
+EMIT_MODE: str = Mode.TOKENS
 
 Flavor: Any = Enum("Flavor", ["PYTHON"])
-EMIT_FLAVOR: Flavor = Flavor.PYTHON
+EMIT_FLAVOR: str = Flavor.PYTHON
 
 GROUP_IDS: dict[str, str] = dict()
 

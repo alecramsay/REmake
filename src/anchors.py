@@ -13,11 +13,11 @@ from .constants import *
 from .utils import *
 
 
-start_of_line_def: Keyword = Group(line_start_word + Suppress("()"))
+start_of_line_def: ParserElement = Group(line_start_word + Suppress("()"))
 
 
 @start_of_line_def.set_parse_action
-def start_of_line_act(toks: ParseResults) -> str:
+def start_of_line_act(toks: ParseResults) -> str | list[str]:
     token: str = unpack_token(toks, grouped=True)
     translation: str = translate_word(token)
     comment: str = f"Start of line"
@@ -25,11 +25,11 @@ def start_of_line_act(toks: ParseResults) -> str:
     return modal_act(toks, translation, comment)
 
 
-end_of_line_def: Keyword = Group(line_end_word + Suppress("()"))
+end_of_line_def: ParserElement = Group(line_end_word + Suppress("()"))
 
 
 @end_of_line_def.set_parse_action
-def end_of_line_act(toks: ParseResults) -> str:
+def end_of_line_act(toks: ParseResults) -> str | list[str]:
     token: str = unpack_token(toks, grouped=True)
     translation: str = translate_word(token)
     comment: str = f"End of line"
@@ -37,11 +37,11 @@ def end_of_line_act(toks: ParseResults) -> str:
     return modal_act(toks, translation, comment)
 
 
-start_of_string_def: Keyword = Group(string_start_word + Suppress("()"))
+start_of_string_def: ParserElement = Group(string_start_word + Suppress("()"))
 
 
 @start_of_string_def.set_parse_action
-def start_of_string_act(toks: ParseResults) -> str:
+def start_of_string_act(toks: ParseResults) -> str | list[str]:
     token: str = unpack_token(toks, grouped=True)
     translation: str = translate_word(token)
     comment: str = f"Start of string"
@@ -49,11 +49,11 @@ def start_of_string_act(toks: ParseResults) -> str:
     return modal_act(toks, translation, comment)
 
 
-end_of_string_def: Keyword = Group(string_end_word + Suppress("()"))
+end_of_string_def: ParserElement = Group(string_end_word + Suppress("()"))
 
 
 @end_of_string_def.set_parse_action
-def end_of_string_act(toks: ParseResults) -> str:
+def end_of_string_act(toks: ParseResults) -> str | list[str]:
     token: str = unpack_token(toks, grouped=True)
     translation: str = translate_word(token)
     comment: str = f"End of string"
