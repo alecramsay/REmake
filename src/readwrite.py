@@ -5,6 +5,7 @@ READ/WRITE ROUTINES
 """
 
 import os
+from pyutils import FileSpec
 
 
 def read_source_file(rel_path) -> list[str]:
@@ -25,20 +26,6 @@ def read_source_file(rel_path) -> list[str]:
 
     except:
         raise Exception("Exception reading source file.")
-
-
-class FileSpec:
-    """Parse a file path into its components."""
-
-    def __init__(self, path: str, name=None) -> None:
-        file_name: str
-        file_extension: str
-        file_name, file_extension = os.path.splitext(path)
-
-        self.rel_path: str = path
-        self.abs_path: str = os.path.abspath(path)
-        self.name: str = name.lower() if (name) else os.path.basename(file_name).lower()
-        self.extension: str = file_extension
 
 
 ### END ###
