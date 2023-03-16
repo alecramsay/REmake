@@ -22,7 +22,7 @@ class TestReservedWords:
         assert True
 
     def test_character_word_translations(self) -> None:
-        atomic_words: list[str] = (
+        atomic_words: list[str] = [
             "line_start",
             "string_start",
             "line_end",
@@ -58,7 +58,7 @@ class TestReservedWords:
             "not_word_boundary",
             "preceded_by",
             "followed_by",
-        )
+        ]
 
         for word in atomic_words:
             translation: str = translate_word(word)

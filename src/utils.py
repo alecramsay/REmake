@@ -27,12 +27,12 @@ def modal_act(
     *,
     tab_inc: int = 0,
     tok_list: bool = False
-) -> str:
+) -> str | list[str]:
     """Emit raw tokens, a single-line regex, or a free-spaced regex."""
 
     if G.EMIT_MODE == G.Mode.TOKENS:
         # NOTE - tab_inc is zero for atomic words, +/– for paired items
-        return toks if tok_list else toks[0]
+        return list(toks) if tok_list else list(toks)[0]
 
     if G.EMIT_MODE == G.Mode.REGEX:
         return translation
@@ -46,7 +46,7 @@ def modal_act(
 def unpack_token(toks: ParseResults, grouped: bool = False) -> Any:
     """Unpack the token from ParseResults object."""
 
-    token: str = list(toks[0])[0] if grouped else toks[0]
+    token: str = list(toks)[0][0] if grouped else list(toks)[0]
     return token
 
 
@@ -89,7 +89,7 @@ def keyword_to_words(name: str) -> str:
     return result
 
 
-def append_suppress(word: Keyword) -> Keyword:
+def append_suppress(word: Keyword) -> Any:
     """Append a Suppress to a reserved keyword."""
 
     return word + Suppress("()")

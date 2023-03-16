@@ -44,12 +44,12 @@ end_alt_def: ParserElement = Suppress(")")
 
 
 @beg_alt_def.set_parse_action
-def beg_alt_act(toks: ParseResults) -> str:
+def beg_alt_act(toks: ParseResults) -> str | list[str]:
     translation: str = "(?:"
     comment: str = f"Begin alternatives (not captured):"
 
     if "id" in toks:
-        name: str = toks["id"]
+        name: str = str(toks["id"])
 
         if name in G.GROUP_IDS:
             raise ValueError(f"Duplicate group name '{name}'")
@@ -70,12 +70,12 @@ def beg_alt_act(toks: ParseResults) -> str:
 
 
 @alt_delim_def.set_parse_action
-def alt_delim_act(toks: ParseResults) -> str:
+def alt_delim_act(toks: ParseResults) -> str | list[str]:
     return modal_act(toks, "|", f"-or-")
 
 
 @end_alt_def.set_parse_action
-def end_alt_act(toks: ParseResults) -> str:
+def end_alt_act(toks: ParseResults) -> str | list[str]:
     return modal_act(toks, ")", f"End of alternatives", tab_inc=-1, tok_list=True)
 
 
@@ -100,12 +100,12 @@ end_group_def: ParserElement = Suppress(")")
 
 
 @beg_group_def.set_parse_action
-def beg_group_act(toks: ParseResults) -> str:
+def beg_group_act(toks: ParseResults) -> str | list[str]:
     translation: str = "(?:"
     comment: str = f"Begin group (not captured):"
 
     if "id" in toks:
-        name: str = toks["id"]
+        name: str = str(toks["id"])
 
         if name in G.GROUP_IDS:
             raise ValueError(f"Duplicate group name '{name}'")
@@ -125,7 +125,7 @@ def beg_group_act(toks: ParseResults) -> str:
 
 
 @end_group_def.set_parse_action
-def end_group_act(toks: ParseResults) -> str:
+def end_group_act(toks: ParseResults) -> str | list[str]:
     return modal_act(toks, ")", f"End of group", tab_inc=-1, tok_list=True)
 
 
@@ -136,11 +136,11 @@ capturing_pattern: ParserElement = (
 
 # A REFERENCE TO A NAMED CAPTURING GROUP
 
-id_def: Word = ~reserved_words + Word(identchars, identbodychars)
+id_def: ParserElement = ~reserved_words + Word(identchars, identbodychars)
 
 
 @id_def.set_parse_action
-def id_act(toks: ParseResults) -> str:
+def id_act(toks: ParseResults) -> str | list[str]:
     id: str = unpack_token(toks)
     translation: str = f"(?P={id})"
     comment: str = f"Reference to '{id}' capturing group"

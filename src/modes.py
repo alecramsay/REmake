@@ -74,7 +74,7 @@ def translate_mode_list(toks: list) -> str:
 
 
 @mode_groups_def.set_parse_action
-def mode_groups_act(toks: list) -> str:
+def mode_groups_act(toks: ParseResults) -> str | list[str]:
     translation: str = translate_modes(toks[0])
     comment: str = f"Inline mode modifiers"
     return modal_act(toks, translation, comment)

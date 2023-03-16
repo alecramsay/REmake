@@ -21,7 +21,7 @@ class TestModes:
             "modes (off: ignore_case, dot_all)",
         ]
 
-        expected: list[list[str]] = [
+        expected: list = [
             ["on", "ignore_case"],
             ["on", "ignore_case", "dot_all"],
             [["on", "ignore_case"], ["off", "dot_all"]],

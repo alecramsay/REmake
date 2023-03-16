@@ -29,7 +29,7 @@ from .utils import *
 ### META CHARACTERS ###
 
 meta_chars: str = "$()*+.?[]^}{|"
-meta_char_words: Keyword = [
+meta_char_words: list[Keyword] = [
     dollar_sign_word,
     left_paren_word,
     right_paren_word,
@@ -79,7 +79,7 @@ meta_char_def: Keyword = (
 
 
 @meta_char_def.set_parse_action
-def meta_char_act(toks: ParseResults) -> str:
+def meta_char_act(toks: ParseResults) -> str | list[str]:
     token: str = unpack_token(toks)
     translation: str = translate_word(token)
     friendly_name: str = keyword_to_words(token)
@@ -95,16 +95,16 @@ char: Char = Char(printables, exclude_chars=meta_chars)
 double_quote: Literal = Literal('"')
 single_quote: Literal = Literal("'")
 
-char_def: Char = Combine(double_quote + char + double_quote) | Combine(
+char_def: ParserElement = Combine(double_quote + char + double_quote) | Combine(
     single_quote + char + single_quote
 )
 
 # For ranges
-range_char: Char = char_def.copy()
+range_char: ParserElement = char_def.copy()
 
 
 @char_def.set_parse_action
-def char_act(toks: ParseResults) -> str:
+def char_act(toks: ParseResults) -> str | list[str]:
     translation: str = unpack_token(toks)[1:-1]
     comment: str = f"The character '{translation}'"
 
@@ -121,7 +121,7 @@ special_char_def: Keyword = single_quote_def | double_quote_def | hash_def
 
 
 @special_char_def.set_parse_action
-def quote_char_act(toks: ParseResults) -> str:
+def quote_char_act(toks: ParseResults) -> str | list[str]:
     token: str = unpack_token(toks)
     translation: str = translate_word(token)
     comment: str = f"The {keyword_to_words(token)} character"
@@ -131,7 +131,7 @@ def quote_char_act(toks: ParseResults) -> str:
 
 ### NON-PRINTABLE CHARACTERS ###
 
-non_printable_char_words: Keyword = [
+non_printable_char_words: list[Keyword] = [
     bell_word,
     escape_word,
     form_feed_word,
@@ -163,7 +163,7 @@ non_printable_char_def: Keyword = (
 
 
 @non_printable_char_def.set_parse_action
-def non_printable_char_act(toks: ParseResults) -> str:
+def non_printable_char_act(toks: ParseResults) -> str | list[str]:
     token: str = unpack_token(toks)
     translation: str = translate_word(token)
     comment: str = f"The {keyword_to_words(unpack_token(toks))} character"
@@ -186,7 +186,7 @@ string_def: ParserElement = double_quoted_string | single_quoted_string
 
 
 @string_def.set_parse_action
-def string_act(toks: ParseResults) -> str:
+def string_act(toks: ParseResults) -> str | list[str]:
     translation: str = unpack_token(toks)[1:-1]
     comment: str = f"The character string '{translation}'"
 
@@ -195,11 +195,11 @@ def string_act(toks: ParseResults) -> str:
 
 ### CHARACTER SHORTHANDS ###
 
-digit_def: Keyword = digit_word + Suppress("()")
+digit_def: ParserElement = digit_word + Suppress("()")
 
 
 @digit_def.set_parse_action
-def digit_act(toks: ParseResults) -> str:
+def digit_act(toks: ParseResults) -> str | list[str]:
     token: str = unpack_token(toks)
     translation: str = translate_word(token)
     comment: str = "A digit"
@@ -207,11 +207,11 @@ def digit_act(toks: ParseResults) -> str:
     return modal_act(toks, translation, comment)
 
 
-not_digit_def: Keyword = not_digit_word + Suppress("()")
+not_digit_def: ParserElement = not_digit_word + Suppress("()")
 
 
 @not_digit_def.set_parse_action
-def not_digit_act(toks: ParseResults) -> str:
+def not_digit_act(toks: ParseResults) -> str | list[str]:
     token: str = unpack_token(toks)
     translation: str = translate_word(token)
     comment: str = "Not a digit"
@@ -219,11 +219,11 @@ def not_digit_act(toks: ParseResults) -> str:
     return modal_act(toks, translation, comment)
 
 
-word_char_def: Keyword = word_character_word + Suppress("()")
+word_char_def: ParserElement = word_character_word + Suppress("()")
 
 
 @word_char_def.set_parse_action
-def word_char_act(toks: ParseResults) -> str:
+def word_char_act(toks: ParseResults) -> str | list[str]:
     token: str = unpack_token(toks)
     translation: str = translate_word(token)
     comment: str = "A word character"
@@ -231,11 +231,11 @@ def word_char_act(toks: ParseResults) -> str:
     return modal_act(toks, translation, comment)
 
 
-not_word_char_def: Keyword = not_word_character_word + Suppress("()")
+not_word_char_def: ParserElement = not_word_character_word + Suppress("()")
 
 
 @not_word_char_def.set_parse_action
-def not_word_char_act(toks: ParseResults) -> str:
+def not_word_char_act(toks: ParseResults) -> str | list[str]:
     token: str = unpack_token(toks)
     translation: str = translate_word(token)
     comment: str = "Not a word character"
@@ -243,11 +243,11 @@ def not_word_char_act(toks: ParseResults) -> str:
     return modal_act(toks, translation, comment)
 
 
-whitespace_def: Keyword = whitespace_word + Suppress("()")
+whitespace_def: ParserElement = whitespace_word + Suppress("()")
 
 
 @whitespace_def.set_parse_action
-def whitespace_act(toks: ParseResults) -> str:
+def whitespace_act(toks: ParseResults) -> str | list[str]:
     token: str = unpack_token(toks)
     translation: str = translate_word(token)
     comment: str = "A whitespace character"
@@ -255,11 +255,11 @@ def whitespace_act(toks: ParseResults) -> str:
     return modal_act(toks, translation, comment)
 
 
-not_whitespace_def: Keyword = not_whitespace_word + Suppress("()")
+not_whitespace_def: ParserElement = not_whitespace_word + Suppress("()")
 
 
 @not_whitespace_def.set_parse_action
-def not_whitespace_act(toks: ParseResults) -> str:
+def not_whitespace_act(toks: ParseResults) -> str | list[str]:
     token: str = unpack_token(toks)
     translation: str = translate_word(token)
     comment: str = "Not a whitespace character"
@@ -269,11 +269,11 @@ def not_whitespace_act(toks: ParseResults) -> str:
 
 ### BOUNDARIES ###
 
-word_boundary_def: Keyword = word_boundary_word + Suppress("()")
+word_boundary_def: ParserElement = word_boundary_word + Suppress("()")
 
 
 @word_boundary_def.set_parse_action
-def word_boundary_act(toks: ParseResults) -> str:
+def word_boundary_act(toks: ParseResults) -> str | list[str]:
     token: str = unpack_token(toks)
     translation: str = translate_word(token)
     comment: str = "Word boundary"
@@ -281,11 +281,11 @@ def word_boundary_act(toks: ParseResults) -> str:
     return modal_act(toks, translation, comment)
 
 
-not_word_boundary_def: Keyword = not_word_boundary_word + Suppress("()")
+not_word_boundary_def: ParserElement = not_word_boundary_word + Suppress("()")
 
 
 @not_word_boundary_def.set_parse_action
-def not_word_boundary_act(toks: ParseResults) -> str:
+def not_word_boundary_act(toks: ParseResults) -> str | list[str]:
     token: str = unpack_token(toks)
     translation: str = translate_word(token)
     comment: str = "Not a word boundary"
@@ -305,11 +305,11 @@ char_shorthand_def: ParserElement = (
 
 ### ANY CHARACTER ###
 
-any_char_def: Keyword = any_character_word + Suppress("()")
+any_char_def: ParserElement = any_character_word + Suppress("()")
 
 
 @any_char_def.set_parse_action
-def any_char_act(toks: ParseResults) -> str:
+def any_char_act(toks: ParseResults) -> str | list[str]:
     token: str = unpack_token(toks)
     translation: str = translate_word(token)
     comment: str = "Any character"
@@ -329,8 +329,8 @@ char_range_def: ParserElement = (
 
 
 @char_range_def.set_parse_action
-def char_range_act(toks: ParseResults) -> str:
-    if ord(toks.to_char[1:-1]) <= ord(toks.from_char[1:-1]):
+def char_range_act(toks: ParseResults) -> str | list[str]:
+    if ord(str(toks.to_char[1:-1])) <= ord(str(toks.from_char[1:-1])):
         raise ValueError("Invalid range: order of characters is reversed.")
 
     translation: str = f"{toks.from_char[1:-1]}-{toks.to_char[1:-1]}"
@@ -346,7 +346,7 @@ end_char_class_def: ParserElement = Suppress(")")
 
 
 @beg_char_class_def.set_parse_action
-def beg_char_class_act(toks: ParseResults) -> str:
+def beg_char_class_act(toks: ParseResults) -> str | list[str]:
     open_class: str = "[^" if toks.negated else "["
     qualifier: str = "not " if toks.negated else ""
 
@@ -360,7 +360,7 @@ def beg_char_class_act(toks: ParseResults) -> str:
 
 
 @end_char_class_def.set_parse_action
-def end_char_class_act(toks: ParseResults) -> str:
+def end_char_class_act(toks: ParseResults) -> str | list[str]:
     return modal_act(toks, "]", f"End of character class", tab_inc=-1, tok_list=True)
 
 

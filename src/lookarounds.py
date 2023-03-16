@@ -28,7 +28,7 @@ end_lookahead_def: ParserElement = Suppress(")")
 
 
 @beg_lookahead_def.set_parse_action
-def beg_lookahead_act(toks: ParseResults) -> str:
+def beg_lookahead_act(toks: ParseResults) -> str | list[str]:
     translation: str = "(?!" if toks.negated else "(?="
     qualifier: str = " (negative)" if toks.negated else ""
     comment: str = f"Begin lookhead{qualifier}:"
@@ -43,7 +43,7 @@ def beg_lookahead_act(toks: ParseResults) -> str:
 
 
 @end_lookahead_def.set_parse_action
-def end_lookahead_act(toks: ParseResults) -> str:
+def end_lookahead_act(toks: ParseResults) -> str | list[str]:
     return modal_act(toks, ")", f"End of lookhead", tab_inc=-1, tok_list=True)
 
 
@@ -61,7 +61,7 @@ end_lookbehind_def: ParserElement = Suppress(")")
 
 
 @beg_lookbehind_def.set_parse_action
-def beg_lookbehind_act(toks: ParseResults) -> str:
+def beg_lookbehind_act(toks: ParseResults) -> str | list[str]:
     translation: str = "(?<!" if toks.negated else "(?<="
     qualifier: str = " (negative)" if toks.negated else ""
     comment: str = f"Begin lookbehind{qualifier}:"
@@ -76,7 +76,7 @@ def beg_lookbehind_act(toks: ParseResults) -> str:
 
 
 @end_lookbehind_def.set_parse_action
-def end_lookbehind_act(toks: ParseResults) -> str:
+def end_lookbehind_act(toks: ParseResults) -> str | list[str]:
     return modal_act(toks, ")", f"End of lookbehind", tab_inc=-1, tok_list=True)
 
 
